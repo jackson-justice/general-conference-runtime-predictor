@@ -243,9 +243,20 @@ uv run python scripts/predict.py score --conference 2026-10
 ```
 
 Re-running `predict` for the same (speaker, session, order) replaces the
-earlier logged prediction and keeps an actual already recorded. Once the
-official pages are up, `collect.py --start 2026-10 --end 2026-10` adds the
-conference to the dataset for the next retrain.
+earlier logged prediction and keeps an actual already recorded.
+
+Timing by hand is optional. The talk pages publish the recording duration a
+few days after conference; then:
+
+```
+uv run python scripts/collect.py --start 2026-10 --end 2026-10   # scrape the new conference
+uv run python scripts/predict.py fill-actuals --conference 2026-10   # copy durations into the log
+uv run python scripts/predict.py score --conference 2026-10
+uv run python scripts/train.py                                   # retrain so Oct 2026 becomes history
+```
+
+Logged actuals are for scoring only. The models learn from a conference only
+when `train.py` is re-run after `collect.py` has scraped it.
 
 ## Layout
 

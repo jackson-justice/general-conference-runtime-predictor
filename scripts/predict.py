@@ -4,6 +4,7 @@ Usage:
     uv run python scripts/predict.py predict --speaker "Dale G. Renlund" \
         --calling "Of the Quorum of the Twelve Apostles" --session sunday-morning --order 3 --log
     uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session sunday-morning --actual 14:12
+    uv run python scripts/predict.py fill-actuals --conference 2026-10   # after collect.py has scraped it
     uv run python scripts/predict.py score
 """
 from __future__ import annotations
@@ -21,7 +22,7 @@ from general_conference_runtime_predictor.data import (
     parse_conference_key, parse_runtime,
 )
 from general_conference_runtime_predictor.features import history_features
-from general_conference_runtime_predictor.paths import BUNDLE_PATH, PREDICTION_LOG
+from general_conference_runtime_predictor.paths import BUNDLE_PATH, COLLECTED_CSV, PREDICTION_LOG
 
 LOG_COLS = ["logged_at", "conference", "speaker", "calling", "calling_group", "session", "speaker_order",
             "model", "pred_sec", "pred_mmss", "actual_sec", "actual_mmss"]
@@ -142,6 +143,45 @@ def cmd_log_actual(args) -> int:
     return 0
 
 
+def cmd_fill_actuals(args) -> int:
+    """Fill actual durations for logged predictions from the scraped talk pages.
+
+    Matches on conference, canonical speaker and session (and speaker order when
+    the log has it). A logged row whose actual was typed by hand is left alone
+    unless --overwrite is given.
+    """
+    if not COLLECTED_CSV.exists():
+        sys.exit(f"{COLLECTED_CSV} not found; run scripts/collect.py --start {args.conference} --end {args.conference} first")
+    col = pd.read_csv(COLLECTED_CSV, encoding="utf-8")
+    col = col[col.conference == args.conference].copy()
+    if col.empty:
+        sys.exit(f"no scraped talks for {args.conference}; run scripts/collect.py --start {args.conference} --end {args.conference}")
+    col["speaker"] = col.speaker.map(canonical_speaker)
+    col = col[col.duration_ms.notna()]
+    log = load_log()
+    mask = log.conference.eq(args.conference) & log.model.notna()
+    if not args.overwrite:
+        mask &= log.actual_sec.isna()
+    filled, unmatched = 0, set()
+    for i in log[mask].index:
+        r = log.loc[i]
+        hit = col[(col.speaker == r.speaker) & (col.session == r.session)]
+        if len(hit) > 1 and not pd.isna(r.speaker_order):
+            hit = hit[hit.speaker_order == int(r.speaker_order)]
+        if len(hit) != 1:
+            unmatched.add((r.speaker, r.session, r.speaker_order))
+            continue
+        sec = float(hit.duration_ms.iloc[0]) / 1000.0
+        log.loc[i, "actual_sec"] = sec
+        log.loc[i, "actual_mmss"] = format_seconds(sec)
+        filled += 1
+    save_log(log)
+    print(f"filled {filled} logged prediction rows from scraped durations for {args.conference}")
+    for u in sorted(unmatched, key=str):
+        print(f"  no unique match for speaker={u[0]!r} session={u[1]!r} order={u[2]}")
+    return 0
+
+
 def cmd_score(args) -> int:
     log = load_log()
     scored = log.dropna(subset=["pred_sec", "actual_sec"])
@@ -181,6 +221,11 @@ def main() -> int:
     a.add_argument("--calling", default=None)
     a.add_argument("--conference", default="2026-10")
     a.set_defaults(func=cmd_log_actual)
+
+    f = sub.add_parser("fill-actuals", help="fill actuals for a conference from data/processed/talks_collected.csv")
+    f.add_argument("--conference", default="2026-10")
+    f.add_argument("--overwrite", action="store_true", help="also replace actuals that were entered by hand")
+    f.set_defaults(func=cmd_fill_actuals)
 
     s = sub.add_parser("score", help="MAE of logged predictions that have actuals")
     s.add_argument("--conference", default=None)

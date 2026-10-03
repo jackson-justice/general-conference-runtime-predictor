@@ -15,6 +15,7 @@ uv run python scripts/train.py --exploratory "why"    # same, but label test num
 uv run python -m pytest -q                            # rule tests (history leakage, order, parsing, aliases)
 uv run python scripts/predict.py predict --speaker "..." --calling "Of the Seventy" --session sunday-morning --order 3 --log
 uv run python scripts/predict.py log-actual --speaker "..." --session sunday-morning --actual 12:34
+uv run python scripts/predict.py fill-actuals --conference 2026-10   # after collect.py scraped that conference
 uv run python scripts/predict.py score
 ```
 
