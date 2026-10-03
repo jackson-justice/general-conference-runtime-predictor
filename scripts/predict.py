@@ -221,20 +221,25 @@ def match_speaker(text: str, directory: pd.DataFrame) -> list[str]:
     """Candidates for a typed name: exact, then all typed words contained in the name, then fuzzy."""
     import difflib
 
+    import unicodedata
+
+    def fold(x: str) -> str:  # accent-insensitive, case-insensitive ("causse" matches "Caussé")
+        return "".join(c for c in unicodedata.normalize("NFKD", x) if not unicodedata.combining(c)).lower()
+
     t = clean_text(text) or ""
     canon = canonical_speaker(t)
     names = directory.index.tolist()
-    lower = {n.lower(): n for n in names}
-    if canon and canon.lower() in lower:
-        return [lower[canon.lower()]]
-    words = [w for w in re.split(r"\s+", t.lower()) if w]
-    contained = [n for n in names if all(w in n.lower() for w in words)]
+    folded = {fold(n): n for n in names}
+    if canon and fold(canon) in folded:
+        return [folded[fold(canon)]]
+    words = [w for w in re.split(r"\s+", fold(t)) if w]
+    contained = [n for n in names if all(w in fold(n) for w in words)]
     if contained:
         return sorted(contained)
-    fuzzy = difflib.get_close_matches(t, names, n=5, cutoff=0.6)
+    fuzzy = [folded[f] for f in difflib.get_close_matches(fold(t), list(folded), n=5, cutoff=0.6)]
     if not fuzzy and words:
         # match on surname only
-        fuzzy = [n for n in names if difflib.get_close_matches(words[-1], n.lower().split(), n=1, cutoff=0.8)]
+        fuzzy = [n for n in names if difflib.get_close_matches(words[-1], fold(n).split(), n=1, cutoff=0.8)]
     return fuzzy
 
 
