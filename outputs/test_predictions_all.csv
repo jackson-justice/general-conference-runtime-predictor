@@ -1,0 +1,135 @@
+conference,session,speaker_order,speaker,calling_group,spk_n_talks,spk_n_timed,duration_sec,actual,pred_naive,err_naive_min,pred_baseline,err_baseline_min,pred_ridge,err_ridge_min,pred_catboost,err_catboost_min
+2024-10,saturday-afternoon,1,D. Todd Christofferson,twelve,29.0,26.0,791.566,13:12,741.1,-0.84,896.5,1.75,807.9,0.27,837.2,0.76
+2024-10,saturday-afternoon,2,José A. Teixeira,seventy_presidency,2.0,2.0,649.466,10:49,741.1,1.53,615.1,-0.57,631.1,-0.31,648.7,-0.01
+2024-10,saturday-afternoon,3,Juan Pablo Villar,seventy,1.0,1.0,613.433,10:13,741.1,2.13,635.1,0.36,629.8,0.27,648.3,0.58
+2024-10,saturday-afternoon,4,Patrick Kearon,twelve,4.0,3.0,781.766,13:02,741.1,-0.68,814.0,0.54,859.8,1.3,841.1,0.99
+2024-10,saturday-afternoon,5,David L. Buckner,seventy,0.0,0.0,648.933,10:49,741.1,1.54,630.4,-0.31,653.7,0.08,629.7,-0.32
+2024-10,saturday-afternoon,6,D. Martin Goury,seventy,0.0,0.0,583.333,9:43,741.1,2.63,630.4,0.78,665.9,1.38,629.5,0.77
+2024-10,saturday-afternoon,7,Aroldo B. Cavalcante,seventy,0.0,0.0,585.833,9:46,741.1,2.59,630.4,0.74,678.2,1.54,624.4,0.64
+2024-10,saturday-afternoon,8,Ulisses Soares,twelve,17.0,14.0,920.033,15:20,741.1,-2.98,823.1,-1.62,869.2,-0.85,802.0,-1.97
+2024-10,saturday-evening,1,Gerrit W. Gong,twelve,15.0,13.0,857.2,14:17,741.1,-1.94,828.7,-0.47,794.9,-1.04,825.3,-0.53
+2024-10,saturday-evening,2,Kristin M. Yee,auxiliary_counselor,1.0,1.0,729.433,12:09,741.1,0.19,652.9,-1.28,631.2,-1.64,665.5,-1.07
+2024-10,saturday-evening,3,Kyle S. McKay,seventy,1.0,1.0,668.066,11:08,741.1,1.22,647.6,-0.34,658.7,-0.16,670.6,0.04
+2024-10,saturday-evening,4,Jorge M. Alvarado,seventy,1.0,1.0,694.6,11:35,741.1,0.77,631.3,-1.05,656.5,-0.63,661.3,-0.56
+2024-10,saturday-evening,5,David A. Bednar,twelve,29.0,26.0,976.4,16:16,741.1,-3.92,924.0,-0.87,876.3,-1.67,843.2,-2.22
+2024-10,saturday-morning,1,Neil L. Andersen,twelve,29.0,25.0,811.8,13:32,741.1,-1.18,906.1,1.57,799.5,-0.21,837.7,0.43
+2024-10,saturday-morning,2,Emily Belle Freeman,auxiliary_president,1.0,1.0,705.566,11:46,741.1,0.59,678.9,-0.44,609.5,-1.6,635.8,-1.16
+2024-10,saturday-morning,3,Karl D. Hirst,seventy,0.0,0.0,631.4,10:31,741.1,1.83,630.4,-0.02,616.6,-0.25,628.9,-0.04
+2024-10,saturday-morning,4,Dale G. Renlund,twelve,19.0,18.0,829.0,13:49,741.1,-1.47,845.5,0.27,828.8,-0.0,835.6,0.11
+2024-10,saturday-morning,5,David P. Homer,seventy,1.0,1.0,620.0,10:20,741.1,2.02,627.6,0.13,634.1,0.24,637.0,0.28
+2024-10,saturday-morning,6,Gregorio E. Casillas,seventy,0.0,0.0,576.533,9:37,741.1,2.74,630.4,0.9,653.2,1.28,626.1,0.83
+2024-10,saturday-morning,7,Dallin H. Oaks,first_presidency_counselor,37.0,32.0,810.976,13:31,741.1,-1.17,904.8,1.56,882.2,1.19,899.4,1.47
+2024-10,sunday-afternoon,1,Dieter F. Uchtdorf,twelve,52.0,45.0,871.533,14:32,741.1,-2.17,1088.7,3.62,839.0,-0.54,841.4,-0.5
+2024-10,sunday-afternoon,2,Takashi Wada,seventy,1.0,1.0,606.566,10:07,741.1,2.24,617.1,0.17,571.7,-0.58,634.8,0.47
+2024-10,sunday-afternoon,3,Ronald A. Rasband,twelve,21.0,17.0,809.033,13:29,741.1,-1.13,849.7,0.68,798.4,-0.18,823.0,0.23
+2024-10,sunday-afternoon,4,Quentin L. Cook,twelve,29.0,26.0,847.266,14:07,741.1,-1.77,904.2,0.95,815.9,-0.52,844.0,-0.05
+2024-10,sunday-afternoon,5,Rubén V. Alliaud,seventy,1.0,1.0,597.833,9:58,741.1,2.39,616.6,0.31,609.7,0.2,634.2,0.61
+2024-10,sunday-afternoon,6,I. Raymond Egbo,seventy,0.0,0.0,650.3,10:50,741.1,1.51,630.4,-0.33,638.0,-0.21,629.0,-0.35
+2024-10,sunday-afternoon,7,Russell M. Nelson,church_president,58.0,52.0,889.722,14:50,741.1,-2.48,769.5,-2.0,690.5,-3.32,989.9,1.67
+2024-10,sunday-morning,1,Jeffrey R. Holland,twelve_president,27.0,27.0,923.433,15:23,741.1,-3.04,934.5,0.18,860.3,-1.05,826.5,-1.62
+2024-10,sunday-morning,2,Tracy Y. Browning,auxiliary_counselor,1.0,1.0,747.233,12:27,741.1,-0.1,655.2,-1.53,648.6,-1.64,645.1,-1.7
+2024-10,sunday-morning,3,Brook P. Hales,seventy,1.0,1.0,659.291,10:59,741.1,1.36,662.6,0.05,692.3,0.55,657.4,-0.03
+2024-10,sunday-morning,4,L. Todd Budge,presiding_bishopric,2.0,2.0,723.566,12:04,741.1,0.29,658.5,-1.08,727.4,0.06,645.7,-1.3
+2024-10,sunday-morning,5,Gary E. Stevenson,twelve,20.0,16.0,859.033,14:19,741.1,-1.97,833.4,-0.43,868.6,0.16,831.2,-0.46
+2024-10,sunday-morning,6,Bradley R. Wilcox,auxiliary_counselor,1.0,1.0,752.9,12:33,741.1,-0.2,664.1,-1.48,707.4,-0.76,655.4,-1.63
+2024-10,sunday-morning,7,Henry B. Eyring,first_presidency_counselor,58.0,49.0,966.466,16:06,741.1,-3.76,1012.5,0.77,946.2,-0.34,1001.9,0.59
+2025-04,saturday-afternoon,1,Neil L. Andersen,twelve,30.0,26.0,849.666,14:10,750.2,-1.66,902.7,0.88,798.6,-0.85,826.7,-0.38
+2025-04,saturday-afternoon,2,Steven J. Lund,auxiliary_president,2.0,2.0,704.3,11:44,750.2,0.76,662.0,-0.7,628.1,-1.27,654.4,-0.83
+2025-04,saturday-afternoon,3,S. Mark Palmer,seventy_presidency,2.0,2.0,662.566,11:03,750.2,1.46,631.9,-0.51,611.3,-0.85,660.3,-0.04
+2025-04,saturday-afternoon,4,Sandino Roman,seventy,0.0,0.0,676.7,11:17,750.2,1.22,630.2,-0.78,628.5,-0.8,633.1,-0.73
+2025-04,saturday-afternoon,5,Dale G. Renlund,twelve,20.0,19.0,849.8,14:10,750.2,-1.66,844.5,-0.09,841.0,-0.15,837.0,-0.21
+2025-04,saturday-afternoon,6,Hans T. Boom,seventy,1.0,1.0,660.4,11:00,750.2,1.5,605.4,-0.92,624.2,-0.6,636.4,-0.4
+2025-04,saturday-afternoon,7,Dieter F. Uchtdorf,twelve,53.0,46.0,904.566,15:05,750.2,-2.57,1084.1,2.99,924.6,0.33,916.8,0.2
+2025-04,saturday-evening,1,Gary E. Stevenson,twelve,21.0,17.0,866.9,14:27,750.2,-1.95,834.4,-0.54,793.5,-1.22,819.3,-0.79
+2025-04,saturday-evening,2,Amy A. Wright,auxiliary_counselor,2.0,2.0,671.933,11:12,750.2,1.3,656.9,-0.25,674.6,0.04,671.5,-0.01
+2025-04,saturday-evening,3,James R. Rasband,seventy,1.0,1.0,665.8,11:06,750.2,1.41,619.4,-0.77,622.1,-0.73,658.3,-0.12
+2025-04,saturday-evening,4,Sergio R. Vargas,seventy,0.0,0.0,648.233,10:48,750.2,1.7,630.2,-0.3,647.3,-0.02,654.4,0.1
+2025-04,saturday-evening,5,D. Todd Christofferson,twelve,30.0,27.0,854.1,14:14,750.2,-1.73,892.8,0.65,859.3,0.09,834.6,-0.32
+2025-04,saturday-morning,1,Jeffrey R. Holland,twelve_president,28.0,28.0,909.7,15:10,750.2,-2.66,934.2,0.41,803.2,-1.78,852.7,-0.95
+2025-04,saturday-morning,2,Camille N. Johnson,auxiliary_president,2.0,2.0,688.933,11:29,750.2,1.02,663.8,-0.42,635.9,-0.88,650.9,-0.63
+2025-04,saturday-morning,3,Ronald A. Rasband,twelve,22.0,18.0,840.566,14:01,750.2,-1.51,847.6,0.12,801.3,-0.66,824.4,-0.27
+2025-04,saturday-morning,4,Quentin L. Cook,twelve,30.0,27.0,855.7,14:16,750.2,-1.76,902.1,0.77,815.9,-0.66,837.6,-0.3
+2025-04,saturday-morning,5,Ricardo P. Giménez,seventy,1.0,0.0,629.866,10:30,750.2,2.01,630.2,0.0,609.6,-0.34,635.4,0.09
+2025-04,saturday-morning,6,Henry B. Eyring,first_presidency_counselor,59.0,50.0,1024.833,17:05,750.2,-4.58,1011.5,-0.22,873.8,-2.52,1038.9,0.23
+2025-04,sunday-afternoon,1,Ulisses Soares,twelve,18.0,15.0,889.033,14:49,750.2,-2.31,828.2,-1.01,751.2,-2.3,820.4,-1.14
+2025-04,sunday-afternoon,2,Michael B. Strong,seventy,0.0,0.0,689.233,11:29,750.2,1.02,630.2,-0.98,577.0,-1.87,627.3,-1.03
+2025-04,sunday-afternoon,3,Scott D. Whiting,seventy,2.0,2.0,695.933,11:36,750.2,0.9,612.9,-1.38,603.5,-1.54,644.1,-0.86
+2025-04,sunday-afternoon,4,Christopher H. Kim,seventy,0.0,0.0,665.866,11:06,750.2,1.41,630.2,-0.6,601.5,-1.07,632.1,-0.56
+2025-04,sunday-afternoon,5,Patrick Kearon,twelve,5.0,4.0,844.91,14:05,750.2,-1.58,808.6,-0.6,834.0,-0.18,838.4,-0.11
+2025-04,sunday-afternoon,6,Benjamin M. Z. Tai,seventy,1.0,0.0,634.433,10:34,750.2,1.93,630.2,-0.07,607.1,-0.46,634.6,0.0
+2025-04,sunday-afternoon,7,Russell M. Nelson,church_president,59.0,53.0,719.0,11:59,750.2,0.52,771.8,0.88,697.9,-0.35,919.1,3.34
+2025-04,sunday-morning,1,David A. Bednar,twelve,30.0,27.0,921.1,15:21,750.2,-2.85,925.6,0.08,841.6,-1.33,838.2,-1.38
+2025-04,sunday-morning,2,Steven D. Shumway,seventy,0.0,0.0,683.833,11:24,750.2,1.11,630.2,-0.89,639.8,-0.73,622.2,-1.03
+2025-04,sunday-morning,3,Tamara W. Runia,auxiliary_counselor,1.0,1.0,704.4,11:44,750.2,0.76,675.7,-0.48,686.4,-0.3,666.7,-0.63
+2025-04,sunday-morning,4,Gérald Caussé,presiding_bishopric,6.0,4.0,678.733,11:19,750.2,1.19,683.8,0.08,718.0,0.65,679.8,0.02
+2025-04,sunday-morning,5,Gerrit W. Gong,twelve,16.0,14.0,836.833,13:57,750.2,-1.44,830.1,-0.11,852.4,0.26,837.1,0.0
+2025-04,sunday-morning,6,John A. McCune,seventy,1.0,1.0,658.366,10:58,750.2,1.53,610.1,-0.8,666.5,0.13,637.3,-0.35
+2025-04,sunday-morning,7,Dallin H. Oaks,first_presidency_counselor,38.0,33.0,880.666,14:41,750.2,-2.17,901.9,0.35,913.2,0.54,890.6,0.17
+2025-10,saturday-afternoon,1,Ronald A. Rasband,twelve,23.0,19.0,837.14,13:57,759.4,-1.3,847.1,0.17,793.6,-0.73,817.4,-0.33
+2025-10,saturday-afternoon,2,Chad H Webb,auxiliary_counselor,0.0,0.0,681.41,11:21,759.4,1.3,671.1,-0.17,618.7,-1.05,646.1,-0.59
+2025-10,saturday-afternoon,3,Jeremy R. Jaggi,seventy,1.0,1.0,683.35,11:23,759.4,1.27,627.5,-0.93,614.1,-1.15,640.2,-0.72
+2025-10,saturday-afternoon,4,Kevin G. Brown,seventy,0.0,0.0,736.3,12:16,759.4,0.39,631.7,-1.74,632.7,-1.73,627.0,-1.82
+2025-10,saturday-afternoon,5,Gerrit W. Gong,twelve,17.0,15.0,842.24,14:02,759.4,-1.38,830.3,-0.2,817.2,-0.42,829.1,-0.22
+2025-10,saturday-afternoon,6,Michael Cziesla,seventy,0.0,0.0,677.68,11:18,759.4,1.36,631.7,-0.77,657.2,-0.34,627.4,-0.84
+2025-10,saturday-afternoon,7,Quentin L. Cook,twelve,31.0,28.0,894.63,14:55,759.4,-2.25,900.5,0.1,866.5,-0.47,863.1,-0.53
+2025-10,saturday-evening,1,Patrick Kearon,twelve,6.0,5.0,858.86,14:19,759.4,-1.66,812.7,-0.77,835.3,-0.39,834.2,-0.41
+2025-10,saturday-evening,2,J. Anette Dennis,auxiliary_counselor,2.0,2.0,712.21,11:52,759.4,0.79,673.8,-0.64,691.0,-0.35,681.3,-0.52
+2025-10,saturday-evening,3,Steven C. Barlow,seventy,0.0,0.0,701.7,11:42,759.4,0.96,631.7,-1.17,639.6,-1.03,652.9,-0.81
+2025-10,saturday-evening,4,William K. Jackson,seventy,1.0,0.0,733.73,12:14,759.4,0.43,631.7,-1.7,633.1,-1.68,651.2,-1.38
+2025-10,saturday-evening,5,Neil L. Andersen,twelve,31.0,27.0,873.31,14:33,759.4,-1.9,900.8,0.46,870.0,-0.05,855.2,-0.3
+2025-10,saturday-morning,1,Dallin H. Oaks,twelve_president,39.0,34.0,213.78,3:34,759.4,9.09,892.3,11.31,742.5,8.81,845.9,10.53
+2025-10,saturday-morning,2,Gary E. Stevenson,twelve,22.0,18.0,795.56,13:16,759.4,-0.6,835.8,0.67,777.8,-0.3,820.8,0.42
+2025-10,saturday-morning,3,Tracy Y. Browning,auxiliary_counselor,2.0,2.0,636.14,10:36,759.4,2.05,675.4,0.65,660.2,0.4,642.8,0.11
+2025-10,saturday-morning,4,Ronald M. Barcellos,seventy,0.0,0.0,640.57,10:41,759.4,1.98,631.7,-0.15,620.8,-0.33,624.2,-0.27
+2025-10,saturday-morning,5,Brik V. Eyre,seventy,0.0,0.0,645.38,10:45,759.4,1.9,631.7,-0.23,633.0,-0.21,625.1,-0.34
+2025-10,saturday-morning,6,Kelly R. Johnson,seventy,1.0,1.0,621.05,10:21,759.4,2.31,622.0,0.02,633.4,0.21,626.5,0.09
+2025-10,saturday-morning,7,Dieter F. Uchtdorf,twelve,54.0,47.0,921.75,15:22,759.4,-2.71,1080.5,2.65,915.8,-0.1,886.7,-0.58
+2025-10,sunday-afternoon,1,David A. Bednar,twelve,31.0,28.0,865.2,14:25,759.4,-1.76,925.3,1.0,776.8,-1.47,842.4,-0.38
+2025-10,sunday-afternoon,2,B. Corey Cuvelier,seventy,0.0,0.0,660.96,11:01,759.4,1.64,631.7,-0.49,581.4,-1.33,620.3,-0.68
+2025-10,sunday-afternoon,3,Matthew S. Holland,seventy,1.0,1.0,642.74,10:43,759.4,1.94,620.5,-0.37,580.2,-1.04,632.5,-0.17
+2025-10,sunday-afternoon,4,Carlos A. Godoy,seventy,3.0,3.0,652.02,10:52,759.4,1.79,638.5,-0.23,634.2,-0.3,637.1,-0.25
+2025-10,sunday-afternoon,5,Dale G. Renlund,twelve,21.0,20.0,801.6,13:22,759.4,-0.7,844.6,0.72,818.0,0.27,833.5,0.53
+2025-10,sunday-afternoon,6,John D. Amos,seventy,0.0,0.0,638.4,10:38,759.4,2.02,631.7,-0.11,630.3,-0.13,626.8,-0.19
+2025-10,sunday-afternoon,7,Ozani Farias,seventy,0.0,0.0,586.82,9:47,759.4,2.88,631.7,0.75,642.5,0.93,620.3,0.56
+2025-10,sunday-afternoon,8,Dallin H. Oaks,twelve_president,39.0,34.0,1042.569,17:23,759.4,-4.72,892.3,-2.5,813.1,-3.82,851.5,-3.18
+2025-10,sunday-morning,1,Jeffrey R. Holland,twelve,29.0,29.0,1043.079,17:23,759.4,-4.73,931.7,-1.86,843.8,-3.32,844.3,-3.31
+2025-10,sunday-morning,2,James E. Evanson,seventy,0.0,0.0,627.59,10:28,759.4,2.2,631.7,0.07,643.7,0.27,615.8,-0.2
+2025-10,sunday-morning,3,Ulisses Soares,twelve,19.0,16.0,907.71,15:08,759.4,-2.47,831.2,-1.28,838.6,-1.15,831.2,-1.27
+2025-10,sunday-morning,4,Peter M. Johnson,seventy,1.0,0.0,627.49,10:27,759.4,2.2,631.7,0.07,645.8,0.31,624.6,-0.05
+2025-10,sunday-morning,5,D. Todd Christofferson,twelve,31.0,28.0,853.22,14:13,759.4,-1.56,891.5,0.64,881.2,0.47,849.9,-0.06
+2025-10,sunday-morning,6,Andrea Muñoz Spannaus,auxiliary_counselor,1.0,1.0,667.5,11:08,759.4,1.53,674.7,0.12,728.6,1.02,675.0,0.13
+2025-10,sunday-morning,7,Henry B. Eyring,twelve,60.0,51.0,790.59,13:11,759.4,-0.52,1004.5,3.57,947.1,2.61,953.4,2.71
+2026-04,saturday-afternoon,1,Gary E. Stevenson,twelve,23.0,19.0,675.94,11:16,756.8,1.35,833.8,2.63,765.3,1.49,817.4,2.36
+2026-04,saturday-afternoon,2,Eduardo F. Ortega,seventy,0.0,0.0,509.34,8:29,756.8,4.12,633.2,2.07,602.6,1.55,625.6,1.94
+2026-04,saturday-afternoon,3,Wan-Liang Wu,seventy,0.0,0.0,505.37,8:25,756.8,4.19,633.2,2.13,614.8,1.82,633.1,2.13
+2026-04,saturday-afternoon,4,David J. Wunderli,auxiliary_counselor,0.0,0.0,556.69,9:17,756.8,3.34,671.3,1.91,645.0,1.47,647.2,1.51
+2026-04,saturday-afternoon,5,Gérald Caussé,twelve,7.0,5.0,687.12,11:27,756.8,1.16,760.7,1.23,787.5,1.67,784.7,1.63
+2026-04,saturday-afternoon,6,Brian J. Holmes,seventy,0.0,0.0,495.13,8:15,756.8,4.36,633.2,2.3,651.5,2.61,631.3,2.27
+2026-04,saturday-afternoon,7,Clement M. Matswagothata,seventy,0.0,0.0,568.87,9:29,756.8,3.13,633.2,1.07,663.7,1.58,626.3,0.96
+2026-04,saturday-afternoon,8,Ulisses Soares,twelve,20.0,17.0,700.07,11:40,756.8,0.95,834.8,2.25,857.8,2.63,808.5,1.81
+2026-04,saturday-morning,1,Dallin H. Oaks,church_president,41.0,36.0,159.59,2:40,756.8,9.95,864.6,11.75,704.7,9.09,538.6,6.32
+2026-04,saturday-morning,2,Patrick Kearon,twelve,7.0,6.0,680.75,11:21,756.8,1.27,817.5,2.28,806.8,2.1,835.3,2.58
+2026-04,saturday-morning,3,Kristin M. Yee,auxiliary_counselor,2.0,2.0,535.6,8:56,756.8,3.69,670.1,2.24,651.8,1.94,645.9,1.84
+2026-04,saturday-morning,4,Clark G. Gilbert,twelve,1.0,1.0,787.55,13:08,756.8,-0.51,820.3,0.55,697.2,-1.51,748.4,-0.65
+2026-04,saturday-morning,5,David A. Bednar,twelve,32.0,29.0,778.54,12:59,756.8,-0.36,923.4,2.41,827.6,0.82,853.8,1.25
+2026-04,saturday-morning,6,Michael John U. Teh,seventy,2.0,2.0,488.52,8:09,756.8,4.47,595.4,1.78,636.3,2.46,631.8,2.39
+2026-04,saturday-morning,7,Jorge T. Becerra,seventy,1.0,1.0,511.34,8:31,756.8,4.09,618.3,1.78,633.7,2.04,625.4,1.9
+2026-04,saturday-morning,8,Henry B. Eyring,first_presidency_counselor,61.0,52.0,792.63,13:13,756.8,-0.6,1007.6,3.58,857.4,1.08,1006.0,3.56
+2026-04,sunday-afternoon,1,D. Todd Christofferson,first_presidency_counselor,32.0,29.0,730.73,12:11,756.8,0.43,902.3,2.86,803.0,1.21,861.9,2.19
+2026-04,sunday-afternoon,2,Chi Hong (Sam) Wong,seventy,2.0,2.0,480.45,8:00,756.8,4.61,616.3,2.26,581.1,1.68,642.0,2.69
+2026-04,sunday-afternoon,3,Aaron T. Hall,seventy,0.0,0.0,508.84,8:29,756.8,4.13,633.2,2.07,588.0,1.32,632.2,2.06
+2026-04,sunday-afternoon,4,Susan H. Porter,auxiliary_president,3.0,3.0,523.62,8:44,756.8,3.89,681.4,2.63,639.0,1.92,651.0,2.12
+2026-04,sunday-afternoon,5,Neil L. Andersen,twelve,32.0,28.0,702.07,11:42,756.8,0.91,899.8,3.3,817.1,1.92,840.7,2.31
+2026-04,sunday-afternoon,6,Quentin L. Cook,twelve,32.0,29.0,692.32,11:32,756.8,1.07,900.2,3.46,821.3,2.15,852.2,2.67
+2026-04,sunday-afternoon,7,Taniela B. Wakolo,seventy,2.0,2.0,517.12,8:37,756.8,3.99,611.0,1.56,638.2,2.02,629.3,1.87
+2026-04,sunday-afternoon,8,Gerrit W. Gong,twelve,18.0,16.0,669.2,11:09,756.8,1.46,830.7,2.69,819.6,2.51,821.9,2.54
+2026-04,sunday-afternoon,9,Dallin H. Oaks,church_president,41.0,36.0,176.08,2:56,756.8,9.68,864.6,11.48,788.5,10.21,542.5,6.11
+2026-04,sunday-morning,1,Dieter F. Uchtdorf,twelve_president,55.0,48.0,747.75,12:28,756.8,0.15,1077.3,5.49,860.3,1.88,845.7,1.63
+2026-04,sunday-morning,2,Emily Belle Freeman,auxiliary_president,2.0,2.0,519.49,8:39,756.8,3.96,684.3,2.75,689.2,2.83,674.2,2.58
+2026-04,sunday-morning,3,Pedro X. Larreal,seventy,0.0,0.0,474.44,7:54,756.8,4.71,633.2,2.65,650.1,2.93,627.2,2.55
+2026-04,sunday-morning,4,Edward B. Rowe,seventy,0.0,0.0,560.79,9:21,756.8,3.27,633.2,1.21,662.3,1.69,624.9,1.07
+2026-04,sunday-morning,5,Ronald A. Rasband,twelve,24.0,20.0,621.09,10:21,756.8,2.26,846.5,3.76,869.6,4.14,835.5,3.57
+2026-04,sunday-morning,6,Dale G. Renlund,twelve,22.0,21.0,660.46,11:00,756.8,1.61,842.6,3.04,880.6,3.67,852.8,3.21
+2026-04,sunday-morning,7,Thierry K. Mutombo,seventy,1.0,1.0,619.45,10:19,756.8,2.29,623.2,0.06,686.7,1.12,632.0,0.21
+2026-04,sunday-morning,8,Alan R. Walker,seventy,1.0,1.0,503.77,8:24,756.8,4.22,627.9,2.07,703.7,3.33,601.6,1.63
+2026-04,sunday-morning,9,Dallin H. Oaks,church_president,41.0,36.0,817.98,13:38,756.8,-1.02,864.6,0.78,850.6,0.54,852.1,0.57

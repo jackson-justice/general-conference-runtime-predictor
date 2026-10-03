@@ -1,0 +1,492 @@
+{
+  "trained_at": "2026-10-02T23:39:07+00:00",
+  "tag": "all",
+  "split": {
+    "train": {
+      "conferences": "2010-04 .. 2022-04",
+      "n_conf": 25,
+      "n_timed": 764
+    },
+    "val": {
+      "conferences": "2022-10 .. 2024-04",
+      "n_conf": 4,
+      "n_timed": 132
+    },
+    "test": {
+      "conferences": "2024-10 .. 2026-04",
+      "n_conf": 4,
+      "n_timed": 134
+    }
+  },
+  "recommended_by_val_mae": "catboost",
+  "results": {
+    "naive": {
+      "params": {},
+      "val_mae_min": 1.8432,
+      "test": {
+        "n": 134,
+        "mae_min": 2.097134857218693,
+        "median_ae_min": 1.6797250000000001,
+        "n_unseen": 29,
+        "mae_unseen_min": 2.315899511736107,
+        "n_few_history": 27,
+        "mae_few_history_min": 1.5975008687827585,
+        "n_seen": 105,
+        "mae_seen_min": 2.0367141431138833
+      },
+      "intervals": {
+        "0.5": {
+          "half_width_min": 1.475,
+          "test_coverage": 0.396
+        },
+        "0.8": {
+          "half_width_min": 2.455,
+          "test_coverage": 0.731
+        },
+        "0.9": {
+          "half_width_min": 3.451,
+          "test_coverage": 0.843
+        }
+      }
+    },
+    "baseline": {
+      "params": {
+        "min_n": 1,
+        "shrink": 3.0
+      },
+      "val_mae_min": 1.2009,
+      "test": {
+        "n": 134,
+        "mae_min": 1.3669440955827075,
+        "median_ae_min": 0.7762507534705795,
+        "n_unseen": 29,
+        "mae_unseen_min": 0.9545446661718766,
+        "n_few_history": 27,
+        "mae_few_history_min": 0.6620299971603052,
+        "n_seen": 105,
+        "mae_seen_min": 1.4808448903723657
+      },
+      "intervals": {
+        "0.5": {
+          "half_width_min": 0.823,
+          "test_coverage": 0.522
+        },
+        "0.8": {
+          "half_width_min": 1.673,
+          "test_coverage": 0.716
+        },
+        "0.9": {
+          "half_width_min": 2.441,
+          "test_coverage": 0.851
+        }
+      }
+    },
+    "ridge": {
+      "params": {
+        "alpha": 30.0,
+        "speaker_onehot": false
+      },
+      "val_mae_min": 1.2459,
+      "test": {
+        "n": 134,
+        "mae_min": 1.2881415449937246,
+        "median_ae_min": 0.9735301827181664,
+        "n_unseen": 29,
+        "mae_unseen_min": 1.0876034348059969,
+        "n_few_history": 27,
+        "mae_few_history_min": 0.8974776981357174,
+        "n_seen": 105,
+        "mae_seen_min": 1.3435282611408113
+      },
+      "intervals": {
+        "0.5": {
+          "half_width_min": 0.873,
+          "test_coverage": 0.485
+        },
+        "0.8": {
+          "half_width_min": 1.559,
+          "test_coverage": 0.709
+        },
+        "0.9": {
+          "half_width_min": 2.19,
+          "test_coverage": 0.866
+        }
+      }
+    },
+    "catboost": {
+      "params": {
+        "depth": 6,
+        "loss": "RMSE",
+        "iterations": 143,
+        "early_stopping": false
+      },
+      "val_mae_min": 0.8738,
+      "test": {
+        "n": 134,
+        "mae_min": 1.1521319508923613,
+        "median_ae_min": 0.6477713479293081,
+        "n_unseen": 29,
+        "mae_unseen_min": 0.9371692735853674,
+        "n_few_history": 27,
+        "mae_few_history_min": 0.6165525850490257,
+        "n_seen": 105,
+        "mae_seen_min": 1.21150259510096
+      },
+      "intervals": {
+        "0.5": {
+          "half_width_min": 0.558,
+          "test_coverage": 0.425
+        },
+        "0.8": {
+          "half_width_min": 1.017,
+          "test_coverage": 0.612
+        },
+        "0.9": {
+          "half_width_min": 1.323,
+          "test_coverage": 0.679
+        }
+      }
+    }
+  },
+  "tuning": {
+    "naive": [
+      {
+        "params": {},
+        "val_mae_min": 1.8432
+      }
+    ],
+    "baseline": [
+      {
+        "params": {
+          "min_n": 1,
+          "shrink": 0.0
+        },
+        "val_mae_min": 1.239
+      },
+      {
+        "params": {
+          "min_n": 1,
+          "shrink": 1.0
+        },
+        "val_mae_min": 1.2087
+      },
+      {
+        "params": {
+          "min_n": 1,
+          "shrink": 3.0
+        },
+        "val_mae_min": 1.2009
+      },
+      {
+        "params": {
+          "min_n": 2,
+          "shrink": 0.0
+        },
+        "val_mae_min": 1.2165
+      },
+      {
+        "params": {
+          "min_n": 2,
+          "shrink": 1.0
+        },
+        "val_mae_min": 1.2144
+      },
+      {
+        "params": {
+          "min_n": 2,
+          "shrink": 3.0
+        },
+        "val_mae_min": 1.2091
+      },
+      {
+        "params": {
+          "min_n": 3,
+          "shrink": 0.0
+        },
+        "val_mae_min": 1.2421
+      },
+      {
+        "params": {
+          "min_n": 3,
+          "shrink": 1.0
+        },
+        "val_mae_min": 1.2352
+      },
+      {
+        "params": {
+          "min_n": 3,
+          "shrink": 3.0
+        },
+        "val_mae_min": 1.2256
+      }
+    ],
+    "ridge": [
+      {
+        "params": {
+          "alpha": 0.3,
+          "speaker_onehot": false
+        },
+        "val_mae_min": 1.3101
+      },
+      {
+        "params": {
+          "alpha": 0.3,
+          "speaker_onehot": true
+        },
+        "val_mae_min": 1.5642
+      },
+      {
+        "params": {
+          "alpha": 1.0,
+          "speaker_onehot": false
+        },
+        "val_mae_min": 1.3037
+      },
+      {
+        "params": {
+          "alpha": 1.0,
+          "speaker_onehot": true
+        },
+        "val_mae_min": 1.4978
+      },
+      {
+        "params": {
+          "alpha": 3.0,
+          "speaker_onehot": false
+        },
+        "val_mae_min": 1.289
+      },
+      {
+        "params": {
+          "alpha": 3.0,
+          "speaker_onehot": true
+        },
+        "val_mae_min": 1.4138
+      },
+      {
+        "params": {
+          "alpha": 10.0,
+          "speaker_onehot": false
+        },
+        "val_mae_min": 1.2688
+      },
+      {
+        "params": {
+          "alpha": 10.0,
+          "speaker_onehot": true
+        },
+        "val_mae_min": 1.3337
+      },
+      {
+        "params": {
+          "alpha": 30.0,
+          "speaker_onehot": false
+        },
+        "val_mae_min": 1.2459
+      },
+      {
+        "params": {
+          "alpha": 30.0,
+          "speaker_onehot": true
+        },
+        "val_mae_min": 1.2735
+      }
+    ],
+    "catboost": [
+      {
+        "params": {
+          "depth": 4,
+          "loss": "RMSE"
+        },
+        "val_mae_min": 0.9165,
+        "best_iterations": 88
+      },
+      {
+        "params": {
+          "depth": 4,
+          "loss": "MAE"
+        },
+        "val_mae_min": 0.9362,
+        "best_iterations": 54
+      },
+      {
+        "params": {
+          "depth": 6,
+          "loss": "RMSE"
+        },
+        "val_mae_min": 0.8738,
+        "best_iterations": 143
+      },
+      {
+        "params": {
+          "depth": 6,
+          "loss": "MAE"
+        },
+        "val_mae_min": 0.9616,
+        "best_iterations": 44
+      }
+    ]
+  },
+  "data_report": {
+    "n_talks": 1168,
+    "by_status": {
+      "ok": 1030,
+      "missing": 130,
+      "unparseable": 6,
+      "implausible": 2
+    },
+    "by_source_status": {
+      "legacy_csv": {
+        "ok": 655,
+        "missing": 130,
+        "unparseable": 6,
+        "implausible": 2
+      },
+      "scraped": {
+        "ok": 375
+      }
+    },
+    "not_ok_by_conference": {
+      "2010-04": 5,
+      "2010-10": 6,
+      "2011-04": 8,
+      "2011-10": 8,
+      "2012-04": 5,
+      "2012-10": 7,
+      "2013-04": 5,
+      "2013-10": 6,
+      "2014-04": 7,
+      "2014-10": 7,
+      "2015-04": 4,
+      "2015-10": 5,
+      "2016-04": 7,
+      "2016-10": 9,
+      "2017-04": 7,
+      "2017-10": 10,
+      "2018-04": 10,
+      "2018-10": 4,
+      "2019-04": 1,
+      "2019-10": 3,
+      "2020-04": 6,
+      "2020-10": 8
+    },
+    "invalid_rows": [
+      {
+        "conference": "2013-10",
+        "speaker": "Dieter F. Uchtdorf",
+        "title": "Come, Join with Us",
+        "duration_raw": "17:60",
+        "num_words": 2021,
+        "status": "unparseable"
+      },
+      {
+        "conference": "2014-10",
+        "speaker": "Dieter F. Uchtdorf",
+        "title": "Receiving a Testimony of Light and Truth",
+        "duration_raw": "1:23",
+        "num_words": 1960,
+        "status": "implausible"
+      },
+      {
+        "conference": "2015-04",
+        "speaker": "Ulisses Soares",
+        "title": "Yes, We Can and Will Win!",
+        "duration_raw": "11:60",
+        "num_words": 1675,
+        "status": "unparseable"
+      },
+      {
+        "conference": "2015-10",
+        "speaker": "Gregory A. Schwitzer",
+        "title": "Let the Clarion Trumpet Sound",
+        "duration_raw": "9:60",
+        "num_words": 1401,
+        "status": "unparseable"
+      },
+      {
+        "conference": "2016-04",
+        "speaker": "Neil L. Andersen",
+        "title": "\u201cWhoso Receiveth Them, Receiveth Me\u201d",
+        "duration_raw": "13:60",
+        "num_words": 1781,
+        "status": "unparseable"
+      },
+      {
+        "conference": "2016-04",
+        "speaker": "D. Todd Christofferson",
+        "title": "Fathers",
+        "duration_raw": "15:60",
+        "num_words": 2285,
+        "status": "unparseable"
+      },
+      {
+        "conference": "2018-10",
+        "speaker": "Henry B. Eyring",
+        "title": "Try, Try, Try",
+        "duration_raw": "15:60",
+        "num_words": 2029,
+        "status": "unparseable"
+      },
+      {
+        "conference": "2020-04",
+        "speaker": "Joy D. Jones",
+        "title": "An Especially Noble Calling",
+        "duration_raw": "1:55",
+        "num_words": 1345,
+        "status": "implausible"
+      }
+    ],
+    "duration_minutes": {
+      "n": 1030,
+      "mean": 12.9,
+      "median": 12.39,
+      "std": 3.36,
+      "min": 2.25,
+      "max": 25.5
+    },
+    "notes": {
+      "dropped_non_talks": {
+        "legacy_csv": 1,
+        "scraped": 0
+      },
+      "scraped_conferences_skipped_in_favor_of_legacy": [
+        "2020-10"
+      ]
+    },
+    "conferences": [
+      "2010-04",
+      "2010-10",
+      "2011-04",
+      "2011-10",
+      "2012-04",
+      "2012-10",
+      "2013-04",
+      "2013-10",
+      "2014-04",
+      "2014-10",
+      "2015-04",
+      "2015-10",
+      "2016-04",
+      "2016-10",
+      "2017-04",
+      "2017-10",
+      "2018-04",
+      "2018-10",
+      "2019-04",
+      "2019-10",
+      "2020-04",
+      "2020-10",
+      "2021-04",
+      "2021-10",
+      "2022-04",
+      "2022-10",
+      "2023-04",
+      "2023-10",
+      "2024-04",
+      "2024-10",
+      "2025-04",
+      "2025-10",
+      "2026-04"
+    ]
+  }
+}

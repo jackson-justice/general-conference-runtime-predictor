@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from general-conference-runtime-predictor!")
+"""Predict General Conference talk duration from pre-talk information."""
