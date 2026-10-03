@@ -1,0 +1,3 @@
+2026-10-02 20:55:13,375 INFO checking 138 legacy rows without a usable duration
+2026-10-02 20:58:28,212 INFO wrote C:\Users\jacks\Projects\Personal\general-conference-runtime-predictor\data\processed\legacy_duration_fixes.csv (network requests: 130)
+2026-10-02 20:58:28,212 INFO actions: {'filled': 130, 'corrected': 7, 'unresolved_video_implausible': 1}

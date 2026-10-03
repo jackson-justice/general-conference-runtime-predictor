@@ -28,22 +28,45 @@ def mae_min(y, p) -> float:
     return float(np.mean(np.abs(np.asarray(y, dtype=float) - np.asarray(p, dtype=float))) / 60.0)
 
 
+# Test rows are reported overall and for these fixed segments. Every model is
+# scored on exactly the same rows (the timed talks of the test conferences).
+SEGMENTS = {
+    "all": lambda d: np.ones(len(d), dtype=bool),
+    "church_president": lambda d: d.calling_group.eq("church_president").to_numpy(),
+    "seventy": lambda d: d.calling_group.eq("seventy").to_numpy(),
+    "seventy_presidency": lambda d: d.calling_group.eq("seventy_presidency").to_numpy(),
+    "unseen_speaker": lambda d: d.spk_n_talks.to_numpy() == 0,
+    "seen_speaker": lambda d: d.spk_n_talks.to_numpy() > 0,
+    "few_history": lambda d: (d.spk_n_talks.to_numpy() > 0) & (d.spk_n_timed.to_numpy() <= 1),
+}
+
+
 def evaluate(df: pd.DataFrame, pred) -> dict:
     err = np.abs(df.duration_sec.to_numpy(dtype=float) - np.asarray(pred, dtype=float)) / 60.0
-    unseen = df.spk_n_talks.to_numpy() == 0
-    few = (df.spk_n_timed.to_numpy() <= 1) & ~unseen
-    out = {
-        "n": int(len(df)),
-        "mae_min": float(err.mean()),
-        "median_ae_min": float(np.median(err)),
-        "n_unseen": int(unseen.sum()),
-        "mae_unseen_min": float(err[unseen].mean()) if unseen.any() else None,
-        "n_few_history": int(few.sum()),
-        "mae_few_history_min": float(err[few].mean()) if few.any() else None,
-        "n_seen": int((~unseen).sum()),
-        "mae_seen_min": float(err[~unseen].mean()) if (~unseen).any() else None,
+    seg = {}
+    for name, fn in SEGMENTS.items():
+        mask = fn(df)
+        seg[name] = {"n": int(mask.sum()),
+                     "mae_min": float(err[mask].mean()) if mask.any() else None,
+                     "median_ae_min": float(np.median(err[mask])) if mask.any() else None}
+    return {
+        "n": seg["all"]["n"], "mae_min": seg["all"]["mae_min"], "median_ae_min": seg["all"]["median_ae_min"],
+        "n_unseen": seg["unseen_speaker"]["n"], "mae_unseen_min": seg["unseen_speaker"]["mae_min"],
+        "n_seen": seg["seen_speaker"]["n"], "mae_seen_min": seg["seen_speaker"]["mae_min"],
+        "n_few_history": seg["few_history"]["n"], "mae_few_history_min": seg["few_history"]["mae_min"],
+        "segments": seg,
     }
-    return out
+
+
+def paired_comparison(y, pred_a, pred_b, seed: int = 0, n_boot: int = 2000) -> dict:
+    """Per-talk comparison of model A against model B on identical rows (A - B, minutes)."""
+    y = np.asarray(y, dtype=float)
+    d = (np.abs(y - np.asarray(pred_a, dtype=float)) - np.abs(y - np.asarray(pred_b, dtype=float))) / 60.0
+    rng = np.random.default_rng(seed)
+    boots = np.array([d[rng.integers(0, len(d), len(d))].mean() for _ in range(n_boot)])
+    return {"n": int(len(d)), "mean_diff_min": float(d.mean()),
+            "ci95_min": [float(np.quantile(boots, 0.025)), float(np.quantile(boots, 0.975))],
+            "share_a_better": float(np.mean(d < 0)), "share_tied": float(np.mean(d == 0))}
 
 
 def print_data_summary(report: dict) -> None:
@@ -58,6 +81,10 @@ def print_data_summary(report: dict) -> None:
         for r in report["invalid_rows"]:
             print(f"  {r['conference']} {r['speaker']}: runtime={r['duration_raw']} words={r['num_words']} -> {r['status']}")
     print("notes:", json.dumps(report["notes"]))
+    print("coverage by conference (talks / timed / not timed):")
+    for c in report["coverage_by_conference"]:
+        print(f"  {c['conference']} {c['source']:10s} sessions={c['sessions']} talks={c['talks']:3d} "
+              f"timed={c['timed']:3d} not_timed={c['not_timed']}")
     d = report["duration_minutes"]
     print(f"timed talks: {d['n']}  mean {d['mean']} min  median {d['median']}  std {d['std']}  range {d['min']}-{d['max']}")
 
@@ -70,6 +97,9 @@ def main() -> int:
     ap.add_argument("--n-test", type=int, default=4, help="held-out test conferences (most recent)")
     ap.add_argument("--tag", default=None, help="suffix for output files (default: legacy|all)")
     ap.add_argument("--no-bundle", action="store_true", help="do not save models/bundle.joblib")
+    ap.add_argument("--exploratory", default=None, metavar="REASON",
+                    help="label this run's test numbers as exploratory (the test conferences were already "
+                         "inspected before this change), with the reason")
     args = ap.parse_args()
 
     tag = args.tag or ("legacy" if args.legacy_only else "all")
@@ -151,24 +181,37 @@ def main() -> int:
               f"(seen {test_metrics['mae_seen_min']:.3f} n={test_metrics['n_seen']}; "
               f"unseen {test_metrics['mae_unseen_min'] if test_metrics['mae_unseen_min'] is None else round(test_metrics['mae_unseen_min'], 3)} "
               f"n={test_metrics['n_unseen']})")
+        print("  test MAE by segment: " + ", ".join(
+            f"{k}={v['mae_min']:.2f} (n={v['n']})" for k, v in test_metrics["segments"].items() if v["mae_min"] is not None))
         print("  intervals (half-width min / test coverage): " +
               ", ".join(f"{k}: {v['half_width_min']:.2f}/{v['test_coverage']:.2f}" for k, v in intervals.items()))
 
     recommended = min(results, key=lambda n: results[n]["val_mae_min"])
+    paired = {}
+    if "catboost" in test_pred:
+        for other in ("naive", "baseline", "ridge"):
+            if other in test_pred:
+                paired[f"catboost_vs_{other}"] = paired_comparison(te.duration_sec, test_pred["catboost"], test_pred[other])
     summary = {
         "trained_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "tag": tag,
+        "test_status": ("exploratory: " + args.exploratory) if args.exploratory else "single report",
         "split": split_info,
         "recommended_by_val_mae": recommended,
         "results": results,
+        "paired_test_comparisons": paired,
         "tuning": tuning,
         "data_report": report,
     }
     OUTPUTS.mkdir(parents=True, exist_ok=True)
     (OUTPUTS / f"metrics_{tag}.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
-    lines = [f"# Results ({tag})", "",
-             f"Split: train {split_info['train']['conferences']} ({split_info['train']['n_timed']} timed talks), "
+    lines = [f"# Results ({tag})", ""]
+    if args.exploratory:
+        lines += [f"**EXPLORATORY.** The test conferences had already been inspected before this run; "
+                  f"reason for re-running: {args.exploratory}. Treat test numbers as a second look, not a "
+                  f"fresh hold-out. The next untouched conference is the first one after the data ends.", ""]
+    lines += [f"Split: train {split_info['train']['conferences']} ({split_info['train']['n_timed']} timed talks), "
              f"val {split_info['val']['conferences']} ({split_info['val']['n_timed']}), "
              f"test {split_info['test']['conferences']} ({split_info['test']['n_timed']}).", "",
              "| model | selected params | val MAE | test MAE | test median AE | seen MAE (n) | unseen MAE (n) | 80% half-width | 80% coverage |",
@@ -179,10 +222,30 @@ def main() -> int:
         lines.append(f"| {n} | `{r['params']}` | {r['val_mae_min']:.2f} | {t['mae_min']:.2f} | {t['median_ae_min']:.2f} | "
                      f"{fmt(t['mae_seen_min'])} ({t['n_seen']}) | {fmt(t['mae_unseen_min'])} ({t['n_unseen']}) | "
                      f"{r['intervals']['0.8']['half_width_min']:.2f} min | {r['intervals']['0.8']['test_coverage']:.2f} |")
-    lines += ["", f"Recommended by validation MAE: **{recommended}**.", "", "All MAE values are in minutes."]
+    lines += ["", f"Recommended by validation MAE: **{recommended}**.", ""]
+    seg_names = ["all", "church_president", "seventy", "seventy_presidency", "unseen_speaker", "seen_speaker"]
+    lines += ["## Test MAE by segment (minutes, same rows for every model)", "",
+              "| segment | n | " + " | ".join(results) + " |",
+              "|---|---|" + "---|" * len(results)]
+    for sname in seg_names:
+        n = results[next(iter(results))]["test"]["segments"][sname]["n"]
+        cells = []
+        for r in results.values():
+            v = r["test"]["segments"][sname]["mae_min"]
+            cells.append("n/a" if v is None else f"{v:.2f}")
+        lines.append(f"| {sname} | {n} | " + " | ".join(cells) + " |")
+    if paired:
+        lines += ["", "## CatBoost vs the baselines on identical test rows", "",
+                  "Paired difference in absolute error (CatBoost minus other, minutes; negative favours CatBoost).", "",
+                  "| comparison | n | mean diff | 95% bootstrap CI | share CatBoost better |", "|---|---|---|---|---|"]
+        for k, v in paired.items():
+            lines.append(f"| {k.replace('_', ' ')} | {v['n']} | {v['mean_diff_min']:+.2f} | "
+                         f"[{v['ci95_min'][0]:+.2f}, {v['ci95_min'][1]:+.2f}] | {v['share_a_better']:.0%} |")
+    lines += ["", "All MAE values are in minutes."]
     (OUTPUTS / f"metrics_{tag}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    cols = ["conference", "session", "speaker_order", "speaker", "calling_group", "spk_n_talks", "spk_n_timed", "duration_sec"]
+    cols = ["conference", "session", "speaker_order", "speaker", "speaker_source", "role_norm", "calling_group",
+            "spk_n_talks", "spk_n_timed", "duration_source", "duration_sec"]
     out = te[cols].copy()
     out["actual"] = out.duration_sec.map(format_seconds)
     for n in test_pred.columns:

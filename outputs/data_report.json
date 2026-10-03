@@ -1,16 +1,14 @@
 {
   "n_talks": 1168,
   "by_status": {
-    "ok": 1030,
-    "missing": 130,
-    "unparseable": 6,
+    "ok": 1166,
+    "missing": 0,
+    "unparseable": 0,
     "implausible": 2
   },
   "by_source_status": {
     "legacy_csv": {
-      "ok": 655,
-      "missing": 130,
-      "unparseable": 6,
+      "ok": 791,
       "implausible": 2
     },
     "scraped": {
@@ -18,38 +16,10 @@
     }
   },
   "not_ok_by_conference": {
-    "2010-04": 5,
-    "2010-10": 6,
-    "2011-04": 8,
-    "2011-10": 8,
-    "2012-04": 5,
-    "2012-10": 7,
-    "2013-04": 5,
-    "2013-10": 6,
-    "2014-04": 7,
-    "2014-10": 7,
-    "2015-04": 4,
-    "2015-10": 5,
-    "2016-04": 7,
-    "2016-10": 9,
-    "2017-04": 7,
-    "2017-10": 10,
-    "2018-04": 10,
-    "2018-10": 4,
-    "2019-04": 1,
-    "2019-10": 3,
-    "2020-04": 6,
-    "2020-10": 8
+    "2014-10": 1,
+    "2020-04": 1
   },
   "invalid_rows": [
-    {
-      "conference": "2013-10",
-      "speaker": "Dieter F. Uchtdorf",
-      "title": "Come, Join with Us",
-      "duration_raw": "17:60",
-      "num_words": 2021,
-      "status": "unparseable"
-    },
     {
       "conference": "2014-10",
       "speaker": "Dieter F. Uchtdorf",
@@ -57,46 +27,6 @@
       "duration_raw": "1:23",
       "num_words": 1960,
       "status": "implausible"
-    },
-    {
-      "conference": "2015-04",
-      "speaker": "Ulisses Soares",
-      "title": "Yes, We Can and Will Win!",
-      "duration_raw": "11:60",
-      "num_words": 1675,
-      "status": "unparseable"
-    },
-    {
-      "conference": "2015-10",
-      "speaker": "Gregory A. Schwitzer",
-      "title": "Let the Clarion Trumpet Sound",
-      "duration_raw": "9:60",
-      "num_words": 1401,
-      "status": "unparseable"
-    },
-    {
-      "conference": "2016-04",
-      "speaker": "Neil L. Andersen",
-      "title": "\u201cWhoso Receiveth Them, Receiveth Me\u201d",
-      "duration_raw": "13:60",
-      "num_words": 1781,
-      "status": "unparseable"
-    },
-    {
-      "conference": "2016-04",
-      "speaker": "D. Todd Christofferson",
-      "title": "Fathers",
-      "duration_raw": "15:60",
-      "num_words": 2285,
-      "status": "unparseable"
-    },
-    {
-      "conference": "2018-10",
-      "speaker": "Henry B. Eyring",
-      "title": "Try, Try, Try",
-      "duration_raw": "15:60",
-      "num_words": 2029,
-      "status": "unparseable"
     },
     {
       "conference": "2020-04",
@@ -107,11 +37,356 @@
       "status": "implausible"
     }
   ],
+  "coverage_by_conference": [
+    {
+      "conference": "2010-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 37,
+      "timed": 37,
+      "from_legacy_runtime": 32,
+      "from_video": 5,
+      "not_timed": 0
+    },
+    {
+      "conference": "2010-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 38,
+      "timed": 38,
+      "from_legacy_runtime": 32,
+      "from_video": 6,
+      "not_timed": 0
+    },
+    {
+      "conference": "2011-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 37,
+      "timed": 37,
+      "from_legacy_runtime": 29,
+      "from_video": 8,
+      "not_timed": 0
+    },
+    {
+      "conference": "2011-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 38,
+      "timed": 38,
+      "from_legacy_runtime": 30,
+      "from_video": 8,
+      "not_timed": 0
+    },
+    {
+      "conference": "2012-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 37,
+      "timed": 37,
+      "from_legacy_runtime": 32,
+      "from_video": 5,
+      "not_timed": 0
+    },
+    {
+      "conference": "2012-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 38,
+      "timed": 38,
+      "from_legacy_runtime": 31,
+      "from_video": 7,
+      "not_timed": 0
+    },
+    {
+      "conference": "2013-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 37,
+      "timed": 37,
+      "from_legacy_runtime": 32,
+      "from_video": 5,
+      "not_timed": 0
+    },
+    {
+      "conference": "2013-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 38,
+      "timed": 38,
+      "from_legacy_runtime": 32,
+      "from_video": 6,
+      "not_timed": 0
+    },
+    {
+      "conference": "2014-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 37,
+      "timed": 37,
+      "from_legacy_runtime": 30,
+      "from_video": 7,
+      "not_timed": 0
+    },
+    {
+      "conference": "2014-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 38,
+      "timed": 37,
+      "from_legacy_runtime": 32,
+      "from_video": 6,
+      "not_timed": 1
+    },
+    {
+      "conference": "2015-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 36,
+      "timed": 36,
+      "from_legacy_runtime": 32,
+      "from_video": 4,
+      "not_timed": 0
+    },
+    {
+      "conference": "2015-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 39,
+      "timed": 39,
+      "from_legacy_runtime": 34,
+      "from_video": 5,
+      "not_timed": 0
+    },
+    {
+      "conference": "2016-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 35,
+      "timed": 35,
+      "from_legacy_runtime": 28,
+      "from_video": 7,
+      "not_timed": 0
+    },
+    {
+      "conference": "2016-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 37,
+      "timed": 37,
+      "from_legacy_runtime": 28,
+      "from_video": 9,
+      "not_timed": 0
+    },
+    {
+      "conference": "2017-04",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 36,
+      "timed": 36,
+      "from_legacy_runtime": 29,
+      "from_video": 7,
+      "not_timed": 0
+    },
+    {
+      "conference": "2017-10",
+      "source": "legacy_csv",
+      "sessions": 6,
+      "talks": 35,
+      "timed": 35,
+      "from_legacy_runtime": 25,
+      "from_video": 10,
+      "not_timed": 0
+    },
+    {
+      "conference": "2018-04",
+      "source": "legacy_csv",
+      "sessions": 5,
+      "talks": 35,
+      "timed": 35,
+      "from_legacy_runtime": 25,
+      "from_video": 10,
+      "not_timed": 0
+    },
+    {
+      "conference": "2018-10",
+      "source": "legacy_csv",
+      "sessions": 5,
+      "talks": 33,
+      "timed": 33,
+      "from_legacy_runtime": 29,
+      "from_video": 4,
+      "not_timed": 0
+    },
+    {
+      "conference": "2019-04",
+      "source": "legacy_csv",
+      "sessions": 5,
+      "talks": 31,
+      "timed": 31,
+      "from_legacy_runtime": 30,
+      "from_video": 1,
+      "not_timed": 0
+    },
+    {
+      "conference": "2019-10",
+      "source": "legacy_csv",
+      "sessions": 5,
+      "talks": 34,
+      "timed": 34,
+      "from_legacy_runtime": 31,
+      "from_video": 3,
+      "not_timed": 0
+    },
+    {
+      "conference": "2020-04",
+      "source": "legacy_csv",
+      "sessions": 5,
+      "talks": 33,
+      "timed": 32,
+      "from_legacy_runtime": 28,
+      "from_video": 5,
+      "not_timed": 1
+    },
+    {
+      "conference": "2020-10",
+      "source": "legacy_csv",
+      "sessions": 5,
+      "talks": 34,
+      "timed": 34,
+      "from_legacy_runtime": 26,
+      "from_video": 8,
+      "not_timed": 0
+    },
+    {
+      "conference": "2021-04",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 35,
+      "timed": 35,
+      "from_legacy_runtime": 0,
+      "from_video": 35,
+      "not_timed": 0
+    },
+    {
+      "conference": "2021-10",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 39,
+      "timed": 39,
+      "from_legacy_runtime": 0,
+      "from_video": 39,
+      "not_timed": 0
+    },
+    {
+      "conference": "2022-04",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 35,
+      "timed": 35,
+      "from_legacy_runtime": 0,
+      "from_video": 35,
+      "not_timed": 0
+    },
+    {
+      "conference": "2022-10",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 35,
+      "timed": 35,
+      "from_legacy_runtime": 0,
+      "from_video": 35,
+      "not_timed": 0
+    },
+    {
+      "conference": "2023-04",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 33,
+      "timed": 33,
+      "from_legacy_runtime": 0,
+      "from_video": 33,
+      "not_timed": 0
+    },
+    {
+      "conference": "2023-10",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 32,
+      "timed": 32,
+      "from_legacy_runtime": 0,
+      "from_video": 32,
+      "not_timed": 0
+    },
+    {
+      "conference": "2024-04",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 32,
+      "timed": 32,
+      "from_legacy_runtime": 0,
+      "from_video": 32,
+      "not_timed": 0
+    },
+    {
+      "conference": "2024-10",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 34,
+      "timed": 34,
+      "from_legacy_runtime": 0,
+      "from_video": 34,
+      "not_timed": 0
+    },
+    {
+      "conference": "2025-04",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 32,
+      "timed": 32,
+      "from_legacy_runtime": 0,
+      "from_video": 32,
+      "not_timed": 0
+    },
+    {
+      "conference": "2025-10",
+      "source": "scraped",
+      "sessions": 5,
+      "talks": 34,
+      "timed": 34,
+      "from_legacy_runtime": 0,
+      "from_video": 34,
+      "not_timed": 0
+    },
+    {
+      "conference": "2026-04",
+      "source": "scraped",
+      "sessions": 4,
+      "talks": 34,
+      "timed": 34,
+      "from_legacy_runtime": 0,
+      "from_video": 34,
+      "not_timed": 0
+    }
+  ],
+  "duplicate_check": {
+    "duplicate_urls": 0,
+    "duplicate_conference_session_speaker_title": 0,
+    "speakers_with_multiple_talks_in_one_conference": 134
+  },
+  "speaker_aliases_applied": {
+    "L. Harkness -> Lisa L. Harkness": 1,
+    "Larry Echo Hawk -> Larry J. Echo Hawk": 1
+  },
+  "duration_fixes_applied": {
+    "missing": 130,
+    "unparseable": 6
+  },
   "duration_minutes": {
-    "n": 1030,
-    "mean": 12.9,
-    "median": 12.39,
-    "std": 3.36,
+    "n": 1166,
+    "mean": 12.89,
+    "median": 12.29,
+    "std": 3.41,
     "min": 2.25,
     "max": 25.5
   },
@@ -122,7 +397,8 @@
     },
     "scraped_conferences_skipped_in_favor_of_legacy": [
       "2020-10"
-    ]
+    ],
+    "legacy_duration_fixes_file": "data\\processed\\legacy_duration_fixes.csv"
   },
   "conferences": [
     "2010-04",

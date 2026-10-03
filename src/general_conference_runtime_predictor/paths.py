@@ -10,5 +10,6 @@ MODELS = ROOT / "models"
 LEGACY_CSV = DATA_RAW / "talks.csv"
 COLLECTED_CSV = DATA_PROCESSED / "talks_collected.csv"
 DATASET_CSV = DATA_PROCESSED / "talks_dataset.csv"
+LEGACY_FIXES_CSV = DATA_PROCESSED / "legacy_duration_fixes.csv"  # written by scripts/verify_durations.py
 BUNDLE_PATH = MODELS / "bundle.joblib"
 PREDICTION_LOG = OUTPUTS / "predictions_log.csv"

@@ -1,124 +1,339 @@
 {
-  "trained_at": "2026-10-02T23:26:32+00:00",
+  "trained_at": "2026-10-03T02:59:24+00:00",
   "tag": "legacy",
+  "test_status": "exploratory: legacy durations verified/filled from official pages; CatBoost speaker target-encoding removed; test errors were inspected in the earlier run",
   "split": {
     "train": {
       "conferences": "2010-04 .. 2016-10",
       "n_conf": 14,
-      "n_timed": 433
+      "n_timed": 521
     },
     "val": {
       "conferences": "2017-04 .. 2018-10",
       "n_conf": 4,
-      "n_timed": 108
+      "n_timed": 139
     },
     "test": {
       "conferences": "2019-04 .. 2020-10",
       "n_conf": 4,
-      "n_timed": 114
+      "n_timed": 131
     }
   },
-  "recommended_by_val_mae": "ridge",
+  "recommended_by_val_mae": "catboost",
   "results": {
     "naive": {
       "params": {},
-      "val_mae_min": 2.9053,
+      "val_mae_min": 2.9163,
       "test": {
-        "n": 114,
-        "mae_min": 2.70919052384318,
-        "median_ae_min": 2.318835882984434,
-        "n_unseen": 21,
-        "mae_unseen_min": 3.127358312972039,
+        "n": 131,
+        "mae_min": 2.8195954911947556,
+        "median_ae_min": 2.3313203980099484,
+        "n_unseen": 26,
+        "mae_unseen_min": 3.1883785501530686,
+        "n_seen": 105,
+        "mae_seen_min": 2.7282777813574595,
         "n_few_history": 11,
-        "mae_few_history_min": 2.417246993405084,
-        "n_seen": 93,
-        "mae_seen_min": 2.6147655392011804
+        "mae_few_history_min": 2.3151759108530565,
+        "segments": {
+          "all": {
+            "n": 131,
+            "mae_min": 2.8195954911947556,
+            "median_ae_min": 2.3313203980099484
+          },
+          "church_president": {
+            "n": 16,
+            "mae_min": 5.732538053767512,
+            "median_ae_min": 5.408186609261385
+          },
+          "seventy": {
+            "n": 22,
+            "mae_min": 2.8580929703210898,
+            "median_ae_min": 2.933480057405282
+          },
+          "seventy_presidency": {
+            "n": 4,
+            "mae_min": 2.193247901351891,
+            "median_ae_min": 2.276646335767209
+          },
+          "unseen_speaker": {
+            "n": 26,
+            "mae_min": 3.1883785501530686,
+            "median_ae_min": 3.1150967240719485
+          },
+          "seen_speaker": {
+            "n": 105,
+            "mae_min": 2.7282777813574595,
+            "median_ae_min": 2.085052820512821
+          },
+          "few_history": {
+            "n": 11,
+            "mae_min": 2.3151759108530565,
+            "median_ae_min": 2.2679464028776994
+          }
+        }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 2.416,
-          "test_coverage": 0.526
+          "half_width_min": 2.539,
+          "test_coverage": 0.542
         },
         "0.8": {
-          "half_width_min": 3.323,
-          "test_coverage": 0.737
+          "half_width_min": 3.384,
+          "test_coverage": 0.763
         },
         "0.9": {
-          "half_width_min": 6.261,
-          "test_coverage": 0.947
+          "half_width_min": 6.229,
+          "test_coverage": 0.931
         }
       }
     },
     "baseline": {
       "params": {
-        "min_n": 3,
+        "min_n": 1,
         "shrink": 3.0
       },
-      "val_mae_min": 1.5645,
+      "val_mae_min": 1.5934,
       "test": {
-        "n": 114,
-        "mae_min": 1.8162345370478246,
-        "median_ae_min": 1.23340411336101,
-        "n_unseen": 21,
-        "mae_unseen_min": 1.2185107002557605,
+        "n": 131,
+        "mae_min": 1.9184142676159315,
+        "median_ae_min": 1.3170294117647094,
+        "n_unseen": 26,
+        "mae_unseen_min": 1.3542184435780826,
+        "n_seen": 105,
+        "mae_seen_min": 2.0581199002348276,
         "n_few_history": 11,
-        "mae_few_history_min": 0.504523528556162,
-        "n_seen": 93,
-        "mae_seen_min": 1.9512044356782903
+        "mae_few_history_min": 0.5170862167264506,
+        "segments": {
+          "all": {
+            "n": 131,
+            "mae_min": 1.9184142676159315,
+            "median_ae_min": 1.3170294117647094
+          },
+          "church_president": {
+            "n": 16,
+            "mae_min": 5.771175834241218,
+            "median_ae_min": 5.574024622167917
+          },
+          "seventy": {
+            "n": 22,
+            "mae_min": 0.7323475575870065,
+            "median_ae_min": 0.5992428341757678
+          },
+          "seventy_presidency": {
+            "n": 4,
+            "mae_min": 0.26879090112371434,
+            "median_ae_min": 0.23181429688590927
+          },
+          "unseen_speaker": {
+            "n": 26,
+            "mae_min": 1.3542184435780826,
+            "median_ae_min": 0.8878762919475254
+          },
+          "seen_speaker": {
+            "n": 105,
+            "mae_min": 2.0581199002348276,
+            "median_ae_min": 1.4315226177698264
+          },
+          "few_history": {
+            "n": 11,
+            "mae_min": 0.5170862167264506,
+            "median_ae_min": 0.3271495512820517
+          }
+        }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.826,
-          "test_coverage": 0.351
+          "half_width_min": 0.837,
+          "test_coverage": 0.366
         },
         "0.8": {
-          "half_width_min": 1.983,
-          "test_coverage": 0.746
+          "half_width_min": 2.143,
+          "test_coverage": 0.748
         },
         "0.9": {
-          "half_width_min": 2.925,
-          "test_coverage": 0.807
+          "half_width_min": 3.298,
+          "test_coverage": 0.832
         }
       }
     },
     "ridge": {
       "params": {
-        "alpha": 10.0,
-        "speaker_onehot": true
+        "alpha": 30.0,
+        "speaker_onehot": false
       },
-      "val_mae_min": 1.5339,
+      "val_mae_min": 1.5131,
       "test": {
-        "n": 114,
-        "mae_min": 1.8670079137860112,
-        "median_ae_min": 1.255949134848936,
-        "n_unseen": 21,
-        "mae_unseen_min": 1.370704600066175,
+        "n": 131,
+        "mae_min": 1.8824861653287446,
+        "median_ae_min": 1.2345040672792038,
+        "n_unseen": 26,
+        "mae_unseen_min": 1.5938547939782184,
+        "n_seen": 105,
+        "mae_seen_min": 1.9539567906155417,
         "n_few_history": 11,
-        "mae_few_history_min": 0.7677777977370973,
-        "n_seen": 93,
-        "mae_seen_min": 1.9790764039808129
+        "mae_few_history_min": 0.7923465737266772,
+        "segments": {
+          "all": {
+            "n": 131,
+            "mae_min": 1.8824861653287446,
+            "median_ae_min": 1.2345040672792038
+          },
+          "church_president": {
+            "n": 16,
+            "mae_min": 5.135083093051113,
+            "median_ae_min": 4.870934015985977
+          },
+          "seventy": {
+            "n": 22,
+            "mae_min": 1.0315272928898434,
+            "median_ae_min": 1.0256459648939198
+          },
+          "seventy_presidency": {
+            "n": 4,
+            "mae_min": 0.6581150910046754,
+            "median_ae_min": 0.5604919111213433
+          },
+          "unseen_speaker": {
+            "n": 26,
+            "mae_min": 1.5938547939782184,
+            "median_ae_min": 1.1467263179186706
+          },
+          "seen_speaker": {
+            "n": 105,
+            "mae_min": 1.9539567906155417,
+            "median_ae_min": 1.3246726139510239
+          },
+          "few_history": {
+            "n": 11,
+            "mae_min": 0.7923465737266772,
+            "median_ae_min": 0.6654984124187194
+          }
+        }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.761,
-          "test_coverage": 0.298
+          "half_width_min": 0.961,
+          "test_coverage": 0.366
         },
         "0.8": {
-          "half_width_min": 1.988,
-          "test_coverage": 0.719
+          "half_width_min": 2.026,
+          "test_coverage": 0.725
         },
         "0.9": {
-          "half_width_min": 4.079,
-          "test_coverage": 0.868
+          "half_width_min": 3.375,
+          "test_coverage": 0.847
         }
       }
+    },
+    "catboost": {
+      "params": {
+        "depth": 6,
+        "loss": "RMSE",
+        "iterations": 668,
+        "early_stopping": false
+      },
+      "val_mae_min": 1.3844,
+      "test": {
+        "n": 131,
+        "mae_min": 1.5222278904106106,
+        "median_ae_min": 0.9958345370853332,
+        "n_unseen": 26,
+        "mae_unseen_min": 1.3511876387002582,
+        "n_seen": 105,
+        "mae_seen_min": 1.56458071464365,
+        "n_few_history": 11,
+        "mae_few_history_min": 0.601136514016225,
+        "segments": {
+          "all": {
+            "n": 131,
+            "mae_min": 1.5222278904106106,
+            "median_ae_min": 0.9958345370853332
+          },
+          "church_president": {
+            "n": 16,
+            "mae_min": 3.7960726480222085,
+            "median_ae_min": 3.221864034680246
+          },
+          "seventy": {
+            "n": 22,
+            "mae_min": 1.0087888175839446,
+            "median_ae_min": 0.9070077435562893
+          },
+          "seventy_presidency": {
+            "n": 4,
+            "mae_min": 0.3321273313880174,
+            "median_ae_min": 0.23598230064026876
+          },
+          "unseen_speaker": {
+            "n": 26,
+            "mae_min": 1.3511876387002582,
+            "median_ae_min": 0.9894747086518776
+          },
+          "seen_speaker": {
+            "n": 105,
+            "mae_min": 1.56458071464365,
+            "median_ae_min": 0.9958345370853332
+          },
+          "few_history": {
+            "n": 11,
+            "mae_min": 0.601136514016225,
+            "median_ae_min": 0.41010985916430137
+          }
+        }
+      },
+      "intervals": {
+        "0.5": {
+          "half_width_min": 0.889,
+          "test_coverage": 0.443
+        },
+        "0.8": {
+          "half_width_min": 1.794,
+          "test_coverage": 0.702
+        },
+        "0.9": {
+          "half_width_min": 2.97,
+          "test_coverage": 0.878
+        }
+      }
+    }
+  },
+  "paired_test_comparisons": {
+    "catboost_vs_naive": {
+      "n": 131,
+      "mean_diff_min": -1.2973676007841455,
+      "ci95_min": [
+        -1.558313595763166,
+        -1.0352944274490985
+      ],
+      "share_a_better": 0.8396946564885496,
+      "share_tied": 0.0
+    },
+    "catboost_vs_baseline": {
+      "n": 131,
+      "mean_diff_min": -0.3961863772053209,
+      "ci95_min": [
+        -0.6126112977082614,
+        -0.187785380697008
+      ],
+      "share_a_better": 0.5572519083969466,
+      "share_tied": 0.0
+    },
+    "catboost_vs_ridge": {
+      "n": 131,
+      "mean_diff_min": -0.3602582749181342,
+      "ci95_min": [
+        -0.600397210986545,
+        -0.15155201722524966
+      ],
+      "share_a_better": 0.6030534351145038,
+      "share_tied": 0.0
     }
   },
   "tuning": {
     "naive": [
       {
         "params": {},
-        "val_mae_min": 2.9053
+        "val_mae_min": 2.9163
       }
     ],
     "baseline": [
@@ -127,63 +342,63 @@
           "min_n": 1,
           "shrink": 0.0
         },
-        "val_mae_min": 1.7487
+        "val_mae_min": 1.686
       },
       {
         "params": {
           "min_n": 1,
           "shrink": 1.0
         },
-        "val_mae_min": 1.6525
+        "val_mae_min": 1.6392
       },
       {
         "params": {
           "min_n": 1,
           "shrink": 3.0
         },
-        "val_mae_min": 1.5777
+        "val_mae_min": 1.5934
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 0.0
         },
-        "val_mae_min": 1.6885
+        "val_mae_min": 1.6822
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 1.0
         },
-        "val_mae_min": 1.63
+        "val_mae_min": 1.6433
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 3.0
         },
-        "val_mae_min": 1.5716
+        "val_mae_min": 1.5972
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 0.0
         },
-        "val_mae_min": 1.6504
+        "val_mae_min": 1.7154
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 1.0
         },
-        "val_mae_min": 1.6091
+        "val_mae_min": 1.6654
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 3.0
         },
-        "val_mae_min": 1.5645
+        "val_mae_min": 1.6104
       }
     ],
     "ridge": [
@@ -192,122 +407,126 @@
           "alpha": 0.3,
           "speaker_onehot": false
         },
-        "val_mae_min": 1.7861
+        "val_mae_min": 1.6407
       },
       {
         "params": {
           "alpha": 0.3,
           "speaker_onehot": true
         },
-        "val_mae_min": 1.9623
+        "val_mae_min": 1.9708
       },
       {
         "params": {
           "alpha": 1.0,
           "speaker_onehot": false
         },
-        "val_mae_min": 1.6991
+        "val_mae_min": 1.6757
       },
       {
         "params": {
           "alpha": 1.0,
           "speaker_onehot": true
         },
-        "val_mae_min": 1.7926
+        "val_mae_min": 1.886
       },
       {
         "params": {
           "alpha": 3.0,
           "speaker_onehot": false
         },
-        "val_mae_min": 1.5975
+        "val_mae_min": 1.6372
       },
       {
         "params": {
           "alpha": 3.0,
           "speaker_onehot": true
         },
-        "val_mae_min": 1.6244
+        "val_mae_min": 1.7591
       },
       {
         "params": {
           "alpha": 10.0,
           "speaker_onehot": false
         },
-        "val_mae_min": 1.5549
+        "val_mae_min": 1.5382
       },
       {
         "params": {
           "alpha": 10.0,
           "speaker_onehot": true
         },
-        "val_mae_min": 1.5339
+        "val_mae_min": 1.59
       },
       {
         "params": {
           "alpha": 30.0,
           "speaker_onehot": false
         },
-        "val_mae_min": 1.5962
+        "val_mae_min": 1.5131
       },
       {
         "params": {
           "alpha": 30.0,
           "speaker_onehot": true
         },
-        "val_mae_min": 1.5768
+        "val_mae_min": 1.517
+      }
+    ],
+    "catboost": [
+      {
+        "params": {
+          "depth": 4,
+          "loss": "RMSE"
+        },
+        "val_mae_min": 1.3872,
+        "best_iterations": 576
+      },
+      {
+        "params": {
+          "depth": 4,
+          "loss": "MAE"
+        },
+        "val_mae_min": 1.4068,
+        "best_iterations": 248
+      },
+      {
+        "params": {
+          "depth": 6,
+          "loss": "RMSE"
+        },
+        "val_mae_min": 1.3844,
+        "best_iterations": 668
+      },
+      {
+        "params": {
+          "depth": 6,
+          "loss": "MAE"
+        },
+        "val_mae_min": 1.4322,
+        "best_iterations": 158
       }
     ]
   },
   "data_report": {
     "n_talks": 793,
     "by_status": {
-      "ok": 655,
-      "missing": 130,
-      "unparseable": 6,
+      "ok": 791,
+      "missing": 0,
+      "unparseable": 0,
       "implausible": 2
     },
     "by_source_status": {
       "legacy_csv": {
-        "ok": 655,
-        "missing": 130,
-        "unparseable": 6,
+        "ok": 791,
         "implausible": 2
       }
     },
     "not_ok_by_conference": {
-      "2010-04": 5,
-      "2010-10": 6,
-      "2011-04": 8,
-      "2011-10": 8,
-      "2012-04": 5,
-      "2012-10": 7,
-      "2013-04": 5,
-      "2013-10": 6,
-      "2014-04": 7,
-      "2014-10": 7,
-      "2015-04": 4,
-      "2015-10": 5,
-      "2016-04": 7,
-      "2016-10": 9,
-      "2017-04": 7,
-      "2017-10": 10,
-      "2018-04": 10,
-      "2018-10": 4,
-      "2019-04": 1,
-      "2019-10": 3,
-      "2020-04": 6,
-      "2020-10": 8
+      "2014-10": 1,
+      "2020-04": 1
     },
     "invalid_rows": [
-      {
-        "conference": "2013-10",
-        "speaker": "Dieter F. Uchtdorf",
-        "title": "Come, Join with Us",
-        "duration_raw": "17:60",
-        "num_words": 2021,
-        "status": "unparseable"
-      },
       {
         "conference": "2014-10",
         "speaker": "Dieter F. Uchtdorf",
@@ -315,46 +534,6 @@
         "duration_raw": "1:23",
         "num_words": 1960,
         "status": "implausible"
-      },
-      {
-        "conference": "2015-04",
-        "speaker": "Ulisses Soares",
-        "title": "Yes, We Can and Will Win!",
-        "duration_raw": "11:60",
-        "num_words": 1675,
-        "status": "unparseable"
-      },
-      {
-        "conference": "2015-10",
-        "speaker": "Gregory A. Schwitzer",
-        "title": "Let the Clarion Trumpet Sound",
-        "duration_raw": "9:60",
-        "num_words": 1401,
-        "status": "unparseable"
-      },
-      {
-        "conference": "2016-04",
-        "speaker": "Neil L. Andersen",
-        "title": "\u201cWhoso Receiveth Them, Receiveth Me\u201d",
-        "duration_raw": "13:60",
-        "num_words": 1781,
-        "status": "unparseable"
-      },
-      {
-        "conference": "2016-04",
-        "speaker": "D. Todd Christofferson",
-        "title": "Fathers",
-        "duration_raw": "15:60",
-        "num_words": 2285,
-        "status": "unparseable"
-      },
-      {
-        "conference": "2018-10",
-        "speaker": "Henry B. Eyring",
-        "title": "Try, Try, Try",
-        "duration_raw": "15:60",
-        "num_words": 2029,
-        "status": "unparseable"
       },
       {
         "conference": "2020-04",
@@ -365,18 +544,254 @@
         "status": "implausible"
       }
     ],
+    "coverage_by_conference": [
+      {
+        "conference": "2010-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 32,
+        "from_video": 5,
+        "not_timed": 0
+      },
+      {
+        "conference": "2010-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 38,
+        "timed": 38,
+        "from_legacy_runtime": 32,
+        "from_video": 6,
+        "not_timed": 0
+      },
+      {
+        "conference": "2011-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 29,
+        "from_video": 8,
+        "not_timed": 0
+      },
+      {
+        "conference": "2011-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 38,
+        "timed": 38,
+        "from_legacy_runtime": 30,
+        "from_video": 8,
+        "not_timed": 0
+      },
+      {
+        "conference": "2012-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 32,
+        "from_video": 5,
+        "not_timed": 0
+      },
+      {
+        "conference": "2012-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 38,
+        "timed": 38,
+        "from_legacy_runtime": 31,
+        "from_video": 7,
+        "not_timed": 0
+      },
+      {
+        "conference": "2013-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 32,
+        "from_video": 5,
+        "not_timed": 0
+      },
+      {
+        "conference": "2013-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 38,
+        "timed": 38,
+        "from_legacy_runtime": 32,
+        "from_video": 6,
+        "not_timed": 0
+      },
+      {
+        "conference": "2014-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 30,
+        "from_video": 7,
+        "not_timed": 0
+      },
+      {
+        "conference": "2014-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 38,
+        "timed": 37,
+        "from_legacy_runtime": 32,
+        "from_video": 6,
+        "not_timed": 1
+      },
+      {
+        "conference": "2015-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 36,
+        "timed": 36,
+        "from_legacy_runtime": 32,
+        "from_video": 4,
+        "not_timed": 0
+      },
+      {
+        "conference": "2015-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 39,
+        "timed": 39,
+        "from_legacy_runtime": 34,
+        "from_video": 5,
+        "not_timed": 0
+      },
+      {
+        "conference": "2016-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 35,
+        "timed": 35,
+        "from_legacy_runtime": 28,
+        "from_video": 7,
+        "not_timed": 0
+      },
+      {
+        "conference": "2016-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 28,
+        "from_video": 9,
+        "not_timed": 0
+      },
+      {
+        "conference": "2017-04",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 36,
+        "timed": 36,
+        "from_legacy_runtime": 29,
+        "from_video": 7,
+        "not_timed": 0
+      },
+      {
+        "conference": "2017-10",
+        "source": "legacy_csv",
+        "sessions": 6,
+        "talks": 35,
+        "timed": 35,
+        "from_legacy_runtime": 25,
+        "from_video": 10,
+        "not_timed": 0
+      },
+      {
+        "conference": "2018-04",
+        "source": "legacy_csv",
+        "sessions": 5,
+        "talks": 35,
+        "timed": 35,
+        "from_legacy_runtime": 25,
+        "from_video": 10,
+        "not_timed": 0
+      },
+      {
+        "conference": "2018-10",
+        "source": "legacy_csv",
+        "sessions": 5,
+        "talks": 33,
+        "timed": 33,
+        "from_legacy_runtime": 29,
+        "from_video": 4,
+        "not_timed": 0
+      },
+      {
+        "conference": "2019-04",
+        "source": "legacy_csv",
+        "sessions": 5,
+        "talks": 31,
+        "timed": 31,
+        "from_legacy_runtime": 30,
+        "from_video": 1,
+        "not_timed": 0
+      },
+      {
+        "conference": "2019-10",
+        "source": "legacy_csv",
+        "sessions": 5,
+        "talks": 34,
+        "timed": 34,
+        "from_legacy_runtime": 31,
+        "from_video": 3,
+        "not_timed": 0
+      },
+      {
+        "conference": "2020-04",
+        "source": "legacy_csv",
+        "sessions": 5,
+        "talks": 33,
+        "timed": 32,
+        "from_legacy_runtime": 28,
+        "from_video": 5,
+        "not_timed": 1
+      },
+      {
+        "conference": "2020-10",
+        "source": "legacy_csv",
+        "sessions": 5,
+        "talks": 34,
+        "timed": 34,
+        "from_legacy_runtime": 26,
+        "from_video": 8,
+        "not_timed": 0
+      }
+    ],
+    "duplicate_check": {
+      "duplicate_urls": 0,
+      "duplicate_conference_session_speaker_title": 0,
+      "speakers_with_multiple_talks_in_one_conference": 118
+    },
+    "speaker_aliases_applied": {
+      "L. Harkness -> Lisa L. Harkness": 1,
+      "Larry Echo Hawk -> Larry J. Echo Hawk": 1
+    },
+    "duration_fixes_applied": {
+      "missing": 130,
+      "unparseable": 6
+    },
     "duration_minutes": {
-      "n": 655,
-      "mean": 13.44,
-      "median": 13.65,
-      "std": 3.64,
+      "n": 791,
+      "mean": 13.33,
+      "median": 13.25,
+      "std": 3.67,
       "min": 2.25,
       "max": 25.5
     },
     "notes": {
       "dropped_non_talks": {
         "legacy_csv": 1
-      }
+      },
+      "legacy_duration_fixes_file": "data\\processed\\legacy_duration_fixes.csv"
     },
     "conferences": [
       "2010-04",

@@ -164,7 +164,10 @@ def main() -> int:
     p.add_argument("--speaker", required=True)
     p.add_argument("--calling", required=True, help='role as printed, e.g. "Of the Seventy"')
     p.add_argument("--session", required=True, help="e.g. saturday-morning, sunday-afternoon, saturday-evening")
-    p.add_argument("--order", required=True, type=int, help="speaking order within the session (1 = first)")
+    p.add_argument("--order", required=True, type=int,
+                   help="speaking order within the session counting TALKS ONLY (1 = first talk). Do not count the "
+                        "sustaining of officers, the auditing/statistical report, a solemn assembly, videos, music "
+                        "or prayers; the next talk after one of those keeps counting from where the talks left off")
     p.add_argument("--conference", default="2026-10", help="target conference, YYYY-MM (default 2026-10)")
     p.add_argument("--model", default="all")
     p.add_argument("--log", action="store_true", help="append predictions to outputs/predictions_log.csv")

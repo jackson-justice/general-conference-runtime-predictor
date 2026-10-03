@@ -8,7 +8,7 @@ import unicodedata
 import numpy as np
 import pandas as pd
 
-from .paths import COLLECTED_CSV, DATASET_CSV, LEGACY_CSV, OUTPUTS
+from .paths import COLLECTED_CSV, DATASET_CSV, LEGACY_CSV, LEGACY_FIXES_CSV, OUTPUTS
 
 MONTH_NUM = {"April": 4, "October": 10}
 MONTH_NAME = {4: "April", 10: "October"}
@@ -28,9 +28,14 @@ WPM_MIN, WPM_MAX = 50.0, 300.0
 
 STATUS_ORDER = ["ok", "missing", "unparseable", "implausible"]
 
-# Bylines on the site that differ from the legacy CSV spelling of the same person
-# (found by collect.py --compare-legacy). Keep speaker histories under one name.
-SPEAKER_ALIASES = {"Becky Craven": "Rebecca L. Craven"}
+# Explicit alias table: source spelling -> canonical name. The source spelling is
+# preserved in `speaker_source`; `speaker` (canonical) is what histories key on.
+# Found by collect.py --compare-legacy and a surname/initial scan of all bylines.
+SPEAKER_ALIASES = {
+    "Becky Craven": "Rebecca L. Craven",      # site byline (2020-10) vs legacy CSV / 2022-04 byline
+    "Larry Echo Hawk": "Larry J. Echo Hawk",  # two spellings within the legacy CSV
+    "L. Harkness": "Lisa L. Harkness",        # two spellings within the legacy CSV
+}
 
 
 def canonical_speaker(value) -> str | None:
@@ -153,7 +158,32 @@ def flag_implausible(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def load_legacy(path=LEGACY_CSV) -> pd.DataFrame:
+def apply_duration_fixes(df: pd.DataFrame, path=LEGACY_FIXES_CSV) -> pd.DataFrame:
+    """Replace unusable legacy runtimes with durations verified on the official talk page.
+
+    Only rows that scripts/verify_durations.py marked "corrected" or "filled"
+    are touched. The original runtime string stays in duration_raw.
+    """
+    attrs = dict(df.attrs)
+    df = df.copy()
+    fixes = pd.read_csv(path, encoding="utf-8")
+    fixes = fixes[fixes.action.isin(["corrected", "filled"]) & fixes.video_sec.notna()].set_index("url")
+    sec = df.url.map(fixes.video_sec)
+    hit = sec.notna() & df.duration_status.ne("ok")
+    before = df.loc[hit, "duration_status"].value_counts().to_dict()
+    df.loc[hit, "duration_note"] = [
+        f"legacy runtime {raw!r} ({st}) replaced by official video duration"
+        for raw, st in zip(df.loc[hit, "duration_raw"], df.loc[hit, "duration_status"])
+    ]
+    df.loc[hit, "duration_sec"] = sec[hit].astype(float)
+    df.loc[hit, "duration_status"] = "ok"
+    df.loc[hit, "duration_source"] = "video_data_duration"
+    df.attrs.update(attrs)
+    df.attrs["duration_fixes_applied"] = {k: int(v) for k, v in before.items()}
+    return df
+
+
+def load_legacy(path=LEGACY_CSV, apply_fixes: bool = True) -> pd.DataFrame:
     raw = pd.read_csv(path, encoding="utf-8")
     df = pd.DataFrame(
         {
@@ -162,6 +192,7 @@ def load_legacy(path=LEGACY_CSV) -> pd.DataFrame:
             "session": raw.session.map(clean_text),
             "orig_order": raw.speaker_order.astype(int),
             "speaker": raw.speaker.map(canonical_speaker),
+            "speaker_source": raw.speaker.map(clean_text),
             "role": raw.role.map(clean_text),
             "title": raw.talk_name.map(clean_text),
             "kicker": raw.kicker.map(clean_text),
@@ -173,7 +204,10 @@ def load_legacy(path=LEGACY_CSV) -> pd.DataFrame:
     parsed = df.duration_raw.map(parse_runtime)
     df["duration_sec"] = [p[0] for p in parsed]
     df["duration_status"] = [p[1] for p in parsed]
+    df["duration_note"] = None
     df = _finish(df, source="legacy_csv", duration_source="legacy_csv_runtime")
+    if apply_fixes and LEGACY_FIXES_CSV.exists():
+        df = apply_duration_fixes(df)
     return flag_implausible(df)
 
 
@@ -188,6 +222,7 @@ def load_collected(path=COLLECTED_CSV) -> pd.DataFrame | None:
             "session": raw.session.map(clean_text),
             "orig_order": raw.site_slot.astype(int),
             "speaker": raw.speaker.map(canonical_speaker),
+            "speaker_source": raw.speaker.map(clean_text),
             "role": raw.role.map(clean_text),
             "title": raw.title.map(clean_text),
             "kicker": raw.kicker.map(clean_text),
@@ -200,6 +235,7 @@ def load_collected(path=COLLECTED_CSV) -> pd.DataFrame | None:
     df["duration_sec"] = ms / 1000.0
     df["duration_status"] = np.where(ms.notna() & (ms > 0), "ok", "missing")
     df.loc[df.duration_status != "ok", "duration_sec"] = np.nan
+    df["duration_note"] = None
     df = _finish(df, source="scraped", duration_source="video_data_duration")
     return flag_implausible(df)
 
@@ -226,6 +262,27 @@ def duration_report(df: pd.DataFrame) -> dict:
         }
         for r in bad.itertuples()
     ]
+    cov = (
+        df.groupby(["conference", "source"], sort=True)
+        .agg(sessions=("session", "nunique"), talks=("url", "size"),
+             timed=("duration_status", lambda s: int((s == "ok").sum())),
+             from_legacy_runtime=("duration_source", lambda s: int((s == "legacy_csv_runtime").sum())),
+             from_video=("duration_source", lambda s: int((s == "video_data_duration").sum())))
+        .reset_index()
+    )
+    cov["not_timed"] = cov.talks - cov.timed
+    rep["coverage_by_conference"] = cov.to_dict(orient="records")
+    rep["duplicate_check"] = {
+        "duplicate_urls": int(df.url.duplicated().sum()),
+        "duplicate_conference_session_speaker_title": int(df.duplicated(["conference", "session", "speaker", "title"]).sum()),
+        "speakers_with_multiple_talks_in_one_conference": int(df.duplicated(["conference", "speaker"]).sum()),
+    }
+    aliased = df[df.speaker != df.speaker_source]
+    rep["speaker_aliases_applied"] = {
+        f"{src} -> {canon}": int(n)
+        for (src, canon), n in aliased.groupby(["speaker_source", "speaker"]).size().items()
+    }
+    rep["duration_fixes_applied"] = df.attrs.get("duration_fixes_applied", {})
     ok = df[df.duration_status == "ok"]
     rep["duration_minutes"] = {
         "n": int(len(ok)),
@@ -256,14 +313,17 @@ def build_dataset(include_collected: bool = True, save: bool = True) -> tuple[pd
             parts.append(collected)
         else:
             notes["collected"] = "no scraped data found; using legacy CSV only"
+    fixes_applied = legacy.attrs.get("duration_fixes_applied", {})
     df = pd.concat(parts, ignore_index=True)
     df = df.sort_values(["conf_index", "session", "speaker_order"]).reset_index(drop=True)
+    df.attrs["duration_fixes_applied"] = fixes_applied
     df["talk_id"] = df.url.str.replace(r"^https?://www\.churchofjesuschrist\.org/study/", "", regex=True)
     dup = df.talk_id.duplicated()
     if dup.any():
         notes["duplicate_urls_dropped"] = int(dup.sum())
         df = df[~dup].reset_index(drop=True)
     report = duration_report(df)
+    notes["legacy_duration_fixes_file"] = str(LEGACY_FIXES_CSV.relative_to(LEGACY_FIXES_CSV.parents[2])) if LEGACY_FIXES_CSV.exists() else None
     report["notes"] = notes
     report["conferences"] = sorted(df.conference.unique().tolist())
     if save:

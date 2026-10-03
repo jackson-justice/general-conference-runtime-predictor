@@ -16,7 +16,13 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from .features import HISTORY_COLS
 
 CAT_COLS = ["calling_group", "session", "month"]
-CATBOOST_CAT_COLS = ["speaker", "calling_group", "role_norm", "session", "month"]
+# CatBoost gets no `speaker` categorical: its target statistics would average a
+# speaker's other talks, including same-conference ones, which the history-feature
+# rule forbids. Speaker history enters only through HISTORY_COLS (strictly earlier
+# conferences). The remaining categoricals are one-hot encoded (one_hot_max_size),
+# so CatBoost never computes a target statistic from the training rows.
+CATBOOST_CAT_COLS = ["calling_group", "role_norm", "session", "month"]
+CATBOOST_ONE_HOT_MAX = 64
 NUMERIC_COLS = ["speaker_order"] + HISTORY_COLS
 
 # Small, fixed tuning grids. Settings are chosen on the validation conferences.
@@ -153,7 +159,7 @@ class CatBoostModel:
         self.model_ = CatBoostRegressor(
             depth=self.depth, loss_function=self.loss, eval_metric="MAE", learning_rate=self.learning_rate,
             iterations=self.iterations, l2_leaf_reg=self.l2_leaf_reg, random_seed=self.seed,
-            verbose=0, allow_writing_files=False, thread_count=-1,
+            one_hot_max_size=CATBOOST_ONE_HOT_MAX, verbose=0, allow_writing_files=False, thread_count=-1,
         )
         if X_val is not None and self.early_stopping:
             self.model_.fit(self._pool(X, y), eval_set=self._pool(X_val, y_val),
