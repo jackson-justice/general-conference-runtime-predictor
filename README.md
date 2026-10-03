@@ -22,6 +22,7 @@ requests, beautifulsoup4).
 | Check unusable legacy runtimes against the official talk pages | `uv run python scripts/verify_durations.py` |
 | Train and compare all models on legacy + collected data | `uv run python scripts/train.py` |
 | Rule tests (history leakage, speaking order, parsing, aliases) | `uv run python -m pytest -q` |
+| Log a whole session interactively | `uv run python scripts/predict.py live` |
 | Predict a talk | `uv run python scripts/predict.py predict --speaker "Dale G. Renlund" --calling "Of the Quorum of the Twelve Apostles" --session sunday-morning --order 3 --log` |
 | Record the actual duration afterwards | `uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session sunday-morning --actual 14:12` |
 | Score logged predictions | `uv run python scripts/predict.py score` |
@@ -30,7 +31,23 @@ requests, beautifulsoup4).
 the role as printed on the talk page (e.g. `Of the Seventy`, `President of the
 Church`, `Relief Society General President`).
 
-### How to count `--order` during the live broadcast
+### Live mode (the easy way to log a session)
+
+```
+uv run python scripts/predict.py live
+```
+
+Pick the session once (1-4). Then, for each talk, type the speaker's name
+when it appears on screen and press Enter. A surname is enough: the command
+finds the speaker in the data, proposes their most recent calling (press
+Enter to accept, or type the calling shown on screen or a number from the
+list), prints the predictions and logs them. The talk number counts up by
+itself. Commands inside live mode: `u` undoes the last logged talk, `a 12:34`
+records a hand-timed actual for it, `o 5` sets the next talk number, `s`
+changes session, `q` quits. The full `predict` command below still works for
+one-off use.
+
+### How to count the talk number during the live broadcast
 
 `--order` is the talk's position among the **talks** of its session, starting
 at 1. Count only spoken talks. Do not count, and do not leave a gap for:

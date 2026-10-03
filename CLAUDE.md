@@ -13,6 +13,7 @@ uv run python scripts/verify_durations.py             # check unusable legacy ru
 uv run python scripts/train.py                        # legacy + scraped, all models
 uv run python scripts/train.py --exploratory "why"    # same, but label test numbers as a re-look
 uv run python -m pytest -q                            # rule tests (history leakage, order, parsing, aliases)
+uv run python scripts/predict.py live                 # interactive: one speaker name per talk, auto order + log
 uv run python scripts/predict.py predict --speaker "..." --calling "Of the Seventy" --session sunday-morning --order 3 --log
 uv run python scripts/predict.py log-actual --speaker "..." --session sunday-morning --actual 12:34
 uv run python scripts/predict.py fill-actuals --conference 2026-10   # after collect.py scraped that conference

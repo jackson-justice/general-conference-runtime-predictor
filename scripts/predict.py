@@ -1,6 +1,7 @@
 """Predict a talk's duration from pre-talk information, and log predictions/actuals.
 
 Usage:
+    uv run python scripts/predict.py live                  # interactive: one name per talk
     uv run python scripts/predict.py predict --speaker "Dale G. Renlund" \
         --calling "Of the Quorum of the Twelve Apostles" --session sunday-morning --order 3 --log
     uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session sunday-morning --actual 14:12
@@ -13,6 +14,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import re
 import subprocess
 import sys
 
@@ -73,92 +75,327 @@ def save_log(log: pd.DataFrame) -> None:
     log[LOG_COLS].to_csv(PREDICTION_LOG, index=False, encoding="utf-8")
 
 
-def cmd_predict(args) -> int:
+SESSIONS = ["saturday-morning", "saturday-afternoon", "sunday-morning", "sunday-afternoon", "saturday-evening"]
+CALLING_SHORTCUTS = [
+    "Of the Seventy",
+    "Of the Quorum of the Twelve Apostles",
+    "Of the Presidency of the Seventy",
+    "President of the Church",
+    "First Counselor in the First Presidency",
+    "Second Counselor in the First Presidency",
+    "Acting President of the Quorum of the Twelve Apostles",
+    "President of the Quorum of the Twelve Apostles",
+    "Presiding Bishop",
+    "First Counselor in the Presiding Bishopric",
+    "Second Counselor in the Presiding Bishopric",
+    "Relief Society General President",
+    "Young Women General President",
+    "Primary General President",
+    "Young Men General President",
+    "Sunday School General President",
+]
+
+
+def norm_session(value: str) -> str:
+    return clean_text(value).lower().replace("_", "-").removesuffix("-session")
+
+
+def load_context(conference: str):
+    """Bundle, dataset, and the history rows usable for `conference`."""
     bundle = joblib.load(BUNDLE_PATH)
     df = load_dataset()
-    year, month_num = parse_conference_key(args.conference)
+    year, month_num = parse_conference_key(conference)
     ci = conf_index(year, month_num)
-    hist = df[df.conf_index < ci]
     if ci <= df.conf_index.max():
-        print(f"note: {args.conference} is inside the training data; history is truncated to earlier conferences")
+        print(f"note: {conference} is inside the training data; history is truncated to earlier conferences")
+    return bundle, df, df[df.conf_index < ci], year, month_num, ci
 
-    speaker = canonical_speaker(args.speaker)
-    role = clean_text(args.calling)
-    session = clean_text(args.session).lower().replace("_", "-").removesuffix("-session")
+
+def predict_talk(bundle, hist, year, month_num, ci, conference, speaker, role, session, order,
+                 models="all", verbose=True):
+    """Predict one talk. Returns (rows, version, group); prints the explanation when verbose."""
+    group = calling_group(role)
     if session not in bundle["sessions"]:
         print(f"warning: session {session!r} not among known sessions {bundle['sessions']}")
-    group = calling_group(role)
     if group == "other":
         print(f"warning: calling {role!r} did not map to a known calling group; using 'other'")
-
     row = pd.DataFrame([{
         "speaker": speaker, "role": role, "role_norm": normalize_role(role), "calling_group": group,
-        "session": session, "speaker_order": int(args.order), "month": MONTH_NAME[month_num],
+        "session": session, "speaker_order": int(order), "month": MONTH_NAME[month_num],
         "conf_index": ci, "year": year,
     }])
     X = row.join(history_features(hist, row))
     f = X.iloc[0]
-    print(f"\n{speaker} | {role} ({group}) | {session} #{int(args.order)} | {args.conference}")
-    if f.spk_n_talks == 0:
-        print("speaker history: none in the dataset (unseen speaker; prediction relies on calling/session)")
-    else:
-        print(f"speaker history: {int(f.spk_n_talks)} prior talks, {int(f.spk_n_timed)} timed, "
-              f"mean {format_seconds(f.spk_mean)}, last {format_seconds(f.spk_last)}, "
-              f"same-calling mean {format_seconds(f.spk_calling_mean)} (n={int(f.spk_calling_n)})")
-    print(f"calling mean {format_seconds(f.calling_mean)} | session mean {format_seconds(f.session_mean)} | "
-          f"recent global mean {format_seconds(f.global_recent_mean)}")
-
-    names = list(bundle["models"]) if args.model == "all" else [args.model]
-    rows = []
     version = model_version(bundle)
-    print(f"model version {version}")
-    print("\nmodel      prediction   estimated range (uncalibrated; share of test talks it covered)   test MAE")
+    if verbose:
+        print(f"\n{speaker} | {role} ({group}) | {session} #{int(order)} | {conference}")
+        if f.spk_n_talks == 0:
+            print("speaker history: none in the dataset (unseen speaker; prediction relies on calling/session)")
+        else:
+            print(f"speaker history: {int(f.spk_n_talks)} prior talks, {int(f.spk_n_timed)} timed, "
+                  f"mean {format_seconds(f.spk_mean)}, last {format_seconds(f.spk_last)}, "
+                  f"same-calling mean {format_seconds(f.spk_calling_mean)} (n={int(f.spk_calling_n)})")
+        print(f"calling mean {format_seconds(f.calling_mean)} | session mean {format_seconds(f.session_mean)} | "
+              f"recent global mean {format_seconds(f.global_recent_mean)}")
+        print(f"model version {version}")
+        print("\nmodel      prediction   estimated range (uncalibrated; share of test talks it covered)   test MAE")
+    names = list(bundle["models"]) if models == "all" else [models]
+    rows = []
     for name in names:
         entry = bundle["models"][name]
         pred = float(entry["model"].predict(X)[0])
         iv = entry["intervals"]["0.8"]
         hw = iv["half_width_min"] * 60
         star = " <- recommended" if name == bundle["recommended"] else ""
-        print(f"{name:10s} {format_seconds(pred):>8s}     {format_seconds(pred - hw)} - {format_seconds(pred + hw)} "
-              f"(covered {iv['test_coverage']:.0%})                                   {entry['test']['mae_min']:.2f} min{star}")
+        if verbose:
+            print(f"{name:10s} {format_seconds(pred):>8s}     {format_seconds(pred - hw)} - {format_seconds(pred + hw)} "
+                  f"(covered {iv['test_coverage']:.0%})                                   {entry['test']['mae_min']:.2f} min{star}")
         rows.append({"model": name, "pred_sec": round(pred, 1)})
-    print("\nThe range is not a calibrated interval. Its half-width is the 80th percentile of validation errors; "
-          "'covered' is the share of held-out test talks that fell inside it (62% for catboost).")
+    if verbose:
+        print("\nThe range is not a calibrated interval. Its half-width is the 80th percentile of validation errors; "
+              "'covered' is the share of held-out test talks that fell inside it (62% for catboost).")
+    return rows, version, group
 
+
+def log_predictions(conference, speaker, role, group, session, order, rows, version, force=False):
+    """Append prediction rows. Returns 'logged', or 'duplicate' when the talk is already logged and not force."""
+    log = load_log()
+    now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    new = pd.DataFrame([{
+        "logged_at": now, "conference": conference, "speaker": speaker, "calling": role,
+        "calling_group": group, "session": session, "speaker_order": int(order),
+        "model": r["model"], "model_version": version,
+        "pred_sec": r["pred_sec"], "pred_mmss": format_seconds(r["pred_sec"]),
+        "actual_sec": np.nan, "actual_mmss": None, "actual_source": None,
+    } for r in rows])
+    # One prediction per (conference, speaker, session, order, model). An existing row is
+    # never overwritten unless force; use `remove` for typos.
+    keys = ["conference", "speaker", "session", "speaker_order", "model"]
+    if len(log):
+        dup = log.set_index(keys).index.isin(new.set_index(keys).index)
+        if dup.any() and not force:
+            first = log[dup].iloc[0]
+            print(f"\nNOT logged: {speaker!r} {session} #{int(order)} already has a prediction "
+                  f"(logged {first.logged_at}, version {first.model_version}). "
+                  f"Re-run with --force to replace it, or `remove` the row if it was a typo.")
+            return "duplicate"
+        carried_actual = log[dup].dropna(subset=["actual_sec"])
+        if len(carried_actual):
+            new = new.merge(carried_actual[keys + ["actual_sec", "actual_source"]]
+                            .rename(columns={"actual_sec": "_a", "actual_source": "_s"}), on=keys, how="left")
+            new["actual_sec"] = new["_a"]
+            new["actual_source"] = new["_s"]
+            new["actual_mmss"] = new.actual_sec.map(lambda s: None if pd.isna(s) else format_seconds(s))
+            new = new.drop(columns=["_a", "_s"])
+        log = log[~dup]
+    log = pd.concat([log, new], ignore_index=True)
+    save_log(log)
+    print(f"logged {len(new)} prediction rows to {PREDICTION_LOG}")
+    return "logged"
+
+
+def cmd_predict(args) -> int:
+    bundle, df, hist, year, month_num, ci = load_context(args.conference)
+    speaker = canonical_speaker(args.speaker)
+    role = clean_text(args.calling)
+    session = norm_session(args.session)
+    rows, version, group = predict_talk(bundle, hist, year, month_num, ci, args.conference,
+                                        speaker, role, session, args.order, models=args.model)
     if args.log:
-        log = load_log()
-        now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
-        new = pd.DataFrame([{
-            "logged_at": now, "conference": args.conference, "speaker": speaker, "calling": role,
-            "calling_group": group, "session": session, "speaker_order": int(args.order),
-            "model": r["model"], "model_version": version,
-            "pred_sec": r["pred_sec"], "pred_mmss": format_seconds(r["pred_sec"]),
-            "actual_sec": np.nan, "actual_mmss": None, "actual_source": None,
-        } for r in rows])
-        # One prediction per (conference, speaker, session, order, model). An existing row is
-        # never overwritten unless --force is given; use `remove` for typos.
-        keys = ["conference", "speaker", "session", "speaker_order", "model"]
-        if len(log):
-            dup = log.set_index(keys).index.isin(new.set_index(keys).index)
-            if dup.any() and not args.force:
-                first = log[dup].iloc[0]
-                print(f"\nNOT logged: {speaker!r} {session} #{int(args.order)} already has a prediction "
-                      f"(logged {first.logged_at}, version {first.model_version}). "
-                      f"Re-run with --force to replace it, or `remove` the row if it was a typo.")
-                return 0
-            carried_actual = log[dup].dropna(subset=["actual_sec"])
-            if len(carried_actual):
-                new = new.merge(carried_actual[keys + ["actual_sec", "actual_source"]]
-                                .rename(columns={"actual_sec": "_a", "actual_source": "_s"}), on=keys, how="left")
-                new["actual_sec"] = new["_a"]
-                new["actual_source"] = new["_s"]
-                new["actual_mmss"] = new.actual_sec.map(lambda s: None if pd.isna(s) else format_seconds(s))
-                new = new.drop(columns=["_a", "_s"])
-            log = log[~dup]
-        log = pd.concat([log, new], ignore_index=True)
-        save_log(log)
-        print(f"logged {len(new)} prediction rows to {PREDICTION_LOG}")
+        log_predictions(args.conference, speaker, role, group, session, args.order, rows, version, force=args.force)
     return 0
+
+
+# ---------------------------------------------------------------------------
+# Interactive live mode
+# ---------------------------------------------------------------------------
+
+def speaker_directory(hist: pd.DataFrame) -> pd.DataFrame:
+    """Known speakers with their most recent printed role and last conference."""
+    h = hist.sort_values(["conf_index", "session", "speaker_order"])
+    last = h.groupby("speaker").tail(1)
+    return last[["speaker", "role", "conference"]].set_index("speaker")
+
+
+def match_speaker(text: str, directory: pd.DataFrame) -> list[str]:
+    """Candidates for a typed name: exact, then all typed words contained in the name, then fuzzy."""
+    import difflib
+
+    t = clean_text(text) or ""
+    canon = canonical_speaker(t)
+    names = directory.index.tolist()
+    lower = {n.lower(): n for n in names}
+    if canon and canon.lower() in lower:
+        return [lower[canon.lower()]]
+    words = [w for w in re.split(r"\s+", t.lower()) if w]
+    contained = [n for n in names if all(w in n.lower() for w in words)]
+    if contained:
+        return sorted(contained)
+    fuzzy = difflib.get_close_matches(t, names, n=5, cutoff=0.6)
+    if not fuzzy and words:
+        # match on surname only
+        fuzzy = [n for n in names if difflib.get_close_matches(words[-1], n.lower().split(), n=1, cutoff=0.8)]
+    return fuzzy
+
+
+def ask(prompt: str) -> str | None:
+    try:
+        return input(prompt)
+    except (EOFError, KeyboardInterrupt):
+        print()
+        return None
+
+
+def choose_session(default: str | None = None) -> str | None:
+    opts = SESSIONS[:4]
+    menu = "  ".join(f"{i + 1}={s}" for i, s in enumerate(opts))
+    while True:
+        ans = ask(f"Session? {menu}" + (f"  [Enter={default}]" if default else "") + ": ")
+        if ans is None:
+            return None
+        ans = ans.strip()
+        if not ans and default:
+            return default
+        if ans.isdigit() and 1 <= int(ans) <= len(opts):
+            return opts[int(ans) - 1]
+        if ans:
+            s = norm_session(ans)
+            if s in SESSIONS:
+                return s
+        print("  pick 1-4 or type a session name")
+
+
+def choose_calling(default: str | None) -> str | None:
+    menu = "\n".join(f"  {i + 1:2d}  {c}" for i, c in enumerate(CALLING_SHORTCUTS))
+    hint = f" [Enter={default}]" if default else ""
+    while True:
+        ans = ask(f"  Calling{hint} (number, or type it as shown on screen; ? for list): ")
+        if ans is None:
+            return None
+        ans = ans.strip()
+        if not ans and default:
+            return default
+        if ans == "?":
+            print(menu)
+            continue
+        if ans.isdigit() and 1 <= int(ans) <= len(CALLING_SHORTCUTS):
+            return CALLING_SHORTCUTS[int(ans) - 1]
+        if ans:
+            role = clean_text(ans)
+            if calling_group(role) == "other":
+                ok = ask(f"  {role!r} does not match a known calling group. Use it anyway? [y/N] ")
+                if ok is None or ok.strip().lower() != "y":
+                    continue
+            return role
+
+
+def cmd_live(args) -> int:
+    """Prompt-driven logging for a live session: type a name per talk, everything else is filled in."""
+    bundle, df, hist, year, month_num, ci = load_context(args.conference)
+    directory = speaker_directory(hist)
+    print(f"\nLive mode for {args.conference}. Model version {model_version(bundle)}.")
+    print("Per talk: type the speaker's name and press Enter. Count talks only (skip sustaining, audit report, "
+          "music, prayers, videos).")
+    print("Commands: u = undo last logged talk, a 12:34 = hand-timed actual for last talk, o 5 = set next talk "
+          "number, s = change session, q = quit.\n")
+    session = choose_session()
+    if session is None:
+        return 0
+    order = 1
+    last = None  # (speaker, session, order)
+    while True:
+        ans = ask(f"[{session}] talk #{order} speaker: ")
+        if ans is None or ans.strip().lower() == "q":
+            print("bye")
+            return 0
+        text = ans.strip()
+        if not text:
+            continue
+        low = text.lower()
+        if low == "s":
+            new_session = choose_session(default=session)
+            if new_session is None:
+                return 0
+            if new_session != session:
+                session, order, last = new_session, 1, None
+            continue
+        if low == "u":
+            if last is None:
+                print("  nothing to undo")
+                continue
+            sp, se, od = last
+            log = load_log()
+            mask = log.conference.eq(args.conference) & log.speaker.eq(sp) & log.session.eq(se) \
+                & log.speaker_order.astype(float).eq(float(od))
+            save_log(log[~mask])
+            print(f"  removed {int(mask.sum())} rows for {sp} ({se} #{od})")
+            order, last = od, None
+            continue
+        m = re.match(r"^a\s+(\S+)$", low)
+        if m:
+            if last is None:
+                print("  no talk logged yet in this run; use `predict.py log-actual` for earlier talks")
+                continue
+            seconds, status = parse_runtime(m.group(1))
+            if status != "ok":
+                print(f"  could not parse {m.group(1)!r}; use m:ss")
+                continue
+            sp, se, od = last
+            log = load_log()
+            mask = log.conference.eq(args.conference) & log.speaker.eq(sp) & log.session.eq(se) \
+                & log.speaker_order.astype(float).eq(float(od))
+            log.loc[mask, "actual_sec"] = seconds
+            log.loc[mask, "actual_mmss"] = format_seconds(seconds)
+            log.loc[mask, "actual_source"] = "hand"
+            save_log(log)
+            print(f"  hand-timed actual {format_seconds(seconds)} recorded for {sp} (provisional until fill-actuals)")
+            continue
+        m = re.match(r"^o\s+(\d+)$", low)
+        if m:
+            order = int(m.group(1))
+            print(f"  next talk is #{order}")
+            continue
+
+        # --- a speaker name ---
+        candidates = match_speaker(text, directory)
+        speaker, default_role = None, None
+        if len(candidates) == 1:
+            speaker = candidates[0]
+            default_role = directory.loc[speaker, "role"]
+            print(f"  -> {speaker}, {default_role} (last spoke {directory.loc[speaker, 'conference']})")
+        elif len(candidates) > 1:
+            for i, c in enumerate(candidates, 1):
+                print(f"  {i}  {c}  ({directory.loc[c, 'role']}, last {directory.loc[c, 'conference']})")
+            pick = ask(f"  which one? (1-{len(candidates)}, or n = none of these, new speaker): ")
+            if pick is None:
+                return 0
+            pick = pick.strip().lower()
+            if pick.isdigit() and 1 <= int(pick) <= len(candidates):
+                speaker = candidates[int(pick) - 1]
+                default_role = directory.loc[speaker, "role"]
+            elif pick != "n":
+                continue
+        if speaker is None:
+            full = ask(f"  new speaker: full name as shown on screen [Enter={clean_text(text)}]: ")
+            if full is None:
+                return 0
+            speaker = canonical_speaker(full.strip() or text)
+            print(f"  -> {speaker} (no history; prediction will rely on calling and session)")
+        role = choose_calling(default_role)
+        if role is None:
+            return 0
+        rows, version, group = predict_talk(bundle, hist, year, month_num, ci, args.conference,
+                                            speaker, role, session, order)
+        status = log_predictions(args.conference, speaker, role, group, session, order, rows, version)
+        if status == "duplicate":
+            rep = ask("  replace the existing prediction? [y/N] ")
+            if rep is not None and rep.strip().lower() == "y":
+                log_predictions(args.conference, speaker, role, group, session, order, rows, version, force=True)
+            else:
+                continue
+        last = (speaker, session, order)
+        order += 1
+        print()
 
 
 def cmd_log_actual(args) -> int:
@@ -305,6 +542,10 @@ def main() -> int:
     p.add_argument("--log", action="store_true", help="append predictions to outputs/predictions_log.csv")
     p.add_argument("--force", action="store_true", help="replace an already-logged prediction for this talk")
     p.set_defaults(func=cmd_predict)
+
+    lv = sub.add_parser("live", help="interactive mode: type a speaker name per talk; calling, order and logging are handled")
+    lv.add_argument("--conference", default="2026-10")
+    lv.set_defaults(func=cmd_live)
 
     a = sub.add_parser("log-actual", help="record the actual duration for a logged talk")
     a.add_argument("--speaker", required=True)
