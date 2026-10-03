@@ -1,0 +1,133 @@
+conference,session,speaker_order,speaker,speaker_source,role_norm,calling_group,spk_n_talks,spk_n_timed,duration_source,duration_sec,actual,pred_naive,err_naive_min,pred_baseline,err_baseline_min,pred_ridge,err_ridge_min,pred_catboost,err_catboost_min
+2024-10,saturday-afternoon,1,D. Todd Christofferson,D. Todd Christofferson,Of the Quorum of the Twelve Apostles,twelve,29.0,29.0,video_data_duration,791.566,13:12,749.2,-0.71,899.2,1.79,817.8,0.44,845.4,0.9
+2024-10,saturday-afternoon,2,José A. Teixeira,José A. Teixeira,Of the Presidency of the Seventy,seventy_presidency,2.0,2.0,video_data_duration,649.466,10:49,749.2,1.66,619.7,-0.5,598.3,-0.85,659.5,0.17
+2024-10,saturday-afternoon,3,Juan Pablo Villar,Juan Pablo Villar,Of the Seventy,seventy,1.0,1.0,video_data_duration,613.433,10:13,749.2,2.26,633.4,0.33,633.4,0.33,644.5,0.52
+2024-10,saturday-afternoon,4,Patrick Kearon,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,4.0,4.0,video_data_duration,781.766,13:02,749.2,-0.54,791.8,0.17,775.2,-0.11,728.6,-0.89
+2024-10,saturday-afternoon,5,David L. Buckner,David L. Buckner,Of the Seventy,seventy,0.0,0.0,video_data_duration,648.933,10:49,749.2,1.67,628.3,-0.34,617.7,-0.52,648.3,-0.01
+2024-10,saturday-afternoon,6,D. Martin Goury,D. Martin Goury,Of the Seventy,seventy,0.0,0.0,video_data_duration,583.333,9:43,749.2,2.76,628.3,0.75,622.6,0.65,645.7,1.04
+2024-10,saturday-afternoon,7,Aroldo B. Cavalcante,Aroldo B. Cavalcante,Of the Seventy,seventy,0.0,0.0,video_data_duration,585.833,9:46,749.2,2.72,628.3,0.71,627.5,0.69,645.7,1.0
+2024-10,saturday-afternoon,8,Ulisses Soares,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,17.0,17.0,video_data_duration,920.033,15:20,749.2,-2.85,796.2,-2.06,854.4,-1.09,831.5,-1.48
+2024-10,saturday-evening,1,Gerrit W. Gong,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,15.0,15.0,video_data_duration,857.2,14:17,749.2,-1.8,807.3,-0.83,817.2,-0.67,828.5,-0.48
+2024-10,saturday-evening,2,Kristin M. Yee,Kristin M. Yee,Second Counselor in the Relief Society General Presidency,auxiliary_counselor,1.0,1.0,video_data_duration,729.433,12:09,749.2,0.33,657.4,-1.2,635.3,-1.57,649.2,-1.34
+2024-10,saturday-evening,3,Kyle S. McKay,Kyle S. McKay,Of the Seventy,seventy,1.0,1.0,video_data_duration,668.066,11:08,749.2,1.35,645.9,-0.37,669.7,0.03,650.7,-0.29
+2024-10,saturday-evening,4,Jorge M. Alvarado,Jorge M. Alvarado,Of the Seventy,seventy,1.0,1.0,video_data_duration,694.6,11:35,749.2,0.91,629.7,-1.08,649.3,-0.76,653.5,-0.68
+2024-10,saturday-evening,5,David A. Bednar,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,29.0,29.0,video_data_duration,976.4,16:16,749.2,-3.79,929.6,-0.78,866.3,-1.84,860.9,-1.92
+2024-10,saturday-morning,1,Neil L. Andersen,Neil L. Andersen,Of the Quorum of the Twelve Apostles,twelve,29.0,29.0,video_data_duration,811.8,13:32,749.2,-1.04,905.5,1.56,833.9,0.37,844.3,0.54
+2024-10,saturday-morning,2,Emily Belle Freeman,Emily Belle Freeman,Young Women General President,auxiliary_president,1.0,1.0,video_data_duration,705.566,11:46,749.2,0.73,680.4,-0.42,641.0,-1.08,651.6,-0.9
+2024-10,saturday-morning,3,Karl D. Hirst,Karl D. Hirst,Of the Seventy,seventy,0.0,0.0,video_data_duration,631.4,10:31,749.2,1.96,628.3,-0.05,617.7,-0.23,642.8,0.19
+2024-10,saturday-morning,4,Dale G. Renlund,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,19.0,19.0,video_data_duration,829.0,13:49,749.2,-1.33,826.0,-0.05,837.6,0.14,827.7,-0.02
+2024-10,saturday-morning,5,David P. Homer,David P. Homer,Of the Seventy,seventy,1.0,1.0,video_data_duration,620.0,10:20,749.2,2.15,625.9,0.1,640.8,0.35,642.8,0.38
+2024-10,saturday-morning,6,Gregorio E. Casillas,Gregorio E. Casillas,Of the Seventy,seventy,0.0,0.0,video_data_duration,576.533,9:37,749.2,2.88,628.3,0.86,632.5,0.93,642.7,1.1
+2024-10,saturday-morning,7,Dallin H. Oaks,Dallin H. Oaks,First Counselor in the First Presidency,first_presidency_counselor,37.0,37.0,video_data_duration,810.976,13:31,749.2,-1.03,912.6,1.69,897.4,1.44,920.3,1.82
+2024-10,sunday-afternoon,1,Dieter F. Uchtdorf,Dieter F. Uchtdorf,Of the Quorum of the Twelve Apostles,twelve,52.0,51.0,video_data_duration,871.533,14:32,749.2,-2.04,1092.5,3.68,913.9,0.71,885.2,0.23
+2024-10,sunday-afternoon,2,Takashi Wada,Takashi Wada,Of the Seventy,seventy,1.0,1.0,video_data_duration,606.566,10:07,749.2,2.38,615.4,0.15,594.3,-0.21,641.6,0.58
+2024-10,sunday-afternoon,3,Ronald A. Rasband,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,21.0,21.0,video_data_duration,809.033,13:29,749.2,-1.0,826.1,0.29,803.0,-0.1,826.7,0.29
+2024-10,sunday-afternoon,4,Quentin L. Cook,Quentin L. Cook,Of the Quorum of the Twelve Apostles,twelve,29.0,29.0,video_data_duration,847.266,14:07,749.2,-1.63,907.9,1.01,838.7,-0.14,853.6,0.11
+2024-10,sunday-afternoon,5,Rubén V. Alliaud,Rubén V. Alliaud,Of the Seventy,seventy,1.0,1.0,video_data_duration,597.833,9:58,749.2,2.52,614.9,0.29,609.8,0.2,645.0,0.79
+2024-10,sunday-afternoon,6,I. Raymond Egbo,I. Raymond Egbo,Of the Seventy,seventy,0.0,0.0,video_data_duration,650.3,10:50,749.2,1.65,628.3,-0.37,618.2,-0.53,646.6,-0.06
+2024-10,sunday-afternoon,7,Russell M. Nelson,Russell M. Nelson,President of the Church,church_president,58.0,39.0,video_data_duration,889.722,14:50,749.2,-2.34,963.2,1.22,994.6,1.75,1037.7,2.47
+2024-10,sunday-morning,1,Jeffrey R. Holland,Jeffrey R. Holland,Acting President of the Quorum of the Twelve Apostles,twelve_president,27.0,27.0,video_data_duration,923.433,15:23,749.2,-2.9,934.8,0.19,844.7,-1.31,840.2,-1.39
+2024-10,sunday-morning,2,Tracy Y. Browning,Tracy Y. Browning,Second Counselor in the Primary General Presidency,auxiliary_counselor,1.0,1.0,video_data_duration,747.233,12:27,749.2,0.03,659.6,-1.46,633.3,-1.9,647.7,-1.66
+2024-10,sunday-morning,3,Brook P. Hales,Brook P. Hales,Of the Seventy,seventy,1.0,1.0,video_data_duration,659.291,10:59,749.2,1.5,660.9,0.03,689.7,0.51,651.9,-0.12
+2024-10,sunday-morning,4,L. Todd Budge,L. Todd Budge,Second Counselor in the Presiding Bishopric,presiding_bishopric,2.0,2.0,video_data_duration,723.566,12:04,749.2,0.43,659.6,-1.07,654.5,-1.15,654.5,-1.15
+2024-10,sunday-morning,5,Gary E. Stevenson,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,20.0,20.0,video_data_duration,859.033,14:19,749.2,-1.83,840.9,-0.3,842.4,-0.28,839.8,-0.32
+2024-10,sunday-morning,6,Bradley R. Wilcox,Bradley R. Wilcox,First Counselor in the Young Men General Presidency,auxiliary_counselor,1.0,1.0,video_data_duration,752.9,12:33,749.2,-0.06,668.5,-1.41,665.7,-1.45,661.9,-1.52
+2024-10,sunday-morning,7,Henry B. Eyring,Henry B. Eyring,Second Counselor in the First Presidency,first_presidency_counselor,58.0,58.0,video_data_duration,966.466,16:06,749.2,-3.62,1018.3,0.86,964.1,-0.04,970.7,0.07
+2025-04,saturday-afternoon,1,Neil L. Andersen,Neil L. Andersen,Of the Quorum of the Twelve Apostles,twelve,30.0,30.0,video_data_duration,849.666,14:10,753.0,-1.61,902.5,0.88,819.7,-0.5,839.2,-0.17
+2025-04,saturday-afternoon,2,Steven J. Lund,Steven J. Lund,Young Men General President,auxiliary_president,2.0,2.0,video_data_duration,704.3,11:44,753.0,0.81,663.2,-0.69,617.4,-1.45,663.9,-0.67
+2025-04,saturday-afternoon,3,S. Mark Palmer,S. Mark Palmer,Of the Presidency of the Seventy,seventy_presidency,2.0,2.0,video_data_duration,662.566,11:03,753.0,1.51,636.4,-0.44,582.5,-1.33,663.8,0.02
+2025-04,saturday-afternoon,4,Sandino Roman,Sandino Roman,Of the Seventy,seventy,0.0,0.0,video_data_duration,676.7,11:17,753.0,1.27,628.1,-0.81,612.0,-1.08,657.0,-0.33
+2025-04,saturday-afternoon,5,Dale G. Renlund,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,20.0,20.0,video_data_duration,849.8,14:10,753.0,-1.61,825.9,-0.4,828.8,-0.35,830.7,-0.32
+2025-04,saturday-afternoon,6,Hans T. Boom,Hans T. Boom,Of the Seventy,seventy,1.0,1.0,video_data_duration,660.4,11:00,753.0,1.54,603.9,-0.94,598.6,-1.03,647.3,-0.22
+2025-04,saturday-afternoon,7,Dieter F. Uchtdorf,Dieter F. Uchtdorf,Of the Quorum of the Twelve Apostles,twelve,53.0,52.0,video_data_duration,904.566,15:05,753.0,-2.53,1088.4,3.06,934.4,0.5,894.8,-0.16
+2025-04,saturday-evening,1,Gary E. Stevenson,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,21.0,21.0,video_data_duration,866.9,14:27,753.0,-1.9,841.4,-0.42,828.2,-0.65,839.3,-0.46
+2025-04,saturday-evening,2,Amy A. Wright,Amy A. Wright,First Counselor in the Primary General Presidency,auxiliary_counselor,2.0,2.0,video_data_duration,671.933,11:12,753.0,1.35,660.1,-0.2,646.1,-0.43,667.3,-0.08
+2025-04,saturday-evening,3,James R. Rasband,James R. Rasband,Of the Seventy,seventy,1.0,1.0,video_data_duration,665.8,11:06,753.0,1.45,617.9,-0.8,622.5,-0.72,650.2,-0.26
+2025-04,saturday-evening,4,Sergio R. Vargas,Sergio R. Vargas,Of the Seventy,seventy,0.0,0.0,video_data_duration,648.233,10:48,753.0,1.75,628.1,-0.33,625.9,-0.37,661.1,0.21
+2025-04,saturday-evening,5,D. Todd Christofferson,D. Todd Christofferson,Of the Quorum of the Twelve Apostles,twelve,30.0,30.0,video_data_duration,854.1,14:14,753.0,-1.68,895.8,0.69,836.4,-0.29,830.2,-0.4
+2025-04,saturday-morning,1,Jeffrey R. Holland,Jeffrey R. Holland,Acting President of the Quorum of the Twelve Apostles,twelve_president,28.0,28.0,video_data_duration,909.7,15:10,753.0,-2.61,934.4,0.41,858.9,-0.85,860.4,-0.82
+2025-04,saturday-morning,2,Camille N. Johnson,Camille N. Johnson,Relief Society General President,auxiliary_president,2.0,2.0,video_data_duration,688.933,11:29,753.0,1.07,665.0,-0.4,630.7,-0.97,666.0,-0.38
+2025-04,saturday-morning,3,Ronald A. Rasband,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,22.0,22.0,video_data_duration,840.566,14:01,753.0,-1.46,825.3,-0.26,811.3,-0.49,824.7,-0.26
+2025-04,saturday-morning,4,Quentin L. Cook,Quentin L. Cook,Of the Quorum of the Twelve Apostles,twelve,30.0,30.0,video_data_duration,855.7,14:16,753.0,-1.71,905.9,0.84,839.7,-0.27,849.0,-0.11
+2025-04,saturday-morning,5,Ricardo P. Giménez,Ricardo P. Giménez,Of the Seventy,seventy,1.0,1.0,video_data_duration,629.866,10:30,753.0,2.05,637.6,0.13,661.2,0.52,653.0,0.39
+2025-04,saturday-morning,6,Henry B. Eyring,Henry B. Eyring,Second Counselor in the First Presidency,first_presidency_counselor,59.0,59.0,video_data_duration,1024.833,17:05,753.0,-4.53,1017.3,-0.12,953.1,-1.2,965.0,-1.0
+2025-04,sunday-afternoon,1,Ulisses Soares,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,18.0,18.0,video_data_duration,889.033,14:49,753.0,-2.27,801.9,-1.45,827.5,-1.03,835.9,-0.89
+2025-04,sunday-afternoon,2,Michael B. Strong,Michael B. Strong,Of the Seventy,seventy,0.0,0.0,video_data_duration,689.233,11:29,753.0,1.06,628.1,-1.02,597.3,-1.53,652.5,-0.61
+2025-04,sunday-afternoon,3,Scott D. Whiting,Scott D. Whiting,Of the Seventy,seventy,2.0,2.0,video_data_duration,695.933,11:36,753.0,0.95,611.7,-1.4,602.4,-1.56,653.6,-0.71
+2025-04,sunday-afternoon,4,Christopher H. Kim,Christopher H. Kim,Of the Seventy,seventy,0.0,0.0,video_data_duration,665.866,11:06,753.0,1.45,628.1,-0.63,607.2,-0.98,658.0,-0.13
+2025-04,sunday-afternoon,5,Patrick Kearon,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,5.0,5.0,video_data_duration,844.91,14:05,753.0,-1.53,790.0,-0.92,791.7,-0.89,750.1,-1.58
+2025-04,sunday-afternoon,6,Benjamin M. Z. Tai,Benjamin M. Z. Tai,Of the Seventy,seventy,1.0,1.0,video_data_duration,634.433,10:34,753.0,1.98,606.4,-0.47,599.6,-0.58,648.2,0.23
+2025-04,sunday-afternoon,7,Russell M. Nelson,Russell M. Nelson,President of the Church,church_president,59.0,40.0,video_data_duration,719.0,11:59,753.0,0.57,961.2,4.04,919.4,3.34,963.5,4.07
+2025-04,sunday-morning,1,David A. Bednar,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,30.0,30.0,video_data_duration,921.1,15:21,753.0,-2.8,930.9,0.16,864.4,-0.94,858.3,-1.05
+2025-04,sunday-morning,2,Steven D. Shumway,Steven D. Shumway,Of the Seventy,seventy,0.0,0.0,video_data_duration,683.833,11:24,753.0,1.15,628.1,-0.93,612.6,-1.19,647.7,-0.6
+2025-04,sunday-morning,3,Tamara W. Runia,Tamara W. Runia,First Counselor in the Young Women General Presidency,auxiliary_counselor,1.0,1.0,video_data_duration,704.4,11:44,753.0,0.81,679.7,-0.41,679.4,-0.42,665.2,-0.65
+2025-04,sunday-morning,4,Gérald Caussé,Gérald Caussé,Presiding Bishop,presiding_bishopric,6.0,6.0,video_data_duration,678.733,11:19,753.0,1.24,693.2,0.24,693.6,0.25,687.6,0.15
+2025-04,sunday-morning,5,Gerrit W. Gong,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,16.0,16.0,video_data_duration,836.833,13:57,753.0,-1.4,809.7,-0.45,833.2,-0.06,835.4,-0.02
+2025-04,sunday-morning,6,John A. McCune,John A. McCune,Of the Seventy,seventy,1.0,1.0,video_data_duration,658.366,10:58,753.0,1.58,608.6,-0.83,618.6,-0.66,641.6,-0.28
+2025-04,sunday-morning,7,Dallin H. Oaks,Dallin H. Oaks,First Counselor in the First Presidency,first_presidency_counselor,38.0,38.0,video_data_duration,880.666,14:41,753.0,-2.13,909.9,0.49,875.0,-0.09,921.1,0.67
+2025-10,saturday-afternoon,1,Ronald A. Rasband,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,23.0,23.0,video_data_duration,837.14,13:57,759.4,-1.3,825.7,-0.19,791.3,-0.76,832.9,-0.07
+2025-10,saturday-afternoon,2,Chad H Webb,Chad H Webb,First Counselor in the Sunday School General Presidency,auxiliary_counselor,0.0,0.0,video_data_duration,681.41,11:21,759.4,1.3,676.4,-0.08,619.5,-1.03,657.3,-0.4
+2025-10,saturday-afternoon,3,Jeremy R. Jaggi,Jeremy R. Jaggi,Of the Seventy,seventy,1.0,1.0,video_data_duration,683.35,11:23,759.4,1.27,625.9,-0.96,613.6,-1.16,643.0,-0.67
+2025-10,saturday-afternoon,4,Kevin G. Brown,Kevin G. Brown,Of the Seventy,seventy,0.0,0.0,video_data_duration,736.3,12:16,759.4,0.39,629.6,-1.78,606.0,-2.17,648.2,-1.47
+2025-10,saturday-afternoon,5,Gerrit W. Gong,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,17.0,17.0,video_data_duration,842.24,14:02,759.4,-1.38,810.9,-0.52,809.3,-0.55,835.7,-0.11
+2025-10,saturday-afternoon,6,Michael Cziesla,Michael Cziesla,Of the Seventy,seventy,0.0,0.0,video_data_duration,677.68,11:18,759.4,1.36,629.6,-0.8,615.9,-1.03,643.4,-0.57
+2025-10,saturday-afternoon,7,Quentin L. Cook,Quentin L. Cook,Of the Quorum of the Twelve Apostles,twelve,31.0,31.0,video_data_duration,894.63,14:55,759.4,-2.25,904.4,0.16,837.9,-0.95,850.8,-0.73
+2025-10,saturday-evening,1,Patrick Kearon,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,6.0,6.0,video_data_duration,858.86,14:19,759.4,-1.66,795.7,-1.05,803.8,-0.92,818.7,-0.67
+2025-10,saturday-evening,2,J. Anette Dennis,J. Anette Dennis,First Counselor in the Relief Society General Presidency,auxiliary_counselor,2.0,2.0,video_data_duration,712.21,11:52,759.4,0.79,677.0,-0.59,673.5,-0.65,667.4,-0.75
+2025-10,saturday-evening,3,Steven C. Barlow,Steven C. Barlow,Of the Seventy,seventy,0.0,0.0,video_data_duration,701.7,11:42,759.4,0.96,629.6,-1.2,614.7,-1.45,647.2,-0.91
+2025-10,saturday-evening,4,William K. Jackson,William K. Jackson,Of the Seventy,seventy,1.0,1.0,video_data_duration,733.73,12:14,759.4,0.43,624.4,-1.82,629.7,-1.73,652.1,-1.36
+2025-10,saturday-evening,5,Neil L. Andersen,Neil L. Andersen,Of the Quorum of the Twelve Apostles,twelve,31.0,31.0,video_data_duration,873.31,14:33,759.4,-1.9,900.9,0.46,854.3,-0.32,852.1,-0.35
+2025-10,saturday-morning,1,Dallin H. Oaks,Dallin H. Oaks,President of the Quorum of the Twelve Apostles,twelve_president,39.0,39.0,video_data_duration,213.78,3:34,759.4,9.09,901.0,11.45,757.6,9.06,863.9,10.84
+2025-10,saturday-morning,2,Gary E. Stevenson,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,22.0,22.0,video_data_duration,795.56,13:16,759.4,-0.6,842.3,0.78,822.8,0.45,832.1,0.61
+2025-10,saturday-morning,3,Tracy Y. Browning,Tracy Y. Browning,Second Counselor in the Primary General Presidency,auxiliary_counselor,2.0,2.0,video_data_duration,636.14,10:36,759.4,2.05,678.5,0.71,687.8,0.86,673.3,0.62
+2025-10,saturday-morning,4,Ronald M. Barcellos,Ronald M. Barcellos,Of the Seventy,seventy,0.0,0.0,video_data_duration,640.57,10:41,759.4,1.98,629.6,-0.18,615.9,-0.41,645.6,0.08
+2025-10,saturday-morning,5,Brik V. Eyre,Brik V. Eyre,Of the Seventy,seventy,0.0,0.0,video_data_duration,645.38,10:45,759.4,1.9,629.6,-0.26,620.8,-0.41,643.3,-0.03
+2025-10,saturday-morning,6,Kelly R. Johnson,Kelly R. Johnson,Of the Seventy,seventy,1.0,1.0,video_data_duration,621.05,10:21,759.4,2.31,620.4,-0.01,629.2,0.14,639.1,0.3
+2025-10,saturday-morning,7,Dieter F. Uchtdorf,Dieter F. Uchtdorf,Of the Quorum of the Twelve Apostles,twelve,54.0,53.0,video_data_duration,921.75,15:22,759.4,-2.71,1085.1,2.72,944.5,0.38,900.7,-0.35
+2025-10,sunday-afternoon,1,David A. Bednar,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,31.0,31.0,video_data_duration,865.2,14:25,759.4,-1.76,930.5,1.09,827.5,-0.63,852.0,-0.22
+2025-10,sunday-afternoon,2,B. Corey Cuvelier,B. Corey Cuvelier,Of the Seventy,seventy,0.0,0.0,video_data_duration,660.96,11:01,759.4,1.64,629.6,-0.52,591.4,-1.16,643.7,-0.29
+2025-10,sunday-afternoon,3,Matthew S. Holland,Matthew S. Holland,Of the Seventy,seventy,1.0,1.0,video_data_duration,642.74,10:43,759.4,1.94,618.9,-0.4,597.3,-0.76,642.4,-0.01
+2025-10,sunday-afternoon,4,Carlos A. Godoy,Carlos A. Godoy,Of the Seventy,seventy,3.0,3.0,video_data_duration,652.02,10:52,759.4,1.79,637.5,-0.24,602.0,-0.83,656.7,0.08
+2025-10,sunday-afternoon,5,Dale G. Renlund,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,21.0,21.0,video_data_duration,801.6,13:22,759.4,-0.7,826.8,0.42,820.9,0.32,830.4,0.48
+2025-10,sunday-afternoon,6,John D. Amos,John D. Amos,Of the Seventy,seventy,0.0,0.0,video_data_duration,638.4,10:38,759.4,2.02,629.6,-0.15,611.1,-0.45,644.3,0.1
+2025-10,sunday-afternoon,7,Ozani Farias,Ozani Farias,Of the Seventy,seventy,0.0,0.0,video_data_duration,586.82,9:47,759.4,2.88,629.6,0.71,616.1,0.49,644.3,0.96
+2025-10,sunday-afternoon,8,Dallin H. Oaks,Dallin H. Oaks,President of the Quorum of the Twelve Apostles,twelve_president,39.0,39.0,video_data_duration,1042.569,17:23,759.4,-4.72,901.0,-2.36,777.6,-4.42,880.3,-2.7
+2025-10,sunday-morning,1,Jeffrey R. Holland,Jeffrey R. Holland,Of the Quorum of the Twelve Apostles,twelve,29.0,29.0,video_data_duration,1043.079,17:23,759.4,-4.73,931.6,-1.86,867.0,-2.94,855.0,-3.13
+2025-10,sunday-morning,2,James E. Evanson,James E. Evanson,Of the Seventy,seventy,0.0,0.0,video_data_duration,627.59,10:28,759.4,2.2,629.6,0.03,606.9,-0.34,638.5,0.18
+2025-10,sunday-morning,3,Ulisses Soares,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,19.0,19.0,video_data_duration,907.71,15:08,759.4,-2.47,805.7,-1.7,837.3,-1.17,830.9,-1.28
+2025-10,sunday-morning,4,Peter M. Johnson,Peter M. Johnson,Of the Seventy,seventy,1.0,1.0,video_data_duration,627.49,10:27,759.4,2.2,624.0,-0.06,623.0,-0.07,638.7,0.19
+2025-10,sunday-morning,5,D. Todd Christofferson,D. Todd Christofferson,Of the Quorum of the Twelve Apostles,twelve,31.0,31.0,video_data_duration,853.22,14:13,759.4,-1.56,894.5,0.69,840.3,-0.22,850.2,-0.05
+2025-10,sunday-morning,6,Andrea Muñoz Spannaus,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,1.0,1.0,video_data_duration,667.5,11:08,759.4,1.53,678.6,0.19,685.2,0.3,665.6,-0.03
+2025-10,sunday-morning,7,Henry B. Eyring,Henry B. Eyring,Of the Quorum of the Twelve Apostles,twelve,60.0,60.0,video_data_duration,790.59,13:11,759.4,-0.52,1011.0,3.67,890.9,1.67,875.9,1.42
+2026-04,saturday-afternoon,1,Gary E. Stevenson,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,23.0,23.0,video_data_duration,675.94,11:16,756.8,1.35,840.4,2.74,793.4,1.96,822.1,2.44
+2026-04,saturday-afternoon,2,Eduardo F. Ortega,Eduardo F. Ortega,Of the Seventy,seventy,0.0,0.0,video_data_duration,509.34,8:29,756.8,4.12,631.1,2.03,600.1,1.51,649.3,2.33
+2026-04,saturday-afternoon,3,Wan-Liang Wu,Wan-Liang Wu,Of the Seventy,seventy,0.0,0.0,video_data_duration,505.37,8:25,756.8,4.19,631.1,2.1,605.0,1.66,649.6,2.4
+2026-04,saturday-afternoon,4,David J. Wunderli,David J. Wunderli,First Counselor in the Young Men General Presidency,auxiliary_counselor,0.0,0.0,video_data_duration,556.69,9:17,756.8,3.34,676.3,1.99,634.0,1.29,670.4,1.9
+2026-04,saturday-afternoon,5,Gérald Caussé,Gérald Caussé,Of the Quorum of the Twelve Apostles,twelve,7.0,7.0,video_data_duration,687.12,11:27,756.8,1.16,753.2,1.1,699.1,0.2,742.1,0.92
+2026-04,saturday-afternoon,6,Brian J. Holmes,Brian J. Holmes,Of the Seventy,seventy,0.0,0.0,video_data_duration,495.13,8:15,756.8,4.36,631.1,2.27,619.8,2.08,649.9,2.58
+2026-04,saturday-afternoon,7,Clement M. Matswagothata,Clement M. Matswagothata,Of the Seventy,seventy,0.0,0.0,video_data_duration,568.87,9:29,756.8,3.13,631.1,1.04,624.7,0.93,649.9,1.35
+2026-04,saturday-afternoon,8,Ulisses Soares,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,20.0,20.0,video_data_duration,700.07,11:40,756.8,0.95,810.0,1.83,859.6,2.66,841.1,2.35
+2026-04,saturday-morning,2,Patrick Kearon,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,7.0,7.0,video_data_duration,680.75,11:21,756.8,1.27,801.8,2.02,811.0,2.17,815.0,2.24
+2026-04,saturday-morning,3,Kristin M. Yee,Kristin M. Yee,Second Counselor in the Relief Society General Presidency,auxiliary_counselor,2.0,2.0,video_data_duration,535.6,8:56,756.8,3.69,673.1,2.29,683.4,2.46,671.4,2.26
+2026-04,saturday-morning,4,Clark G. Gilbert,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,1.0,1.0,video_data_duration,787.55,13:08,756.8,-0.51,820.1,0.54,654.3,-2.22,687.7,-1.66
+2026-04,saturday-morning,5,David A. Bednar,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,32.0,32.0,video_data_duration,778.54,12:59,756.8,-0.36,928.6,2.5,851.4,1.21,856.2,1.29
+2026-04,saturday-morning,6,Michael John U. Teh,Michael John U. Teh,Of the Seventy,seventy,2.0,2.0,video_data_duration,488.52,8:09,756.8,4.47,594.1,1.76,593.2,1.74,653.4,2.75
+2026-04,saturday-morning,7,Jorge T. Becerra,Jorge T. Becerra,Of the Seventy,seventy,1.0,1.0,video_data_duration,511.34,8:31,756.8,4.09,616.6,1.75,630.0,1.98,645.8,2.24
+2026-04,saturday-morning,8,Henry B. Eyring,Henry B. Eyring,First Counselor in the First Presidency,first_presidency_counselor,61.0,61.0,video_data_duration,792.63,13:13,756.8,-0.6,1013.9,3.69,905.7,1.88,928.3,2.26
+2026-04,sunday-afternoon,1,D. Todd Christofferson,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,32.0,32.0,video_data_duration,730.73,12:11,756.8,0.43,904.8,2.9,760.3,0.49,862.8,2.2
+2026-04,sunday-afternoon,2,Chi Hong (Sam) Wong,Chi Hong (Sam) Wong,Of the Seventy,seventy,2.0,2.0,video_data_duration,480.45,8:00,756.8,4.61,615.0,2.24,580.0,1.66,660.9,3.01
+2026-04,sunday-afternoon,3,Aaron T. Hall,Aaron T. Hall,Of the Seventy,seventy,0.0,0.0,video_data_duration,508.84,8:29,756.8,4.13,631.1,2.04,600.4,1.53,650.6,2.36
+2026-04,sunday-afternoon,4,Susan H. Porter,Susan H. Porter,Primary General President,auxiliary_president,3.0,3.0,video_data_duration,523.62,8:44,756.8,3.89,682.4,2.65,643.3,1.99,672.8,2.49
+2026-04,sunday-afternoon,5,Neil L. Andersen,Neil L. Andersen,Of the Quorum of the Twelve Apostles,twelve,32.0,32.0,video_data_duration,702.07,11:42,756.8,0.91,900.0,3.3,843.6,2.36,854.9,2.55
+2026-04,sunday-afternoon,6,Quentin L. Cook,Quentin L. Cook,Of the Quorum of the Twelve Apostles,twelve,32.0,32.0,video_data_duration,692.32,11:32,756.8,1.07,904.0,3.53,839.5,2.45,858.0,2.76
+2026-04,sunday-afternoon,7,Taniela B. Wakolo,Taniela B. Wakolo,Of the Seventy,seventy,2.0,2.0,video_data_duration,517.12,8:37,756.8,3.99,609.7,1.54,603.9,1.45,658.0,2.35
+2026-04,sunday-afternoon,8,Gerrit W. Gong,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,18.0,18.0,video_data_duration,669.2,11:09,756.8,1.46,812.2,2.38,821.7,2.54,843.0,2.9
+2026-04,sunday-morning,1,Dieter F. Uchtdorf,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,55.0,54.0,video_data_duration,747.75,12:28,756.8,0.15,1082.4,5.58,887.5,2.33,851.4,1.73
+2026-04,sunday-morning,2,Emily Belle Freeman,Emily Belle Freeman,Young Women General President,auxiliary_president,2.0,2.0,video_data_duration,519.49,8:39,756.8,3.96,685.5,2.77,670.4,2.51,666.4,2.45
+2026-04,sunday-morning,3,Pedro X. Larreal,Pedro X. Larreal,Of the Seventy,seventy,0.0,0.0,video_data_duration,474.44,7:54,756.8,4.71,631.1,2.61,616.0,2.36,645.7,2.86
+2026-04,sunday-morning,4,Edward B. Rowe,Edward B. Rowe,Of the Seventy,seventy,0.0,0.0,video_data_duration,560.79,9:21,756.8,3.27,631.1,1.17,620.9,1.0,647.6,1.45
+2026-04,sunday-morning,5,Ronald A. Rasband,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,24.0,24.0,video_data_duration,621.09,10:21,756.8,2.26,826.1,3.42,823.0,3.37,838.9,3.63
+2026-04,sunday-morning,6,Dale G. Renlund,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,22.0,22.0,video_data_duration,660.46,11:00,756.8,1.61,825.7,2.75,831.9,2.86,830.5,2.83
+2026-04,sunday-morning,7,Thierry K. Mutombo,Thierry K. Mutombo,Of the Seventy,seventy,1.0,1.0,video_data_duration,619.45,10:19,756.8,2.29,621.6,0.04,638.5,0.32,641.8,0.37
+2026-04,sunday-morning,8,Alan R. Walker,Alan R. Walker,Of the Seventy,seventy,1.0,1.0,video_data_duration,503.77,8:24,756.8,4.22,626.3,2.04,651.3,2.46,642.8,2.32
+2026-04,sunday-morning,9,Dallin H. Oaks,Dallin H. Oaks,President of the Church,church_president,41.0,41.0,video_data_duration,817.98,13:38,756.8,-1.02,897.0,1.32,817.1,-0.02,993.0,2.92

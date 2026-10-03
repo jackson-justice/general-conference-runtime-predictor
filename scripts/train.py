@@ -97,6 +97,9 @@ def main() -> int:
     ap.add_argument("--n-test", type=int, default=4, help="held-out test conferences (most recent)")
     ap.add_argument("--tag", default=None, help="suffix for output files (default: legacy|all)")
     ap.add_argument("--no-bundle", action="store_true", help="do not save models/bundle.joblib")
+    ap.add_argument("--exclude-president-under", type=float, default=None, metavar="MIN",
+                    help="drop Church President talks shorter than MIN minutes from history, fitting and scoring "
+                         "(opt-in experiment; the default keeps every timed talk)")
     ap.add_argument("--exploratory", default=None, metavar="REASON",
                     help="label this run's test numbers as exploratory (the test conferences were already "
                          "inspected before this change), with the reason")
@@ -110,6 +113,13 @@ def main() -> int:
 
     df, report = build_dataset(include_collected=not args.legacy_only)
     print_data_summary(report)
+    exclusion = None
+    if args.exclude_president_under is not None:
+        short = df.calling_group.eq("church_president") & df.duration_status.eq("ok")             & (df.duration_sec < args.exclude_president_under * 60)
+        df.loc[short, "duration_status"] = "excluded_short_president"
+        exclusion = (f"{int(short.sum())} Church President talks shorter than {args.exclude_president_under:g} min "
+                     f"excluded from history, fitting and scoring")
+        print(); print(exclusion)
     df = add_history_features(df)
 
     confs = sorted(df.conf_index.unique())
@@ -196,6 +206,7 @@ def main() -> int:
         "trained_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "tag": tag,
         "test_status": ("exploratory: " + args.exploratory) if args.exploratory else "single report",
+        "exclusion": exclusion,
         "split": split_info,
         "recommended_by_val_mae": recommended,
         "results": results,
@@ -211,6 +222,9 @@ def main() -> int:
         lines += [f"**EXPLORATORY.** The test conferences had already been inspected before this run; "
                   f"reason for re-running: {args.exploratory}. Treat test numbers as a second look, not a "
                   f"fresh hold-out. The next untouched conference is the first one after the data ends.", ""]
+    if exclusion:
+        lines += [f"**Exclusion experiment:** {exclusion}. Test rows differ from the default run, so numbers "
+                  f"are not comparable with it row for row.", ""]
     lines += [f"Split: train {split_info['train']['conferences']} ({split_info['train']['n_timed']} timed talks), "
              f"val {split_info['val']['conferences']} ({split_info['val']['n_timed']}), "
              f"test {split_info['test']['conferences']} ({split_info['test']['n_timed']}).", "",
