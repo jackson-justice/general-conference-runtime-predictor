@@ -244,14 +244,16 @@ def speaker_directory(hist: pd.DataFrame) -> pd.DataFrame:
     return last[["speaker", "role", "conference"]].set_index("speaker")
 
 
+def fold(x: str) -> str:
+    """Accent-insensitive, case-insensitive key ("causse" matches "Caussé")."""
+    import unicodedata
+
+    return "".join(c for c in unicodedata.normalize("NFKD", x) if not unicodedata.combining(c)).lower()
+
+
 def match_speaker(text: str, directory: pd.DataFrame) -> list[str]:
     """Candidates for a typed name: exact, then all typed words contained in the name, then fuzzy."""
     import difflib
-
-    import unicodedata
-
-    def fold(x: str) -> str:  # accent-insensitive, case-insensitive ("causse" matches "Caussé")
-        return "".join(c for c in unicodedata.normalize("NFKD", x) if not unicodedata.combining(c)).lower()
 
     t = clean_text(text) or ""
     canon = canonical_speaker(t)
@@ -377,6 +379,14 @@ def cmd_live(args) -> int:
         return 0
     order = 1
     last = None  # (speaker, session, order)
+    prev = load_log()
+    prev = prev[prev.conference.eq(args.conference) & prev.session.eq(session) & prev.model.notna()]
+    if len(prev):  # resuming: continue the count and let `t` apply to the last logged talk
+        tail = prev.sort_values("logged_at").iloc[-1]
+        last = (tail.speaker, session, int(tail.speaker_order))
+        order = int(prev.speaker_order.max()) + 1
+        print(f"  resuming: {len(prev.drop_duplicates(['speaker', 'speaker_order']))} items already logged in this "
+              f"session; next talk is #{order} (use `o N` if that is wrong)")
     while True:
         ans = ask(f"\n[{session}] talk #{order}   (u=undo  t 12:34=time  o N=set #  s=session  h=help  q=quit)\n"
                   f"  speaker: ")
@@ -463,8 +473,16 @@ def cmd_live(args) -> int:
         speaker, default_role = None, None
         if len(candidates) == 1:
             speaker = candidates[0]
-            default_role = directory.loc[speaker, "role"]
-            print(f"  -> {speaker}")
+            typed = [w for w in re.split(r"\s+", fold(text)) if w]
+            if not all(w in fold(speaker) for w in typed):  # fuzzy guess, not a real match: confirm
+                ok = ask(f"  did you mean {speaker}? [Y/n]  (n = no, new speaker) ")
+                if ok is None:
+                    return 0
+                if ok.strip().lower() == "n":
+                    speaker = None
+            if speaker is not None:
+                default_role = directory.loc[speaker, "role"]
+                print(f"  -> {speaker}")
         elif len(candidates) > 1:
             for i, c in enumerate(candidates, 1):
                 print(f"  {i}  {c}  ({directory.loc[c, 'role']}, last {directory.loc[c, 'conference']})")

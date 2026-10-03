@@ -1,0 +1,18 @@
+logged_at,conference,speaker,calling,calling_group,session,speaker_order,model,model_version,pred_sec,pred_mmss,actual_sec,actual_mmss,actual_source
+2026-10-03T16:04:41+00:00,2026-10,Sustaining of Officers,sustaining,program_item,saturday-morning,0,program_mean,program_items:3,243.7,4:04,,,
+2026-10-03T16:13:31+00:00,2026-10,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,1,catboost,2026-10-03T02:59:32+00:00,747.6,12:28,658.0,10:58,hand
+2026-10-03T16:13:31+00:00,2026-10,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,1,naive,2026-10-03T02:59:32+00:00,708.4,11:48,658.0,10:58,hand
+2026-10-03T16:13:31+00:00,2026-10,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,1,baseline,2026-10-03T02:59:32+00:00,804.9,13:25,658.0,10:58,hand
+2026-10-03T16:13:31+00:00,2026-10,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,1,ridge,2026-10-03T02:59:32+00:00,726.6,12:07,658.0,10:58,hand
+2026-10-03T16:24:30+00:00,2026-10,Tamara W. Runia,First Counselor in the Young Women General Presidency,auxiliary_counselor,saturday-morning,2,catboost,2026-10-03T02:59:32+00:00,650.8,10:51,503.0,8:23,hand
+2026-10-03T16:24:30+00:00,2026-10,Tamara W. Runia,First Counselor in the Young Women General Presidency,auxiliary_counselor,saturday-morning,2,naive,2026-10-03T02:59:32+00:00,708.4,11:48,503.0,8:23,hand
+2026-10-03T16:24:30+00:00,2026-10,Tamara W. Runia,First Counselor in the Young Women General Presidency,auxiliary_counselor,saturday-morning,2,baseline,2026-10-03T02:59:32+00:00,683.3,11:23,503.0,8:23,hand
+2026-10-03T16:24:30+00:00,2026-10,Tamara W. Runia,First Counselor in the Young Women General Presidency,auxiliary_counselor,saturday-morning,2,ridge,2026-10-03T02:59:32+00:00,661.0,11:01,503.0,8:23,hand
+2026-10-03T16:37:40+00:00,2026-10,Gérald Caussé,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,3,catboost,2026-10-03T02:59:32+00:00,742.4,12:22,675.0,11:15,hand
+2026-10-03T16:37:40+00:00,2026-10,Gérald Caussé,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,3,naive,2026-10-03T02:59:32+00:00,708.4,11:48,675.0,11:15,hand
+2026-10-03T16:37:40+00:00,2026-10,Gérald Caussé,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,3,baseline,2026-10-03T02:59:32+00:00,745.6,12:26,675.0,11:15,hand
+2026-10-03T16:37:40+00:00,2026-10,Gérald Caussé,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,3,ridge,2026-10-03T02:59:32+00:00,811.6,13:32,675.0,11:15,hand
+2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,catboost,2026-10-03T02:59:32+00:00,625.3,10:25,522.0,8:42,hand
+2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,naive,2026-10-03T02:59:32+00:00,708.4,11:48,522.0,8:42,hand
+2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,baseline,2026-10-03T02:59:32+00:00,617.1,10:17,522.0,8:42,hand
+2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,ridge,2026-10-03T02:59:32+00:00,611.2,10:11,522.0,8:42,hand
