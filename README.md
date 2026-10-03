@@ -47,6 +47,18 @@ records a hand-timed actual for it, `o 5` sets the next talk number, `s`
 changes session, `q` quits. The full `predict` command below still works for
 one-off use.
 
+**Adjusted line.** Once at least one talk of the current conference has an
+actual duration in the log (a `t` time or `fill-actuals`), live mode prints an
+extra `adjusted` prediction: frozen CatBoost shifted by n/(n+4) times the mean
+miss of the finished talks, excluding the Church President's remarks. It is
+logged under the model name `catboost_adj`; the frozen `catboost` rows are
+untouched, so the clean hold-out comparison is preserved. Backtest on the four
+test conferences (`scripts/backtest_adjustment.py`): MAE 1.19 -> 0.98 min
+overall, 2.44 -> 1.32 in April 2026 (format change), 0.75 -> 0.75 and
+0.48 -> 0.42 in 2024-10 / 2025-04, but 1.04 -> 1.40 in October 2025, where the
+early talks were unrepresentative. It helps when a whole conference runs
+differently from history and hurts when the first few talks mislead.
+
 Non-talk items can be estimated too, so nothing on the program has to be
 skipped: type `sustaining`, `audit` or `solemn` at the speaker prompt. These
 are not talks and get no number; the estimate is a plain average of the last
@@ -315,6 +327,7 @@ when `train.py` is re-run after `collect.py` has scraped it.
 ```
 scripts/collect.py   scrape index + talk pages, cache HTML, log failures
 scripts/verify_durations.py  look up unusable legacy runtimes on the official pages -> legacy_duration_fixes.csv
+scripts/backtest_adjustment.py  backtest of the in-conference bias adjustment (live mode's "adjusted" line)
 scripts/collect_program_items.py  durations of sustainings / audit reports / solemn assemblies -> program_items.csv
 scripts/train.py     build dataset, history features, chronological eval, save models/bundle.joblib
 scripts/predict.py   predict / log-actual / score

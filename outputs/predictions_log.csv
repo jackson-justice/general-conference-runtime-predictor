@@ -16,3 +16,19 @@ logged_at,conference,speaker,calling,calling_group,session,speaker_order,model,m
 2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,naive,2026-10-03T02:59:32+00:00,708.4,11:48,522.0,8:42,hand
 2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,baseline,2026-10-03T02:59:32+00:00,617.1,10:17,522.0,8:42,hand
 2026-10-03T16:49:29+00:00,2026-10,Vaiangina Sikahema,Of the Seventy,seventy,saturday-morning,4,ridge,2026-10-03T02:59:32+00:00,611.2,10:11,522.0,8:42,hand
+2026-10-03T17:52:56+00:00,2026-10,Kevin J. Hathaway,Of the Seventy,seventy,saturday-morning,5,catboost,2026-10-03T02:59:32+00:00,627.0,10:27,478.0,7:58,hand
+2026-10-03T17:52:56+00:00,2026-10,Kevin J. Hathaway,Of the Seventy,seventy,saturday-morning,5,naive,2026-10-03T02:59:32+00:00,708.4,11:48,478.0,7:58,hand
+2026-10-03T17:52:56+00:00,2026-10,Kevin J. Hathaway,Of the Seventy,seventy,saturday-morning,5,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,478.0,7:58,hand
+2026-10-03T17:52:56+00:00,2026-10,Kevin J. Hathaway,Of the Seventy,seventy,saturday-morning,5,ridge,2026-10-03T02:59:32+00:00,634.9,10:35,478.0,7:58,hand
+2026-10-03T18:00:31+00:00,2026-10,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,6,catboost,2026-10-03T02:59:32+00:00,771.5,12:52,640.0,10:40,hand
+2026-10-03T18:00:31+00:00,2026-10,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,6,naive,2026-10-03T02:59:32+00:00,708.4,11:48,640.0,10:40,hand
+2026-10-03T18:00:31+00:00,2026-10,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,6,baseline,2026-10-03T02:59:32+00:00,804.7,13:25,640.0,10:40,hand
+2026-10-03T18:00:31+00:00,2026-10,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,saturday-morning,6,ridge,2026-10-03T02:59:32+00:00,794.1,13:14,640.0,10:40,hand
+2026-10-03T18:02:33+00:00,2026-10,Sean Douglas,Second Couselor Presiding Bishopric,presiding_bishopric,saturday-morning,7,catboost,2026-10-03T02:59:32+00:00,661.1,11:01,480.0,8:00,hand
+2026-10-03T18:02:33+00:00,2026-10,Sean Douglas,Second Couselor Presiding Bishopric,presiding_bishopric,saturday-morning,7,naive,2026-10-03T02:59:32+00:00,708.4,11:48,480.0,8:00,hand
+2026-10-03T18:02:33+00:00,2026-10,Sean Douglas,Second Couselor Presiding Bishopric,presiding_bishopric,saturday-morning,7,baseline,2026-10-03T02:59:32+00:00,662.9,11:03,480.0,8:00,hand
+2026-10-03T18:02:33+00:00,2026-10,Sean Douglas,Second Couselor Presiding Bishopric,presiding_bishopric,saturday-morning,7,ridge,2026-10-03T02:59:32+00:00,635.9,10:36,480.0,8:00,hand
+2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,catboost,2026-10-03T02:59:32+00:00,814.3,13:34,755.0,12:35,hand
+2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,naive,2026-10-03T02:59:32+00:00,708.4,11:48,755.0,12:35,hand
+2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,baseline,2026-10-03T02:59:32+00:00,899.6,15:00,755.0,12:35,hand
+2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,ridge,2026-10-03T02:59:32+00:00,914.9,15:15,755.0,12:35,hand

@@ -349,6 +349,27 @@ def program_item_estimate(kind: str, month_num: int, conference: str):
     return float(use.duration_sec.mean()), use
 
 
+ADJ_SHRINK = 4  # pseudo-talks; shift = n/(n+ADJ_SHRINK) * mean miss of this conference's finished talks
+
+
+def conference_adjustment(conference: str):
+    """In-conference bias correction for the recommended model, from talks already finished today.
+
+    Uses only logged talks of `conference` that have an actual duration (hand-timed or
+    official), excluding the Church President's remarks. Backtested on the four test
+    conferences (scripts/backtest_adjustment.py): MAE 1.19 -> 0.98 min overall,
+    2.44 -> 1.32 in April 2026, but 1.04 -> 1.40 in October 2025. Returns (shift_sec, n).
+    """
+    log = load_log()
+    done = log[log.conference.eq(conference) & log.model.eq("catboost") & log.actual_sec.notna()
+               & log.calling_group.ne("church_president")]
+    if done.empty:
+        return 0.0, 0
+    res = (done.actual_sec.astype(float) - done.pred_sec.astype(float))
+    n = len(res)
+    return float(n / (n + ADJ_SHRINK) * res.mean()), n
+
+
 def log_program_item(conference, kind, session, pred_sec, n_used, force=False):
     label = PROGRAM_ITEMS[kind]["label"]
     rows = [{"model": "program_mean", "pred_sec": round(pred_sec, 1)}]
@@ -358,6 +379,7 @@ def log_program_item(conference, kind, session, pred_sec, n_used, force=False):
 
 LIVE_HELP = """Commands at the speaker prompt:
   <name>    type the speaker's name (surname is enough) and press Enter -> predicts and logs that talk
+            "adjusted" = catboost shifted by the mean miss of today's finished talks (needs t times or fill-actuals)
   sustaining / audit / solemn   estimate a non-talk program item from past averages (not counted as a talk)
   u         undo: delete the last talk you logged (typo, wrong person) and step the talk number back
   t 12:34   time: record your stopwatch time for the LAST logged talk (optional; the official time replaces it later)
@@ -506,6 +528,13 @@ def cmd_live(args) -> int:
             return 0
         rows, version, group = predict_talk(bundle, hist, year, month_num, ci, args.conference,
                                             speaker, role, session, order, compact=True)
+        shift, n_done = conference_adjustment(args.conference)
+        if n_done:
+            base = next(r["pred_sec"] for r in rows if r["model"] == bundle["recommended"])
+            sign = "-" if shift < 0 else "+"
+            print(f"  >> adjusted  {format_seconds(base + shift):>6s}   catboost {sign} {format_seconds(abs(shift))}, "
+                  f"the shrunk mean miss of {n_done} finished talks today")
+            rows.append({"model": "catboost_adj", "pred_sec": round(base + shift, 1)})
         status = log_predictions(args.conference, speaker, role, group, session, order, rows, version, quiet=True)
         if status == "duplicate":
             rep = ask("  replace the existing prediction? [y/N] ")
