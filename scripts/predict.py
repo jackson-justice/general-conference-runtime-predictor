@@ -289,6 +289,17 @@ def choose_calling(default: str | None) -> str | None:
             return role
 
 
+LIVE_HELP = """Commands at the speaker prompt:
+  <name>    type the speaker's name (surname is enough) and press Enter -> predicts and logs that talk
+  u         undo: delete the last talk you logged (typo, wrong person) and step the talk number back
+  a 12:34   actual: record your stopwatch time for the LAST logged talk (optional; the official time replaces it later)
+  o 5       order: make the NEXT talk number 5 (if you lost count; the conference study page shows the order)
+  s         session: switch to another session (talk number restarts at 1)
+  h or ?    show this help
+  q         quit (everything is already saved; run `live` again to continue where you left off)
+Skip the sustaining, audit report, music, prayers and videos: they are not talks and get no number."""
+
+
 def cmd_live(args) -> int:
     """Prompt-driven logging for a live session: type a name per talk, everything else is filled in."""
     bundle, df, hist, year, month_num, ci = load_context(args.conference)
@@ -296,15 +307,15 @@ def cmd_live(args) -> int:
     print(f"\nLive mode for {args.conference}. Model version {model_version(bundle)}.")
     print("Per talk: type the speaker's name and press Enter. Count talks only (skip sustaining, audit report, "
           "music, prayers, videos).")
-    print("Commands: u = undo last logged talk, a 12:34 = hand-timed actual for last talk, o 5 = set next talk "
-          "number, s = change session, q = quit.\n")
+    print(LIVE_HELP + "\n")
     session = choose_session()
     if session is None:
         return 0
     order = 1
     last = None  # (speaker, session, order)
     while True:
-        ans = ask(f"[{session}] talk #{order} speaker: ")
+        ans = ask(f"\n[{session}] talk #{order}   (u=undo  a 12:34=actual  o N=set #  s=session  h=help  q=quit)\n"
+                  f"  speaker name: ")
         if ans is None or ans.strip().lower() == "q":
             print("bye")
             return 0
@@ -312,6 +323,9 @@ def cmd_live(args) -> int:
         if not text:
             continue
         low = text.lower()
+        if low in ("h", "?", "help"):
+            print(LIVE_HELP)
+            continue
         if low == "s":
             new_session = choose_session(default=session)
             if new_session is None:
