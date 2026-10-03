@@ -1,0 +1,67 @@
+{
+  "model_version": "2026-10-03T02:59:32+00:00",
+  "trained_at": "2026-10-03T02:59:32+00:00",
+  "code_commit": null,
+  "tag": "all",
+  "data_through_conf_index": 4052,
+  "split_used_for_selection": {
+    "train": {
+      "conferences": "2010-04 .. 2022-04",
+      "n_conf": 25,
+      "n_timed": 900
+    },
+    "val": {
+      "conferences": "2022-10 .. 2024-04",
+      "n_conf": 4,
+      "n_timed": 132
+    },
+    "test": {
+      "conferences": "2024-10 .. 2026-04",
+      "n_conf": 4,
+      "n_timed": 134
+    }
+  },
+  "models": {
+    "naive": {
+      "params": {},
+      "val_mae_min": 1.843,
+      "test_mae_min": 2.097,
+      "range_half_width_min": 2.455,
+      "range_test_coverage": 0.731
+    },
+    "baseline": {
+      "params": {
+        "min_n": 1,
+        "shrink": 3.0
+      },
+      "val_mae_min": 1.199,
+      "test_mae_min": 1.386,
+      "range_half_width_min": 1.597,
+      "range_test_coverage": 0.694
+    },
+    "ridge": {
+      "params": {
+        "alpha": 30.0,
+        "speaker_onehot": false
+      },
+      "val_mae_min": 1.262,
+      "test_mae_min": 1.304,
+      "range_half_width_min": 1.653,
+      "range_test_coverage": 0.739
+    },
+    "catboost": {
+      "params": {
+        "depth": 6,
+        "loss": "RMSE",
+        "iterations": 55,
+        "early_stopping": false
+      },
+      "val_mae_min": 0.946,
+      "test_mae_min": 1.187,
+      "range_half_width_min": 1.062,
+      "range_test_coverage": 0.619
+    }
+  },
+  "recommended": "catboost",
+  "note": "Final models are refit on every timed talk through data_through_conf_index after settings were selected on validation. Ranges are uncalibrated: half-width is the 80th percentile of validation error, range_test_coverage is what that range covered on the test conferences."
+}

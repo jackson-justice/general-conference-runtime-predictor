@@ -133,9 +133,11 @@ re-run is therefore labelled *exploratory* in `outputs/metrics_*.md`
 predictions logged with `predict.py --log` before each talk and scored with
 `predict.py score` are the clean evaluation.
 
-Intervals are empirical: the half-width is the 80th percentile of validation
-absolute errors, and the README reports the coverage that interval actually
-achieved on the test conferences. They are not calibrated beyond that check.
+The range printed next to each prediction is an **uncalibrated estimated
+range**, not a confidence interval. Its half-width is the 80th percentile of
+validation absolute errors; the share of test talks that actually fell inside
+it is reported next to it (62% for CatBoost, 69-74% for the others). Nothing
+has been done to make that share hit a target.
 
 ## Results
 
@@ -169,7 +171,7 @@ separates the two.
 2026-04 (134 timed talks, 29 by unseen speakers). Every model is scored on
 exactly the same 134 test rows. All MAE in minutes.
 
-| model | selected | val MAE | test MAE | test median AE | 80% interval half-width | test coverage |
+| model | selected | val MAE | test MAE | test median AE | range half-width | share of test talks in range |
 |---|---|---|---|---|---|---|
 | naive | - | 1.84 | 2.10 | 1.68 | 2.46 | 73% |
 | baseline | `min_n=1, shrink=3` | 1.20 | 1.39 | 0.83 | 1.60 | 69% |
@@ -206,10 +208,10 @@ Test MAE by conference (catboost / baseline): 2024-10 0.75 / 0.86, 2025-04
 first conference under a new First Presidency, ran four sessions with more
 talks each, and averaged 9.8 minutes per talk versus roughly 12.4 for the
 preceding years; every model over-predicted it. That regime shift is also why
-the empirical intervals under-cover on test: the catboost 80% interval (built
-from validation errors) covered 62% of test talks, the others 69-74%. Treat
-the intervals as rough guides, not calibrated bounds; `predict.py` prints the
-measured coverage next to every interval.
+the estimated ranges fall short on test: the catboost range (built from
+validation errors) covered 62% of test talks, the others 69-74%. Treat them as
+rough guides, not calibrated bounds; `predict.py` prints the measured share
+next to every range.
 
 Remaining error is dominated by the President of the Church (3.5 min) and the
 President of the Twelve (3.6 min), for the same remarks-vs-sermon reason as in
@@ -226,10 +228,31 @@ stage 1.
 
 ### October 2026 (the clean hold-out)
 
-Log a prediction when each speaker is announced, before the talk starts, then
-record the actual once it is known (from a stopwatch, or the talk page's
-`m:ss` once published). Sessions: `saturday-morning`, `saturday-afternoon`,
-`saturday-evening`, `sunday-morning`, `sunday-afternoon`.
+**Frozen model.** The bundle used for October 2026 was trained on 2026-10-03
+(UTC) from all 1,166 timed talks through April 2026, after settings were
+chosen on the 2022-10 .. 2024-04 validation conferences. `predict.py info`
+prints its version and writes `outputs/model_manifest.json`; every logged
+prediction carries that version in `model_version`. Do not retrain between
+now and the end of the conference. The exploratory evaluation of this same
+configuration is kept separately in `outputs/metrics_all.md` / `.json`.
+
+**Logging.** `predict --log` writes one row per model (naive, baseline, ridge,
+catboost) with timestamp, model version, conference, speaker, calling,
+session and order. A talk that already has a logged prediction is *not*
+overwritten; the command says so and exits. Use `--force` to replace it on
+purpose, or `remove` to delete a mistyped row.
+
+**Timing convention for actuals.** The reference measurement is the
+`data-duration` of the talk's `<video>` on the official page (the same
+measurement as the whole training set). `fill-actuals` copies it into the log
+and marks `actual_source = video_data_duration`; it replaces any hand-timed
+value and prints the difference. A stopwatch time entered with `log-actual`
+is provisional (`actual_source = hand`): start at the speaker's first word,
+stop at the end of "amen", enter as `m:ss`. Expect a few seconds of
+difference from the official figure.
+
+Sessions: `saturday-morning`, `saturday-afternoon`, `sunday-morning`,
+`sunday-afternoon` (`saturday-evening` exists in older data).
 
 ```
 # before the talk (count --order over talks only, see above)
@@ -252,7 +275,7 @@ few days after conference; then:
 
 ```
 uv run python scripts/collect.py --start 2026-10 --end 2026-10   # scrape the new conference
-uv run python scripts/predict.py fill-actuals --conference 2026-10   # copy durations into the log
+uv run python scripts/predict.py fill-actuals --conference 2026-10   # official durations replace hand-timed ones
 uv run python scripts/predict.py score --conference 2026-10
 uv run python scripts/train.py                                   # retrain so Oct 2026 becomes history
 ```

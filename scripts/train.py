@@ -15,6 +15,7 @@ import sys
 import joblib
 import numpy as np
 import pandas as pd
+import subprocess
 
 from general_conference_runtime_predictor.data import build_dataset, format_seconds
 from general_conference_runtime_predictor.features import add_history_features
@@ -228,7 +229,7 @@ def main() -> int:
     lines += [f"Split: train {split_info['train']['conferences']} ({split_info['train']['n_timed']} timed talks), "
              f"val {split_info['val']['conferences']} ({split_info['val']['n_timed']}), "
              f"test {split_info['test']['conferences']} ({split_info['test']['n_timed']}).", "",
-             "| model | selected params | val MAE | test MAE | test median AE | seen MAE (n) | unseen MAE (n) | 80% half-width | 80% coverage |",
+             "| model | selected params | val MAE | test MAE | test median AE | seen MAE (n) | unseen MAE (n) | range half-width (80th pct val error) | test coverage of range |",
              "|---|---|---|---|---|---|---|---|---|"]
     for n, r in results.items():
         t = r["test"]
@@ -269,8 +270,17 @@ def main() -> int:
 
     if not args.no_bundle:
         MODELS.mkdir(parents=True, exist_ok=True)
+        try:
+            commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+                                    check=True, cwd=MODELS.parent).stdout.strip()
+            if subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], capture_output=True,
+                              text=True, cwd=MODELS.parent).stdout.strip():
+                commit += "-dirty"
+        except Exception:  # noqa: BLE001
+            commit = None
         joblib.dump(
             {"models": bundle_models, "recommended": recommended, "trained_at": summary["trained_at"], "tag": tag,
+             "code_commit": commit,
              "split": split_info, "max_conf_index": int(df.conf_index.max()),
              "sessions": sorted(df.session.unique().tolist())},
             BUNDLE_PATH,

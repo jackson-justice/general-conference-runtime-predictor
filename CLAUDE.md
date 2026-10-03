@@ -71,6 +71,12 @@ Always run Python through `uv run`. Shared code lives in
   (the legacy CSV counted the same way, verified on 2020-10).
 - Keep tuning grids small (see `models.GRIDS`). Keep the scraper polite:
   cache every page, `--delay` >= 1.5 s, log failures instead of raising.
-- Intervals are empirical (validation residual quantiles) and are reported
-  with their measured test coverage; do not describe them as calibrated
-  without that check.
+- The printed range is an uncalibrated estimated range (80th percentile of
+  validation residuals) reported with the share of test talks it covered.
+  Never call it a confidence interval or "80% interval".
+- October 2026 runs on the frozen bundle trained 2026-10-03; `predict.py
+  info` writes its manifest, and each log row records `model_version`.
+  Logged predictions are never overwritten without `--force`. Actuals: the
+  official video duration is the reference (`actual_source =
+  video_data_duration`); hand-timed values are provisional and get replaced
+  by `fill-actuals`.
