@@ -69,7 +69,11 @@ Always run Python through `uv run`. Shared code lives in
 - Sustainings, audit reports, statistical reports, solemn assemblies and
   video interludes are not talks; `speaker_order` is renumbered over the
   remaining talks. At prediction time `--order` therefore counts talks only
-  (the legacy CSV counted the same way, verified on 2020-10).
+  (the legacy CSV counted the same way, verified on 2020-10). Their durations
+  live separately in `data/processed/program_items.csv`
+  (`collect_program_items.py`); `predict.py live` estimates them with a plain
+  same-month average under model name `program_mean`, `speaker_order = 0`.
+  They never enter the models or the talk dataset.
 - Keep tuning grids small (see `models.GRIDS`). Keep the scraper polite:
   cache every page, `--delay` >= 1.5 s, log failures instead of raising.
 - The printed range is an uncalibrated estimated range (80th percentile of

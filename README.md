@@ -47,6 +47,15 @@ records a hand-timed actual for it, `o 5` sets the next talk number, `s`
 changes session, `q` quits. The full `predict` command below still works for
 one-off use.
 
+Non-talk items can be estimated too, so nothing on the program has to be
+skipped: type `sustaining`, `audit` or `solemn` at the speaker prompt. These
+are not talks and get no number; the estimate is a plain average of the last
+three same-month occurrences from `data/processed/program_items.csv`
+(`scripts/collect_program_items.py`), logged under the model name
+`program_mean` and scored separately. October sustainings have run 3:25 to
+4:36 since 2021; April ones 5 to 9 minutes because of Area Seventy changes;
+the audit report is April-only and about 1:45.
+
 ### How to count the talk number during the live broadcast
 
 `--order` is the talk's position among the **talks** of its session, starting
@@ -292,6 +301,7 @@ few days after conference; then:
 
 ```
 uv run python scripts/collect.py --start 2026-10 --end 2026-10   # scrape the new conference
+uv run python scripts/collect_program_items.py                    # sustaining duration for the new conference
 uv run python scripts/predict.py fill-actuals --conference 2026-10   # official durations replace hand-timed ones
 uv run python scripts/predict.py score --conference 2026-10
 uv run python scripts/train.py                                   # retrain so Oct 2026 becomes history
@@ -305,11 +315,12 @@ when `train.py` is re-run after `collect.py` has scraped it.
 ```
 scripts/collect.py   scrape index + talk pages, cache HTML, log failures
 scripts/verify_durations.py  look up unusable legacy runtimes on the official pages -> legacy_duration_fixes.csv
+scripts/collect_program_items.py  durations of sustainings / audit reports / solemn assemblies -> program_items.csv
 scripts/train.py     build dataset, history features, chronological eval, save models/bundle.joblib
 scripts/predict.py   predict / log-actual / score
 src/general_conference_runtime_predictor/{data,features,models,paths}.py
 data/raw/            original CSV (do not modify)
-data/processed/      talks_collected.csv, legacy_duration_fixes.csv, talks_dataset.csv
+data/processed/      talks_collected.csv, legacy_duration_fixes.csv, program_items.csv, talks_dataset.csv
 tests/               pytest rule checks
 data/cache/          HTML cache (gitignored)
 outputs/             metrics_*.md/json, test_predictions_*.csv, data_report.json,

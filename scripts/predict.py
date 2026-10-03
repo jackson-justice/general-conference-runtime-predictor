@@ -27,7 +27,9 @@ from general_conference_runtime_predictor.data import (
     parse_conference_key, parse_runtime,
 )
 from general_conference_runtime_predictor.features import history_features
-from general_conference_runtime_predictor.paths import BUNDLE_PATH, COLLECTED_CSV, OUTPUTS, PREDICTION_LOG
+from general_conference_runtime_predictor.paths import (
+    BUNDLE_PATH, COLLECTED_CSV, OUTPUTS, PREDICTION_LOG, PROGRAM_ITEMS_CSV,
+)
 
 LOG_COLS = ["logged_at", "conference", "speaker", "calling", "calling_group", "session", "speaker_order",
             "model", "model_version", "pred_sec", "pred_mmss", "actual_sec", "actual_mmss", "actual_source"]
@@ -319,8 +321,40 @@ def choose_calling(default: str | None) -> str | None:
             return role
 
 
+# Non-talk program items. They never enter the model or the talk count; live mode
+# gives a plain historical-average estimate from data/processed/program_items.csv.
+PROGRAM_ITEMS = {
+    "sustaining": {"label": "Sustaining of Officers", "aliases": ("sustaining", "sustain", "sus")},
+    "audit_report": {"label": "Church Auditing Department Report", "aliases": ("audit", "audit report")},
+    "statistical_report": {"label": "Statistical Report", "aliases": ("statistical", "stats", "statistical report")},
+    "solemn_assembly": {"label": "Solemn Assembly", "aliases": ("solemn", "solemn assembly")},
+}
+PROGRAM_ALIAS = {a: k for k, v in PROGRAM_ITEMS.items() for a in v["aliases"]}
+
+
+def program_item_estimate(kind: str, month_num: int):
+    """Average of the last three same-month occurrences (falls back to any month). Returns (sec, used_df) or None."""
+    if not PROGRAM_ITEMS_CSV.exists():
+        return None
+    items = pd.read_csv(PROGRAM_ITEMS_CSV, encoding="utf-8")
+    same = items[items.kind.eq(kind) & items.duration_sec.notna()].sort_values("conference")
+    if same.empty:
+        return None
+    same_month = same[same.conference.str[-2:] == f"{month_num:02d}"]
+    use = (same_month if len(same_month) >= 2 else same).tail(3)
+    return float(use.duration_sec.mean()), use
+
+
+def log_program_item(conference, kind, session, pred_sec, n_used, force=False):
+    label = PROGRAM_ITEMS[kind]["label"]
+    rows = [{"model": "program_mean", "pred_sec": round(pred_sec, 1)}]
+    return log_predictions(conference, label, kind, "program_item", session, 0, rows,
+                           f"program_items:{n_used}", force=force, quiet=True)
+
+
 LIVE_HELP = """Commands at the speaker prompt:
   <name>    type the speaker's name (surname is enough) and press Enter -> predicts and logs that talk
+  sustaining / audit / solemn   estimate a non-talk program item from past averages (not counted as a talk)
   u         undo: delete the last talk you logged (typo, wrong person) and step the talk number back
   t 12:34   time: record your stopwatch time for the LAST logged talk (optional; the official time replaces it later)
   o 5       order: make the NEXT talk number 5 (if you lost count; the conference study page shows the order)
@@ -370,8 +404,10 @@ def cmd_live(args) -> int:
             mask = log.conference.eq(args.conference) & log.speaker.eq(sp) & log.session.eq(se) \
                 & log.speaker_order.astype(float).eq(float(od))
             save_log(log[~mask])
-            print(f"  removed {int(mask.sum())} rows for {sp} ({se} #{od})")
-            order, last = od, None
+            print(f"  removed {int(mask.sum())} rows for {sp} ({se}" + (f" #{od})" if od else ", program item)"))
+            if od:  # program items (order 0) do not move the talk count
+                order = od
+            last = None
             continue
         m = re.match(r"^[ta]\s+(\S+)$", low)
         if m:
@@ -396,6 +432,28 @@ def cmd_live(args) -> int:
         if m:
             order = int(m.group(1))
             print(f"  next talk is #{order}")
+            continue
+
+        # --- a non-talk program item (sustaining, audit report, ...) ---
+        if low in PROGRAM_ALIAS:
+            kind = PROGRAM_ALIAS[low]
+            label = PROGRAM_ITEMS[kind]["label"]
+            est = program_item_estimate(kind, month_num)
+            if est is None:
+                print(f"  no past durations for {label}; run scripts/collect_program_items.py first")
+                continue
+            pred, used = est
+            past = ", ".join(f"{c[:4]} {format_seconds(d)}" for c, d in zip(used.conference, used.duration_sec))
+            print(f"\n  {label}  |  {session}  (not a talk; no number)")
+            print(f"  >> estimate  {format_seconds(pred):>6s}   plain average of the last {len(used)}: {past}")
+            status = log_program_item(args.conference, kind, session, pred, len(used))
+            if status == "duplicate":
+                rep = ask("  replace the existing estimate? [y/N] ")
+                if rep is not None and rep.strip().lower() == "y":
+                    log_program_item(args.conference, kind, session, pred, len(used), force=True)
+                else:
+                    continue
+            last = (label, session, 0)
             continue
 
         # --- a speaker name ---
@@ -509,16 +567,27 @@ def cmd_fill_actuals(args) -> int:
     mask = log.conference.eq(args.conference) & log.model.notna() & log.actual_source.ne("video_data_duration")
     if args.keep_hand:
         mask &= log.actual_sec.isna()
+    items = pd.DataFrame()
+    if PROGRAM_ITEMS_CSV.exists():  # sustaining / audit rows logged by live mode (calling_group == program_item)
+        items = pd.read_csv(PROGRAM_ITEMS_CSV, encoding="utf-8")
+        items = items[items.conference.eq(args.conference) & items.duration_sec.notna()]
     filled, unmatched, replaced = 0, set(), []
     for i in log[mask].index:
         r = log.loc[i]
-        hit = col[(col.speaker == r.speaker) & (col.session == r.session)]
-        if len(hit) > 1 and not pd.isna(r.speaker_order):
-            hit = hit[hit.speaker_order == int(r.speaker_order)]
-        if len(hit) != 1:
-            unmatched.add((r.speaker, r.session, r.speaker_order))
-            continue
-        sec = float(hit.duration_ms.iloc[0]) / 1000.0
+        if r.calling_group == "program_item":
+            hit = items[(items.kind == r.calling) & (items.session == r.session)]
+            if len(hit) != 1:
+                unmatched.add((r.speaker, r.session, "program item; run scripts/collect_program_items.py"))
+                continue
+            sec = float(hit.duration_sec.iloc[0])
+        else:
+            hit = col[(col.speaker == r.speaker) & (col.session == r.session)]
+            if len(hit) > 1 and not pd.isna(r.speaker_order):
+                hit = hit[hit.speaker_order == int(r.speaker_order)]
+            if len(hit) != 1:
+                unmatched.add((r.speaker, r.session, r.speaker_order))
+                continue
+            sec = float(hit.duration_ms.iloc[0]) / 1000.0
         if not pd.isna(r.actual_sec) and abs(float(r.actual_sec) - sec) > 0.5:
             replaced.append((r.speaker, r.session, format_seconds(r.actual_sec), format_seconds(sec)))
         log.loc[i, "actual_sec"] = sec
