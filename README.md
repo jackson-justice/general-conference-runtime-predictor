@@ -42,7 +42,7 @@ when it appears on screen and press Enter. A surname is enough: the command
 finds the speaker in the data, proposes their most recent calling (press
 Enter to accept, or type the calling shown on screen or a number from the
 list), prints the predictions and logs them. The talk number counts up by
-itself. Commands inside live mode: `u` undoes the last logged talk, `a 12:34`
+itself. Commands inside live mode: `u` undoes the last logged talk, `t 12:34`
 records a hand-timed actual for it, `o 5` sets the next talk number, `s`
 changes session, `q` quits. The full `predict` command below still works for
 one-off use.
