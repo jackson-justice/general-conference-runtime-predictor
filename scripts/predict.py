@@ -332,12 +332,14 @@ PROGRAM_ITEMS = {
 PROGRAM_ALIAS = {a: k for k, v in PROGRAM_ITEMS.items() for a in v["aliases"]}
 
 
-def program_item_estimate(kind: str, month_num: int):
-    """Average of the last three same-month occurrences (falls back to any month). Returns (sec, used_df) or None."""
+def program_item_estimate(kind: str, month_num: int, conference: str):
+    """Average of the last three same-month occurrences strictly before `conference`
+    (falls back to any month). Returns (sec, used_df) or None."""
     if not PROGRAM_ITEMS_CSV.exists():
         return None
     items = pd.read_csv(PROGRAM_ITEMS_CSV, encoding="utf-8")
-    same = items[items.kind.eq(kind) & items.duration_sec.notna()].sort_values("conference")
+    same = items[items.kind.eq(kind) & items.duration_sec.notna() & (items.conference < conference)]
+    same = same.sort_values("conference")
     if same.empty:
         return None
     same_month = same[same.conference.str[-2:] == f"{month_num:02d}"]
@@ -438,7 +440,7 @@ def cmd_live(args) -> int:
         if low in PROGRAM_ALIAS:
             kind = PROGRAM_ALIAS[low]
             label = PROGRAM_ITEMS[kind]["label"]
-            est = program_item_estimate(kind, month_num)
+            est = program_item_estimate(kind, month_num, args.conference)
             if est is None:
                 print(f"  no past durations for {label}; run scripts/collect_program_items.py first")
                 continue
