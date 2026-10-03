@@ -4,6 +4,7 @@ Usage:
     uv run python scripts/predict.py predict --speaker "Dale G. Renlund" \
         --calling "Of the Quorum of the Twelve Apostles" --session sunday-morning --order 3 --log
     uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session sunday-morning --actual 14:12
+    uv run python scripts/predict.py remove --speaker "Dale G. Renlnud" --session sunday-morning   # drop a mistyped row
     uv run python scripts/predict.py fill-actuals --conference 2026-10   # after collect.py has scraped it
     uv run python scripts/predict.py score
 """
@@ -143,6 +144,25 @@ def cmd_log_actual(args) -> int:
     return 0
 
 
+def cmd_remove(args) -> int:
+    """Delete logged rows for one talk, e.g. after a typo in the speaker name or session."""
+    log = load_log()
+    speaker = canonical_speaker(args.speaker)
+    mask = log.conference.eq(args.conference) & log.speaker.eq(speaker)
+    if args.session:
+        session = clean_text(args.session).lower().replace("_", "-").removesuffix("-session")
+        mask &= log.session.eq(session)
+    if args.order is not None:
+        mask &= log.speaker_order.astype(float).eq(float(args.order))
+    if not mask.any():
+        print(f"no logged rows for speaker={speaker!r} in {args.conference}; nothing removed")
+        print("logged speakers:", sorted(log[log.conference.eq(args.conference)].speaker.dropna().unique().tolist()))
+        return 0
+    save_log(log[~mask])
+    print(f"removed {int(mask.sum())} rows for {speaker!r}" + (f" ({args.session})" if args.session else ""))
+    return 0
+
+
 def cmd_fill_actuals(args) -> int:
     """Fill actual durations for logged predictions from the scraped talk pages.
 
@@ -221,6 +241,13 @@ def main() -> int:
     a.add_argument("--calling", default=None)
     a.add_argument("--conference", default="2026-10")
     a.set_defaults(func=cmd_log_actual)
+
+    rm = sub.add_parser("remove", help="delete logged rows for a talk (fix a typo by removing and re-logging)")
+    rm.add_argument("--speaker", required=True, help="the name exactly as it was (mis)typed")
+    rm.add_argument("--session", default=None)
+    rm.add_argument("--order", type=int, default=None)
+    rm.add_argument("--conference", default="2026-10")
+    rm.set_defaults(func=cmd_remove)
 
     f = sub.add_parser("fill-actuals", help="fill actuals for a conference from data/processed/talks_collected.csv")
     f.add_argument("--conference", default="2026-10")

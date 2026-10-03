@@ -243,7 +243,9 @@ uv run python scripts/predict.py score --conference 2026-10
 ```
 
 Re-running `predict` for the same (speaker, session, order) replaces the
-earlier logged prediction and keeps an actual already recorded.
+earlier logged prediction and keeps an actual already recorded. A typo in the
+name or session creates a separate row; drop it with
+`predict.py remove --speaker "<as typed>" --session <session>` and log again.
 
 Timing by hand is optional. The talk pages publish the recording duration a
 few days after conference; then:
