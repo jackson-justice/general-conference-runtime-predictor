@@ -127,3 +127,53 @@ logged_at,conference,speaker,calling,calling_group,session,speaker_order,model,m
 2026-10-04T17:36:10+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-morning,9,baseline,2026-10-03T02:59:32+00:00,842.7,14:03,787.0,13:07,hand
 2026-10-04T17:36:10+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-morning,9,ridge,2026-10-03T02:59:32+00:00,730.2,12:10,787.0,13:07,hand
 2026-10-04T17:36:10+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-morning,9,catboost_adj,2026-10-03T02:59:32+00:00,560.3,9:20,787.0,13:07,hand
+2026-10-04T20:08:29+00:00,2026-10,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,sunday-afternoon,1,catboost,2026-10-03T02:59:32+00:00,784.9,13:05,725.0,12:05,hand
+2026-10-04T20:08:29+00:00,2026-10,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,sunday-afternoon,1,naive,2026-10-03T02:59:32+00:00,708.4,11:48,725.0,12:05,hand
+2026-10-04T20:08:29+00:00,2026-10,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,sunday-afternoon,1,baseline,2026-10-03T02:59:32+00:00,1076.4,17:56,725.0,12:05,hand
+2026-10-04T20:08:29+00:00,2026-10,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,sunday-afternoon,1,ridge,2026-10-03T02:59:32+00:00,799.8,13:20,725.0,12:05,hand
+2026-10-04T20:08:29+00:00,2026-10,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,sunday-afternoon,1,catboost_adj,2026-10-03T02:59:32+00:00,667.9,11:08,725.0,12:05,hand
+2026-10-04T21:07:34+00:00,2026-10,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,sunday-afternoon,2,catboost,2026-10-03T02:59:32+00:00,650.8,10:51,482.0,8:02,hand
+2026-10-04T21:07:34+00:00,2026-10,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,sunday-afternoon,2,naive,2026-10-03T02:59:32+00:00,708.4,11:48,482.0,8:02,hand
+2026-10-04T21:07:34+00:00,2026-10,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,sunday-afternoon,2,baseline,2026-10-03T02:59:32+00:00,674.9,11:15,482.0,8:02,hand
+2026-10-04T21:07:34+00:00,2026-10,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,sunday-afternoon,2,ridge,2026-10-03T02:59:32+00:00,646.2,10:46,482.0,8:02,hand
+2026-10-04T21:07:34+00:00,2026-10,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,sunday-afternoon,2,catboost_adj,2026-10-03T02:59:32+00:00,535.7,8:56,482.0,8:02,hand
+2026-10-04T21:08:02+00:00,2026-10,Moisés Villanueva,Of the Seventy,seventy,sunday-afternoon,3,catboost,2026-10-03T02:59:32+00:00,628.3,10:28,466.0,7:46,hand
+2026-10-04T21:08:02+00:00,2026-10,Moisés Villanueva,Of the Seventy,seventy,sunday-afternoon,3,naive,2026-10-03T02:59:32+00:00,708.4,11:48,466.0,7:46,hand
+2026-10-04T21:08:02+00:00,2026-10,Moisés Villanueva,Of the Seventy,seventy,sunday-afternoon,3,baseline,2026-10-03T02:59:32+00:00,604.6,10:05,466.0,7:46,hand
+2026-10-04T21:08:02+00:00,2026-10,Moisés Villanueva,Of the Seventy,seventy,sunday-afternoon,3,ridge,2026-10-03T02:59:32+00:00,576.4,9:36,466.0,7:46,hand
+2026-10-04T21:08:02+00:00,2026-10,Moisés Villanueva,Of the Seventy,seventy,sunday-afternoon,3,catboost_adj,2026-10-03T02:59:32+00:00,511.5,8:32,466.0,7:46,hand
+2026-10-04T21:11:51+00:00,2026-10,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,4,catboost,2026-10-03T02:59:32+00:00,789.7,13:10,728.0,12:08,hand
+2026-10-04T21:11:51+00:00,2026-10,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,4,naive,2026-10-03T02:59:32+00:00,708.4,11:48,728.0,12:08,hand
+2026-10-04T21:11:51+00:00,2026-10,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,4,baseline,2026-10-03T02:59:32+00:00,923.9,15:24,728.0,12:08,hand
+2026-10-04T21:11:51+00:00,2026-10,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,4,ridge,2026-10-03T02:59:32+00:00,815.3,13:35,728.0,12:08,hand
+2026-10-04T21:11:51+00:00,2026-10,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,4,catboost_adj,2026-10-03T02:59:32+00:00,671.5,11:12,728.0,12:08,hand
+2026-10-04T21:13:38+00:00,2026-10,Thabo Lebethoa,Of the Seventy,seventy,sunday-afternoon,5,catboost,2026-10-03T02:59:32+00:00,628.6,10:29,480.0,8:00,hand
+2026-10-04T21:13:38+00:00,2026-10,Thabo Lebethoa,Of the Seventy,seventy,sunday-afternoon,5,naive,2026-10-03T02:59:32+00:00,708.4,11:48,480.0,8:00,hand
+2026-10-04T21:13:38+00:00,2026-10,Thabo Lebethoa,Of the Seventy,seventy,sunday-afternoon,5,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,480.0,8:00,hand
+2026-10-04T21:13:38+00:00,2026-10,Thabo Lebethoa,Of the Seventy,seventy,sunday-afternoon,5,ridge,2026-10-03T02:59:32+00:00,625.3,10:25,480.0,8:00,hand
+2026-10-04T21:13:38+00:00,2026-10,Thabo Lebethoa,Of the Seventy,seventy,sunday-afternoon,5,catboost_adj,2026-10-03T02:59:32+00:00,512.1,8:32,480.0,8:00,hand
+2026-10-04T21:14:21+00:00,2026-10,Paul H. Sinclair,Of the Seventy,seventy,sunday-afternoon,6,catboost,2026-10-03T02:59:32+00:00,625.2,10:25,484.0,8:04,hand
+2026-10-04T21:14:21+00:00,2026-10,Paul H. Sinclair,Of the Seventy,seventy,sunday-afternoon,6,naive,2026-10-03T02:59:32+00:00,708.4,11:48,484.0,8:04,hand
+2026-10-04T21:14:21+00:00,2026-10,Paul H. Sinclair,Of the Seventy,seventy,sunday-afternoon,6,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,484.0,8:04,hand
+2026-10-04T21:14:21+00:00,2026-10,Paul H. Sinclair,Of the Seventy,seventy,sunday-afternoon,6,ridge,2026-10-03T02:59:32+00:00,636.1,10:36,484.0,8:04,hand
+2026-10-04T21:14:21+00:00,2026-10,Paul H. Sinclair,Of the Seventy,seventy,sunday-afternoon,6,catboost_adj,2026-10-03T02:59:32+00:00,507.7,8:28,484.0,8:04,hand
+2026-10-04T21:14:58+00:00,2026-10,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,7,catboost,2026-10-03T02:59:32+00:00,774.2,12:54,663.0,11:03,hand
+2026-10-04T21:14:58+00:00,2026-10,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,7,naive,2026-10-03T02:59:32+00:00,708.4,11:48,663.0,11:03,hand
+2026-10-04T21:14:58+00:00,2026-10,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,7,baseline,2026-10-03T02:59:32+00:00,833.7,13:54,663.0,11:03,hand
+2026-10-04T21:14:58+00:00,2026-10,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,7,ridge,2026-10-03T02:59:32+00:00,798.2,13:18,663.0,11:03,hand
+2026-10-04T21:14:58+00:00,2026-10,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,7,catboost_adj,2026-10-03T02:59:32+00:00,656.1,10:56,663.0,11:03,hand
+2026-10-04T21:26:04+00:00,2026-10,Gabriel W. Reid,Second Counselor in the Sunday School General Presidency,auxiliary_counselor,sunday-afternoon,8,catboost,2026-10-03T02:59:32+00:00,630.7,10:31,502.0,8:22,hand
+2026-10-04T21:26:04+00:00,2026-10,Gabriel W. Reid,Second Counselor in the Sunday School General Presidency,auxiliary_counselor,sunday-afternoon,8,naive,2026-10-03T02:59:32+00:00,708.4,11:48,502.0,8:22,hand
+2026-10-04T21:26:04+00:00,2026-10,Gabriel W. Reid,Second Counselor in the Sunday School General Presidency,auxiliary_counselor,sunday-afternoon,8,baseline,2026-10-03T02:59:32+00:00,673.9,11:14,502.0,8:22,hand
+2026-10-04T21:26:04+00:00,2026-10,Gabriel W. Reid,Second Counselor in the Sunday School General Presidency,auxiliary_counselor,sunday-afternoon,8,ridge,2026-10-03T02:59:32+00:00,679.2,11:19,502.0,8:22,hand
+2026-10-04T21:26:04+00:00,2026-10,Gabriel W. Reid,Second Counselor in the Sunday School General Presidency,auxiliary_counselor,sunday-afternoon,8,catboost_adj,2026-10-03T02:59:32+00:00,512.8,8:33,502.0,8:22,hand
+2026-10-04T21:33:10+00:00,2026-10,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,9,catboost,2026-10-03T02:59:32+00:00,758.9,12:39,692.0,11:32,hand
+2026-10-04T21:33:10+00:00,2026-10,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,9,naive,2026-10-03T02:59:32+00:00,708.4,11:48,692.0,11:32,hand
+2026-10-04T21:33:10+00:00,2026-10,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,9,baseline,2026-10-03T02:59:32+00:00,810.0,13:30,692.0,11:32,hand
+2026-10-04T21:33:10+00:00,2026-10,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,9,ridge,2026-10-03T02:59:32+00:00,858.0,14:18,692.0,11:32,hand
+2026-10-04T21:33:10+00:00,2026-10,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,sunday-afternoon,9,catboost_adj,2026-10-03T02:59:32+00:00,640.7,10:41,692.0,11:32,hand
+2026-10-04T21:45:32+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-afternoon,10,catboost,2026-10-03T02:59:32+00:00,531.7,8:52,189.0,3:09,hand
+2026-10-04T21:45:32+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-afternoon,10,naive,2026-10-03T02:59:32+00:00,708.4,11:48,189.0,3:09,hand
+2026-10-04T21:45:32+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-afternoon,10,baseline,2026-10-03T02:59:32+00:00,842.7,14:03,189.0,3:09,hand
+2026-10-04T21:45:32+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-afternoon,10,ridge,2026-10-03T02:59:32+00:00,685.4,11:25,189.0,3:09,hand
+2026-10-04T21:45:32+00:00,2026-10,Dallin H. Oaks,President of The Church of Jesus Christ of Latter-day Saints,church_president,sunday-afternoon,10,catboost_adj,2026-10-03T02:59:32+00:00,414.8,6:55,189.0,3:09,hand
