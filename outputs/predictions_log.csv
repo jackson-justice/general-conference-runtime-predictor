@@ -32,3 +32,53 @@ logged_at,conference,speaker,calling,calling_group,session,speaker_order,model,m
 2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,naive,2026-10-03T02:59:32+00:00,708.4,11:48,755.0,12:35,hand
 2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,baseline,2026-10-03T02:59:32+00:00,899.6,15:00,755.0,12:35,hand
 2026-10-03T18:04:39+00:00,2026-10,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,saturday-morning,8,ridge,2026-10-03T02:59:32+00:00,914.9,15:15,755.0,12:35,hand
+2026-10-03T20:07:38+00:00,2026-10,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,1,catboost,2026-10-03T02:59:32+00:00,749.8,12:30,613.0,10:13,hand
+2026-10-03T20:07:38+00:00,2026-10,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,1,naive,2026-10-03T02:59:32+00:00,708.4,11:48,613.0,10:13,hand
+2026-10-03T20:07:38+00:00,2026-10,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,1,baseline,2026-10-03T02:59:32+00:00,818.6,13:39,613.0,10:13,hand
+2026-10-03T20:07:38+00:00,2026-10,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,1,ridge,2026-10-03T02:59:32+00:00,750.0,12:30,613.0,10:13,hand
+2026-10-03T20:07:38+00:00,2026-10,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,1,catboost_adj,2026-10-03T02:59:32+00:00,672.4,11:12,613.0,10:13,hand
+2026-10-03T20:19:05+00:00,2026-10,Timothy L. Farnes,Young Men General President,auxiliary_president,saturday-afternoon,2,catboost,2026-10-03T02:59:32+00:00,662.6,11:03,533.0,8:53,hand
+2026-10-03T20:19:05+00:00,2026-10,Timothy L. Farnes,Young Men General President,auxiliary_president,saturday-afternoon,2,naive,2026-10-03T02:59:32+00:00,708.4,11:48,533.0,8:53,hand
+2026-10-03T20:19:05+00:00,2026-10,Timothy L. Farnes,Young Men General President,auxiliary_president,saturday-afternoon,2,baseline,2026-10-03T02:59:32+00:00,693.9,11:34,533.0,8:53,hand
+2026-10-03T20:19:05+00:00,2026-10,Timothy L. Farnes,Young Men General President,auxiliary_president,saturday-afternoon,2,ridge,2026-10-03T02:59:32+00:00,624.3,10:24,533.0,8:53,hand
+2026-10-03T20:19:05+00:00,2026-10,Timothy L. Farnes,Young Men General President,auxiliary_president,saturday-afternoon,2,catboost_adj,2026-10-03T02:59:32+00:00,580.6,9:41,533.0,8:53,hand
+2026-10-03T20:28:32+00:00,2026-10,Christian C. Chigbundu,Of the Seventy,seventy,saturday-afternoon,3,catboost,2026-10-03T02:59:32+00:00,625.6,10:26,503.0,8:23,hand
+2026-10-03T20:28:32+00:00,2026-10,Christian C. Chigbundu,Of the Seventy,seventy,saturday-afternoon,3,naive,2026-10-03T02:59:32+00:00,708.4,11:48,503.0,8:23,hand
+2026-10-03T20:28:32+00:00,2026-10,Christian C. Chigbundu,Of the Seventy,seventy,saturday-afternoon,3,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,503.0,8:23,hand
+2026-10-03T20:28:32+00:00,2026-10,Christian C. Chigbundu,Of the Seventy,seventy,saturday-afternoon,3,ridge,2026-10-03T02:59:32+00:00,621.0,10:21,503.0,8:23,hand
+2026-10-03T20:28:32+00:00,2026-10,Christian C. Chigbundu,Of the Seventy,seventy,saturday-afternoon,3,catboost_adj,2026-10-03T02:59:32+00:00,540.2,9:00,503.0,8:23,hand
+2026-10-03T20:39:30+00:00,2026-10,Patricio M. Giuffra,Of the Seventy,seventy,saturday-afternoon,4,catboost,2026-10-03T02:59:32+00:00,628.9,10:29,460.0,7:40,hand
+2026-10-03T20:39:30+00:00,2026-10,Patricio M. Giuffra,Of the Seventy,seventy,saturday-afternoon,4,naive,2026-10-03T02:59:32+00:00,708.4,11:48,460.0,7:40,hand
+2026-10-03T20:39:30+00:00,2026-10,Patricio M. Giuffra,Of the Seventy,seventy,saturday-afternoon,4,baseline,2026-10-03T02:59:32+00:00,605.7,10:06,460.0,7:40,hand
+2026-10-03T20:39:30+00:00,2026-10,Patricio M. Giuffra,Of the Seventy,seventy,saturday-afternoon,4,ridge,2026-10-03T02:59:32+00:00,605.6,10:06,460.0,7:40,hand
+2026-10-03T20:39:30+00:00,2026-10,Patricio M. Giuffra,Of the Seventy,seventy,saturday-afternoon,4,catboost_adj,2026-10-03T02:59:32+00:00,541.0,9:01,460.0,7:40,hand
+2026-10-03T20:47:46+00:00,2026-10,Jeremiah J. Morgan,Of the Seventy,seventy,saturday-afternoon,5,catboost,2026-10-03T02:59:32+00:00,627.3,10:27,477.0,7:57,hand
+2026-10-03T20:47:46+00:00,2026-10,Jeremiah J. Morgan,Of the Seventy,seventy,saturday-afternoon,5,naive,2026-10-03T02:59:32+00:00,708.4,11:48,477.0,7:57,hand
+2026-10-03T20:47:46+00:00,2026-10,Jeremiah J. Morgan,Of the Seventy,seventy,saturday-afternoon,5,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,477.0,7:57,hand
+2026-10-03T20:47:46+00:00,2026-10,Jeremiah J. Morgan,Of the Seventy,seventy,saturday-afternoon,5,ridge,2026-10-03T02:59:32+00:00,642.5,10:42,477.0,7:57,hand
+2026-10-03T20:47:46+00:00,2026-10,Jeremiah J. Morgan,Of the Seventy,seventy,saturday-afternoon,5,catboost_adj,2026-10-03T02:59:32+00:00,534.4,8:54,477.0,7:57,hand
+2026-10-03T20:55:49+00:00,2026-10,Hutch U. Fale,Of the Seventy,seventy,saturday-afternoon,6,catboost,2026-10-03T02:59:32+00:00,623.2,10:23,513.0,8:33,hand
+2026-10-03T20:55:49+00:00,2026-10,Hutch U. Fale,Of the Seventy,seventy,saturday-afternoon,6,naive,2026-10-03T02:59:32+00:00,708.4,11:48,513.0,8:33,hand
+2026-10-03T20:55:49+00:00,2026-10,Hutch U. Fale,Of the Seventy,seventy,saturday-afternoon,6,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,513.0,8:33,hand
+2026-10-03T20:55:49+00:00,2026-10,Hutch U. Fale,Of the Seventy,seventy,saturday-afternoon,6,ridge,2026-10-03T02:59:32+00:00,653.3,10:53,513.0,8:33,hand
+2026-10-03T20:55:49+00:00,2026-10,Hutch U. Fale,Of the Seventy,seventy,saturday-afternoon,6,catboost_adj,2026-10-03T02:59:32+00:00,526.9,8:47,513.0,8:33,hand
+2026-10-03T21:07:02+00:00,2026-10,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,7,catboost,2026-10-03T02:59:32+00:00,766.3,12:46,664.0,11:04,hand
+2026-10-03T21:07:02+00:00,2026-10,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,7,naive,2026-10-03T02:59:32+00:00,708.4,11:48,664.0,11:04,hand
+2026-10-03T21:07:02+00:00,2026-10,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,7,baseline,2026-10-03T02:59:32+00:00,789.1,13:09,664.0,11:04,hand
+2026-10-03T21:07:02+00:00,2026-10,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,7,ridge,2026-10-03T02:59:32+00:00,869.6,14:30,664.0,11:04,hand
+2026-10-03T21:07:02+00:00,2026-10,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,7,catboost_adj,2026-10-03T02:59:32+00:00,669.2,11:09,664.0,11:04,hand
+2026-10-04T00:55:48+00:00,2026-10,Michael A. Dunn,Of the Seventy,seventy,saturday-afternoon,8,catboost,2026-10-03T02:59:32+00:00,596.8,9:57,440.0,7:20,hand
+2026-10-04T00:55:48+00:00,2026-10,Michael A. Dunn,Of the Seventy,seventy,saturday-afternoon,8,naive,2026-10-03T02:59:32+00:00,708.4,11:48,440.0,7:20,hand
+2026-10-04T00:55:48+00:00,2026-10,Michael A. Dunn,Of the Seventy,seventy,saturday-afternoon,8,baseline,2026-10-03T02:59:32+00:00,619.9,10:20,440.0,7:20,hand
+2026-10-04T00:55:48+00:00,2026-10,Michael A. Dunn,Of the Seventy,seventy,saturday-afternoon,8,ridge,2026-10-03T02:59:32+00:00,665.2,11:05,440.0,7:20,hand
+2026-10-04T00:55:48+00:00,2026-10,Michael A. Dunn,Of the Seventy,seventy,saturday-afternoon,8,catboost_adj,2026-10-03T02:59:32+00:00,499.4,8:19,440.0,7:20,hand
+2026-10-04T00:58:18+00:00,2026-10,Matthew J. Eyring,Of the Seventy,seventy,saturday-afternoon,9,catboost,2026-10-03T02:59:32+00:00,598.4,9:58,470.0,7:50,hand
+2026-10-04T00:58:18+00:00,2026-10,Matthew J. Eyring,Of the Seventy,seventy,saturday-afternoon,9,naive,2026-10-03T02:59:32+00:00,708.4,11:48,470.0,7:50,hand
+2026-10-04T00:58:18+00:00,2026-10,Matthew J. Eyring,Of the Seventy,seventy,saturday-afternoon,9,baseline,2026-10-03T02:59:32+00:00,626.3,10:26,470.0,7:50,hand
+2026-10-04T00:58:18+00:00,2026-10,Matthew J. Eyring,Of the Seventy,seventy,saturday-afternoon,9,ridge,2026-10-03T02:59:32+00:00,685.6,11:26,470.0,7:50,hand
+2026-10-04T00:58:18+00:00,2026-10,Matthew J. Eyring,Of the Seventy,seventy,saturday-afternoon,9,catboost_adj,2026-10-03T02:59:32+00:00,498.1,8:18,470.0,7:50,hand
+2026-10-04T01:00:21+00:00,2026-10,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,10,catboost,2026-10-03T02:59:32+00:00,744.5,12:24,540.0,9:00,hand
+2026-10-04T01:00:21+00:00,2026-10,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,10,naive,2026-10-03T02:59:32+00:00,708.4,11:48,540.0,9:00,hand
+2026-10-04T01:00:21+00:00,2026-10,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,10,baseline,2026-10-03T02:59:32+00:00,818.1,13:38,540.0,9:00,hand
+2026-10-04T01:00:21+00:00,2026-10,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,10,ridge,2026-10-03T02:59:32+00:00,834.9,13:55,540.0,9:00,hand
+2026-10-04T01:00:21+00:00,2026-10,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,saturday-afternoon,10,catboost_adj,2026-10-03T02:59:32+00:00,642.8,10:43,540.0,9:00,hand
