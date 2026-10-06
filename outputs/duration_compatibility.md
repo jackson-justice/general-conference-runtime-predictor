@@ -1,11 +1,11 @@
 # Duration compatibility: legacy CSV vs scraped video duration
 
 Overlapping talks (by URL): 34
-Talks timed in both: 26
-Exact matches (|diff| <= 1 s): 26
-Within 5 s: 26
+Talks timed in both: 34
+Exact matches (|diff| <= 1 s): 34
+Within 5 s: 34
 Max |diff|: 0.5 s
-Legacy missing/invalid but scraped has a duration: 8
+Legacy missing/invalid but scraped has a duration: 0
 Scraped missing but legacy timed: 0
 Speaker name mismatches: 1
 Role mismatches: 0

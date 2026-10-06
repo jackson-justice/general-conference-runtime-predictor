@@ -21,3 +21,21 @@
 2026-10-02 17:37:47,921 INFO wrote 409 talks to C:\Users\jacks\Projects\Personal\general-conference-runtime-predictor\data\processed\talks_collected.csv (network requests: 386)
 2026-10-02 17:37:47,921 INFO duration flags: {'ok': 409}
 2026-10-02 17:37:47,921 INFO talks without duration: 0
+2026-10-06 14:01:30,648 INFO collecting ['2020-10', '2021-04', '2021-10', '2022-04', '2022-10', '2023-04', '2023-10', '2024-04', '2024-10', '2025-04', '2025-10', '2026-04', '2026-10']
+2026-10-06 14:01:39,186 INFO 2020-10: 34 talks collected (5 sessions)
+2026-10-06 14:01:47,732 INFO 2021-04: 35 talks collected (5 sessions)
+2026-10-06 14:01:57,253 INFO 2021-10: 39 talks collected (5 sessions)
+2026-10-06 14:02:06,019 INFO 2022-04: 35 talks collected (5 sessions)
+2026-10-06 14:02:14,691 INFO 2022-10: 35 talks collected (5 sessions)
+2026-10-06 14:02:22,975 INFO 2023-04: 33 talks collected (5 sessions)
+2026-10-06 14:02:30,999 INFO 2023-10: 32 talks collected (5 sessions)
+2026-10-06 14:02:39,080 INFO 2024-04: 32 talks collected (5 sessions)
+2026-10-06 14:02:47,794 INFO 2024-10: 34 talks collected (5 sessions)
+2026-10-06 14:02:57,925 INFO 2025-04: 32 talks collected (5 sessions)
+2026-10-06 14:03:08,310 INFO 2025-10: 34 talks collected (5 sessions)
+2026-10-06 14:03:16,679 INFO 2026-04: 34 talks collected (4 sessions)
+2026-10-06 14:04:12,635 INFO 2026-10: 37 talks collected (4 sessions)
+2026-10-06 14:04:12,642 INFO skipped 22 non-talk program items (see outputs/collect_skipped_items.csv)
+2026-10-06 14:04:12,731 INFO wrote 446 talks to C:\Users\jacks\Projects\Personal\general-conference-runtime-predictor\data\processed\talks_collected.csv (network requests: 38)
+2026-10-06 14:04:12,747 INFO duration flags: {'ok': 446}
+2026-10-06 14:04:12,747 INFO talks without duration: 0

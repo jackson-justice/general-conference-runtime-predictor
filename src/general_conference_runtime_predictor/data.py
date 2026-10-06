@@ -35,6 +35,7 @@ SPEAKER_ALIASES = {
     "Becky Craven": "Rebecca L. Craven",      # site byline (2020-10) vs legacy CSV / 2022-04 byline
     "Larry Echo Hawk": "Larry J. Echo Hawk",  # two spellings within the legacy CSV
     "L. Harkness": "Lisa L. Harkness",        # two spellings within the legacy CSV
+    "James O. Fantone": "James G. O. Fantone",  # 2026-10 live log (name as announced) vs site byline (2026-10)
 }
 
 

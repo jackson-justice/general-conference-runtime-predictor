@@ -630,7 +630,7 @@ def cmd_fill_actuals(args) -> int:
                 continue
             sec = float(hit.duration_sec.iloc[0])
         else:
-            hit = col[(col.speaker == r.speaker) & (col.session == r.session)]
+            hit = col[(col.speaker == canonical_speaker(r.speaker)) & (col.session == r.session)]
             if len(hit) > 1 and not pd.isna(r.speaker_order):
                 hit = hit[hit.speaker_order == int(r.speaker_order)]
             if len(hit) != 1:
