@@ -212,7 +212,7 @@ Unseen speakers are *easier* than seen ones: almost all are Seventies or
 auxiliary leaders whose talks cluster tightly around 10 minutes, so the
 calling fallback is accurate. The large errors are concentrated in the
 President of the Church (MAE ~5 min), who gives both 2-6 minute remarks and
-18-24 minute sermons in the same conference; nothing in the allowed predictors
+18-24 minute full talks in the same conference; nothing in the allowed predictors
 separates the two.
 
 ### Stage 2: legacy + scraped through April 2026, the October 2026 frozen configuration (`outputs/metrics_thru2026-04.md`)
@@ -267,7 +267,7 @@ rough guides, not calibrated bounds; `predict.py` prints the measured share
 next to every range.
 
 Remaining error is dominated by the President of the Church (3.5 min) and the
-President of the Twelve (3.6 min), for the same remarks-vs-sermon reason as in
+President of the Twelve (3.6 min), for the same remarks-vs-full-talk reason as in
 stage 1.
 
 ### October 2026: the live run
@@ -297,7 +297,7 @@ What happened: the frozen model over-predicted 36 of the 37 talks, by 1.8
 minutes on average. Talks averaged 9.6 minutes against 12 to 13 in the
 training years; the sessions had 8, 10, 9 and 10 talks instead of the usual 6
 or 7. Nothing in the frozen predictor set could see that coming. The only talk
-that ran longer than predicted was President Oaks' Sunday morning sermon;
+that ran longer than predicted was President Oaks' Sunday morning talk;
 his 3-minute closing remarks were the largest miss (predicted 8:52).
 
 The live adjustment (frozen CatBoost shifted by the shrunk mean miss of the
