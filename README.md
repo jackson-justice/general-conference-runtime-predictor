@@ -25,9 +25,14 @@ requests, beautifulsoup4).
 | Log a whole session interactively | `uv run python scripts/predict.py live` |
 | Predict a talk | `uv run python scripts/predict.py predict --speaker "Dale G. Renlund" --calling "Of the Quorum of the Twelve Apostles" --session sunday-morning --order 3 --log` |
 | Record the actual duration afterwards | `uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session sunday-morning --actual 14:12` |
+| Fill actuals from the official pages, once scraped | `uv run python scripts/predict.py fill-actuals --conference 2027-04` |
+| Re-run the October 2026 frozen configuration and score it on October 2026 as a hold-out | `uv run python scripts/train.py --no-session-size --through 2026-04 --predict-next --no-bundle --tag thru2026-04` |
+| Same with the expected-session-size features | `uv run python scripts/train.py --through 2026-04 --predict-next --no-bundle --tag thru2026-04_sess` |
+| Backtest the live adjustment on any predictions file | `uv run python scripts/backtest_adjustment.py --file outputs/holdout_predictions_thru2026-04_sess.csv` |
+| Redraw the October 2026 chart | `uv run python scripts/plot_oct2026_errors.py` |
 | Score logged predictions | `uv run python scripts/predict.py score` |
 
-`--conference` on `predict`/`log-actual` defaults to `2026-10`. `--calling` takes
+`--conference` on `predict`/`log-actual` defaults to `2026-10`; pass `--conference 2027-04` for the next one. `--calling` takes
 the role as printed on the talk page (e.g. `Of the Seventy`, `President of the
 Church`, `Relief Society General President`).
 
@@ -139,6 +144,14 @@ calling, calling mean (all-time and last two years), role mean, session mean,
 and global mean. Title, text, kicker, word count and the talk's own runtime are
 never predictors.
 
+Since October 2026 the history features also include the expected session
+size: `session_n_prev` (talks in the same session at the previous conference)
+and `session_n_recent` (its mean over the last two years). Like every history
+feature they come from strictly earlier conferences, so nothing has to be
+entered at prediction time; `predict.py` prints the value it used.
+`train.py --no-session-size` withholds them and reproduces the earlier
+predictor set. See "Learning the session size" below.
+
 Models compared:
 
 1. **Baseline**: speaker historical mean, shrunk toward the calling mean with
@@ -202,9 +215,11 @@ President of the Church (MAE ~5 min), who gives both 2-6 minute remarks and
 18-24 minute sermons in the same conference; nothing in the allowed predictors
 separates the two.
 
-### Stage 2: legacy + scraped, all models (`outputs/metrics_all.md`)
+### Stage 2: legacy + scraped through April 2026, the October 2026 frozen configuration (`outputs/metrics_thru2026-04.md`)
 
-1,166 timed talks, 33 conferences (2010-04 .. 2026-04). Train 2010-04 ..
+1,166 timed talks, 33 conferences (2010-04 .. 2026-04). This is the configuration
+that was frozen for October 2026; `train.py --no-session-size --through 2026-04`
+reproduces it exactly (same selected settings, same test numbers). Train 2010-04 ..
 2022-04 (900 timed), validation 2022-10 .. 2024-04 (132), test 2024-10 ..
 2026-04 (134 timed talks, 29 by unseen speakers). Every model is scored on
 exactly the same 134 test rows. All MAE in minutes.
@@ -255,68 +270,144 @@ Remaining error is dominated by the President of the Church (3.5 min) and the
 President of the Twelve (3.6 min), for the same remarks-vs-sermon reason as in
 stage 1.
 
+### October 2026: the live run
+
+The bundle used for October 2026 was trained on 2026-10-03 (UTC) from all
+1,166 timed talks through April 2026 (stage 2 above), after settings were
+chosen on the 2022-10 .. 2024-04 validation conferences. It was not retrained
+during the conference; every logged prediction carries its version. For each
+of the 37 talks the prediction was logged in live mode before the speaker
+started, with a stopwatch time entered afterwards; `fill-actuals` later
+replaced those with the official video durations.
+
+![October 2026: prediction minus actual for every talk, frozen model and live adjustment](outputs/oct_2026_errors.png)
+
+`predict.py score --conference 2026-10` (official durations, MAE in minutes):
+
+| model | n | MAE | median AE |
+|---|---|---|---|
+| naive | 37 | 2.43 | 3.02 |
+| baseline (speaker mean) | 37 | 2.66 | 2.33 |
+| ridge | 37 | 2.40 | 2.37 |
+| catboost (frozen, recommended) | 37 | 1.94 | 1.87 |
+| catboost_adj (live adjustment) | 29 | 0.78 | 0.49 |
+| program_mean (the sustaining) | 1 | 0.57 | 0.57 |
+
+What happened: the frozen model over-predicted 36 of the 37 talks, by 1.8
+minutes on average. Talks averaged 9.6 minutes against 12 to 13 in the
+training years; the sessions had 8, 10, 9 and 10 talks instead of the usual 6
+or 7. Nothing in the frozen predictor set could see that coming. The only talk
+that ran longer than predicted was President Oaks' Sunday morning sermon;
+his 3-minute closing remarks were the largest miss (predicted 8:52).
+
+The live adjustment (frozen CatBoost shifted by the shrunk mean miss of the
+day's finished talks) started working from the second talk with a hand time on
+Saturday afternoon, so it covers 29 talks. Over those 29 it cut the error from
+about 1.9 to 0.78 minutes; replayed over all 37 (`backtest_adjustment.py --file
+outputs/holdout_predictions_thru2026-04.csv`) it gives 0.90. It made President
+Oaks' Sunday morning talk worse (the shift was downward, the talk ran long).
+
+### Learning the session size (after October 2026)
+
+The October result says the missing information was "how many talks are in
+this session". The program is not published in advance, so the model cannot
+be told; instead it now learns an expectation from earlier conferences, the
+same way it learns a speaker's mean: `session_n_prev` is the talk count of
+the same session in the previous conference and `session_n_recent` its mean
+over the last two years (`features.history_features`, strictly earlier
+conferences only, no input at prediction time). `train.py --no-session-size`
+withholds the two columns and reproduces the frozen predictor set.
+
+Two runs with the data restricted to 2026-04 (`--through 2026-04
+--predict-next`), so that October 2026 is a true hold-out for both:
+
+| CatBoost | val MAE | test MAE 2024-10 .. 2026-04 (134 talks) | October 2026 hold-out (37 talks) | hold-out with the live adjustment replayed |
+|---|---|---|---|---|
+| frozen predictor set | 0.95 | 1.19 | 1.94 | 0.90 |
+| + expected session size | 0.89 | 1.14 | 1.58 | 0.87 |
+
+Ridge went from 1.30 to 1.37 on test and from 2.40 to 1.96 on the hold-out;
+the speaker-mean baseline is unchanged at 2.66. The expected sizes for
+October 2026 were 8, 8, 9, 9 (April 2026's counts) against the real 8, 10,
+9, 10, and the model had only one past conference (April 2026) in which a
+large session went with short talks, so it closed about a quarter of the gap:
+mean over-prediction fell from 1.8 to 1.4 minutes, and 35 of 37 talks were
+still over-predicted. For comparison, the same model given the real session
+counts (not usable live) reached 0.94 on the hold-out, which is the ceiling
+this feature can approach as more conferences in the new format accumulate.
+Caveats: the test conferences had been inspected before this change
+(exploratory, labelled as such in `outputs/metrics_thru2026-04_sess.md`), and
+the hold-out is one conference. April 2027 is the clean test.
+
+### Model for April 2027 (`outputs/metrics_all.md`)
+
+`train.py` (default: expected-session-size columns on, all data through
+October 2026). 1,203 timed talks, 34 conferences. Train 2010-04 .. 2022-10
+(935), validation 2023-04 .. 2024-10 (131), test 2025-04 .. 2026-10 (137).
+Exploratory for the same reasons as above.
+
+| model | selected | val MAE | test MAE | test MAE by conference 2025-04 / 2025-10 / 2026-04 / 2026-10 |
+|---|---|---|---|---|
+| naive | - | 1.82 | 2.28 | 1.66 / 2.01 / 2.98 / 2.43 |
+| baseline | `min_n=1, shrink=3` | 1.05 | 1.86 | 0.68 / 1.17 / 2.80 / 2.66 |
+| ridge | `alpha=0.3, session size` | 1.08 | 1.70 | 0.91 / 1.14 / 2.64 / 2.03 |
+| **catboost** | `depth=6, MAE, 440 iters, session size` | **0.96** | **1.50** | 0.56 / 1.09 / 2.30 / 1.94 |
+
+The two 2026 conferences dominate the test error for every model. Note that
+the October 2026 column here (1.94) is not a hold-out number: October 2026 is
+inside this run's test split, so settings were not chosen on it, but the
+numbers above were looked at while writing this. The April 2027 log is the
+real evaluation.
+
 ### What would help next
 
 - A "times this speaker has already spoken in this conference" feature would
   separate opening/closing remarks from full talks for the First Presidency.
-  It is known before the talk begins but is outside the predictor list used
-  here, so it was left out.
+  It is known before the talk begins but was left out of the predictor list.
 - Conformal-style intervals re-fit after each conference, so coverage tracks
   format changes like April 2026.
+- Retrain after every conference and keep the per-conference log, so the
+  expected-session-size features and the adjustment can be judged on more
+  than one conference. The session-size features should get sharper as more
+  conferences in the new format enter the history.
 
-### October 2026 (the clean hold-out)
+### Running the next conference (April 2027)
 
-**Frozen model.** The bundle used for October 2026 was trained on 2026-10-03
-(UTC) from all 1,166 timed talks through April 2026, after settings were
-chosen on the 2022-10 .. 2024-04 validation conferences. `predict.py info`
-prints its version and writes `outputs/model_manifest.json`; every logged
-prediction carries that version in `model_version`. Do not retrain between
-now and the end of the conference. The exploratory evaluation of this same
-configuration is kept separately in `outputs/metrics_all.md` / `.json`.
+**Frozen model.** Train once before the conference (`uv run python
+scripts/train.py`), run `predict.py info` to write `outputs/model_manifest.json`,
+and do not retrain until the conference is over. Every logged prediction
+carries `model_version`.
 
-**Logging.** `predict --log` writes one row per model (naive, baseline, ridge,
-catboost) with timestamp, model version, conference, speaker, calling,
-session and order. A talk that already has a logged prediction is *not*
-overwritten; the command says so and exits. Use `--force` to replace it on
-purpose, or `remove` to delete a mistyped row.
+**Logging.** `live` (or `predict --log`) writes one row per model with
+timestamp, model version, conference, speaker, calling, session, order and,
+in live mode, the `catboost_adj` row once a finished talk has a time. A talk
+that already has a logged prediction is not overwritten; use `--force` or
+`remove` on purpose.
 
 **Timing convention for actuals.** The reference measurement is the
 `data-duration` of the talk's `<video>` on the official page (the same
 measurement as the whole training set). `fill-actuals` copies it into the log
 and marks `actual_source = video_data_duration`; it replaces any hand-timed
-value and prints the difference. A stopwatch time entered with `log-actual`
-is provisional (`actual_source = hand`): start at the speaker's first word,
-stop at the end of "amen", enter as `m:ss`. Expect a few seconds of
-difference from the official figure.
+value and prints the difference. A stopwatch time (`t 12:34` in live mode or
+`log-actual`) is provisional (`actual_source = hand`): start at the speaker's
+first word, stop at the end of "amen", enter as `m:ss`.
 
 Sessions: `saturday-morning`, `saturday-afternoon`, `sunday-morning`,
 `sunday-afternoon` (`saturday-evening` exists in older data).
 
 ```
-# before the talk (count --order over talks only, see above)
-uv run python scripts/predict.py predict --speaker "Dale G. Renlund" --calling "Of the Quorum of the Twelve Apostles" --session saturday-morning --order 2 --log
+uv run python scripts/predict.py live --conference 2027-04      # during the broadcast
 
-# after the talk
-uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session saturday-morning --actual 14:12
+# or one talk at a time (count --order over talks only, see above)
+uv run python scripts/predict.py predict --speaker "Dale G. Renlund" --calling "Of the Quorum of the Twelve Apostles" --session saturday-morning --order 2 --conference 2027-04 --log
+uv run python scripts/predict.py log-actual --speaker "Dale G. Renlund" --session saturday-morning --actual 14:12 --conference 2027-04
 
-# any time
-uv run python scripts/predict.py score --conference 2026-10
-```
-
-Re-running `predict` for the same (speaker, session, order) replaces the
-earlier logged prediction and keeps an actual already recorded. A typo in the
-name or session creates a separate row; drop it with
-`predict.py remove --speaker "<as typed>" --session <session>` and log again.
-
-Timing by hand is optional. The talk pages publish the recording duration a
-few days after conference; then:
-
-```
-uv run python scripts/collect.py --start 2026-10 --end 2026-10   # scrape the new conference
-uv run python scripts/collect_program_items.py                    # sustaining duration for the new conference
-uv run python scripts/predict.py fill-actuals --conference 2026-10   # official durations replace hand-timed ones
-uv run python scripts/predict.py score --conference 2026-10
-uv run python scripts/train.py                                   # retrain so Oct 2026 becomes history
+# a few days later, when the talk pages carry the recording duration
+uv run python scripts/collect.py --start 2027-04 --end 2027-04
+uv run python scripts/collect_program_items.py
+uv run python scripts/predict.py fill-actuals --conference 2027-04
+uv run python scripts/predict.py score --conference 2027-04
+uv run python scripts/train.py                                   # retrain so April 2027 becomes history
 ```
 
 Logged actuals are for scoring only. The models learn from a conference only
@@ -327,16 +418,19 @@ when `train.py` is re-run after `collect.py` has scraped it.
 ```
 scripts/collect.py   scrape index + talk pages, cache HTML, log failures
 scripts/verify_durations.py  look up unusable legacy runtimes on the official pages -> legacy_duration_fixes.csv
-scripts/backtest_adjustment.py  backtest of the in-conference bias adjustment (live mode's "adjusted" line)
+scripts/backtest_adjustment.py  backtest of the in-conference bias adjustment (live mode's "adjusted" line); --file/--col for any predictions CSV
+scripts/plot_oct2026_errors.py  the October 2026 chart from outputs/predictions_log.csv
 scripts/collect_program_items.py  durations of sustainings / audit reports / solemn assemblies -> program_items.csv
-scripts/train.py     build dataset, history features, chronological eval, save models/bundle.joblib
+scripts/train.py     build dataset, history features, chronological eval, save models/bundle.joblib;
+                     --through / --predict-next score a later conference as a true hold-out
 scripts/predict.py   predict / log-actual / score
 src/general_conference_runtime_predictor/{data,features,models,paths}.py
 data/raw/            original CSV (do not modify)
 data/processed/      talks_collected.csv, legacy_duration_fixes.csv, program_items.csv, talks_dataset.csv
 tests/               pytest rule checks
 data/cache/          HTML cache (gitignored)
-outputs/             metrics_*.md/json, test_predictions_*.csv, data_report.json,
-                     duration_compatibility.md, collect.log, verify_durations.log, predictions_log.csv
-models/              bundle.joblib (gitignored)
+outputs/             metrics_*.md/json, test_predictions_*.csv, holdout_predictions_*.csv, data_report.json,
+                     duration_compatibility.md, collect.log, verify_durations.log, predictions_log.csv,
+                     oct_2026_errors.png
+models/              bundle.joblib, bundle_2026-10-03_frozen.joblib (gitignored)
 ```

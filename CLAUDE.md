@@ -10,13 +10,14 @@ uv sync                                   # install deps (Python 3.12, see pypro
 uv run python scripts/train.py --legacy-only          # baseline on data/raw/talks.csv only
 uv run python scripts/collect.py --extra 2020-10 --compare-legacy   # scrape 2021-04..2026-04 (+ 2020-10 check)
 uv run python scripts/verify_durations.py             # check unusable legacy runtimes against the official pages
-uv run python scripts/train.py                        # legacy + scraped, all models
+uv run python scripts/train.py                        # legacy + scraped, all models (expected-session-size features on)
+uv run python scripts/train.py --no-session-size --through 2026-04 --predict-next --no-bundle --tag thru2026-04   # old predictor set, Oct 2026 as hold-out
 uv run python scripts/train.py --exploratory "why"    # same, but label test numbers as a re-look
 uv run python -m pytest -q                            # rule tests (history leakage, order, parsing, aliases)
 uv run python scripts/predict.py live                 # interactive: one speaker name per talk, auto order + log
 uv run python scripts/predict.py predict --speaker "..." --calling "Of the Seventy" --session sunday-morning --order 3 --log
 uv run python scripts/predict.py log-actual --speaker "..." --session sunday-morning --actual 12:34
-uv run python scripts/predict.py fill-actuals --conference 2026-10   # after collect.py scraped that conference
+uv run python scripts/predict.py fill-actuals --conference 2027-04   # after collect.py scraped that conference
 uv run python scripts/predict.py score
 ```
 
@@ -50,8 +51,12 @@ Always run Python through `uv run`. Shared code lives in
   `<video>` element. Do not mix in other measurements (e.g. mp3 length) without
   re-running `collect.py --compare-legacy` and documenting the result.
 - Predictors are only: speaker, calling (`role_norm`, `calling_group`),
-  session, `speaker_order`, month, and history features from strictly earlier
-  conferences (`features.history_features`). Title, text, kicker, word count
+  session, `speaker_order`, month, history features from strictly earlier
+  conferences (`features.history_features`). Since October 2026 the history
+  features include the expected session size (`session_n_prev`,
+  `session_n_recent`: talk counts of the same session in earlier
+  conferences). The real count of the current session is never a predictor;
+  `train.py --no-session-size` withholds the two columns. Title, text, kicker, word count
   and the talk's own runtime are never predictors (word count is used only to
   flag impossible durations). No talk may contribute to another talk's history
   in the same conference; this also rules out target-encoding `speaker` inside
@@ -79,8 +84,12 @@ Always run Python through `uv run`. Shared code lives in
 - The printed range is an uncalibrated estimated range (80th percentile of
   validation residuals) reported with the share of test talks it covered.
   Never call it a confidence interval or "80% interval".
-- October 2026 runs on the frozen bundle trained 2026-10-03; `predict.py
-  info` writes its manifest, and each log row records `model_version`.
+- October 2026 ran on the frozen bundle trained 2026-10-03 (kept as
+  `models/bundle_2026-10-03_frozen.joblib`); its results are in the README.
+  The current bundle (expected-session-size features, data through 2026-10) is for
+  April 2027: train once before the conference, `predict.py info` writes its
+  manifest, each log row records `model_version`, no retraining until the
+  conference is over.
   Logged predictions are never overwritten without `--force`. Actuals: the
   official video duration is the reference (`actual_source =
   video_data_duration`); hand-timed values are provisional and get replaced

@@ -8,7 +8,10 @@ import pytest
 from general_conference_runtime_predictor.data import (
     SPEAKER_ALIASES, _finish, canonical_speaker, parse_runtime,
 )
-from general_conference_runtime_predictor.features import add_history_features, history_features
+from general_conference_runtime_predictor.features import (
+    HISTORY_COLS, SESSION_COLS, add_history_features, history_features,
+)
+from general_conference_runtime_predictor.models import CATBOOST_CAT_COLS, CAT_COLS, numeric_cols
 
 
 def _talks(rows):
@@ -50,6 +53,37 @@ def test_untimed_talks_count_as_talks_but_not_as_durations():
     out = add_history_features(df)
     row = out[out.conf_index == 2].iloc[0]
     assert row.spk_n_talks == 1 and row.spk_n_timed == 0 and np.isnan(row.spk_mean)
+
+
+def test_expected_session_size_comes_from_earlier_conferences_only():
+    df = _talks([
+        (1, "saturday-morning", 1, "A", 600.0),
+        (1, "saturday-morning", 2, "B", np.nan),     # untimed talks still count as talks
+        (1, "sunday-morning", 1, "C", 700.0),
+        (2, "saturday-morning", 1, "A", 650.0),
+        (2, "saturday-morning", 2, "D", 650.0),
+        (2, "saturday-morning", 3, "E", 650.0),
+        (3, "saturday-morning", 1, "A", 650.0),
+        (3, "sunday-afternoon", 1, "F", 650.0),      # session never seen before
+    ])
+    out = add_history_features(df)
+    assert out[out.conf_index == 1].session_n_prev.isna().all()
+    assert (out[out.conf_index == 2].session_n_prev == 2.0).all()          # conference 1 had 2 talks there
+    assert (out[(out.conf_index == 3) & (out.session == "saturday-morning")].session_n_prev == 3.0).all()
+    assert (out[(out.conf_index == 3) & (out.session == "saturday-morning")].session_n_recent == 2.5).all()
+    unseen = out[(out.conf_index == 3) & (out.session == "sunday-afternoon")].iloc[0]
+    assert unseen.session_n_prev == 3.0                                     # fallback: mean over conference 2's sessions
+    assert unseen.session_n_recent == 2.0                                   # mean over all recent session sizes (2, 1, 3)
+
+
+def test_models_see_only_pre_talk_columns():
+    allowed = {"speaker", "role_norm", "calling_group", "session", "speaker_order", "month",
+               "spk_has_history", *HISTORY_COLS}
+    for cols in (CAT_COLS, CATBOOST_CAT_COLS, numeric_cols(True), numeric_cols(False)):
+        assert set(cols) <= allowed, set(cols) - allowed
+    for forbidden in ("title", "text", "kicker", "num_words", "duration_sec", "words_per_min", "session_n_talks"):
+        assert forbidden not in allowed
+    assert set(SESSION_COLS) <= set(numeric_cols(True)) and not set(SESSION_COLS) & set(numeric_cols(False))
 
 
 def test_mm60_runtimes_are_not_silently_parsed():

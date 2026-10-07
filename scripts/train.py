@@ -17,9 +17,9 @@ import numpy as np
 import pandas as pd
 import subprocess
 
-from general_conference_runtime_predictor.data import build_dataset, format_seconds
-from general_conference_runtime_predictor.features import add_history_features
-from general_conference_runtime_predictor.models import GRIDS, make_model
+from general_conference_runtime_predictor.data import build_dataset, conf_index, format_seconds, parse_conference_key
+from general_conference_runtime_predictor.features import SESSION_COLS, add_history_features
+from general_conference_runtime_predictor.models import GRIDS, SESSION_SIZE_MODELS, make_model
 from general_conference_runtime_predictor.paths import BUNDLE_PATH, MODELS, OUTPUTS
 
 INTERVAL_LEVELS = (0.5, 0.8, 0.9)
@@ -104,7 +104,21 @@ def main() -> int:
     ap.add_argument("--exploratory", default=None, metavar="REASON",
                     help="label this run's test numbers as exploratory (the test conferences were already "
                          "inspected before this change), with the reason")
+    ap.add_argument("--session-size", dest="session_size", action="store_true", default=True,
+                    help="give ridge and catboost the expected session size learned from earlier conferences "
+                         "(session_n_prev, session_n_recent; default)")
+    ap.add_argument("--no-session-size", dest="session_size", action="store_false",
+                    help="predictors as before October 2026: without the expected-session-size columns")
+    ap.add_argument("--through", default=None, metavar="YYYY-MM",
+                    help="use only conferences up to and including this one for splitting, tuning and the "
+                         "final fit (default: everything in the data)")
+    ap.add_argument("--predict-next", action="store_true",
+                    help="with --through: predict the conferences after it with the final models, as a true "
+                         "hold-out (their talks never entered selection or fitting); writes "
+                         "outputs/holdout_predictions_<tag>.csv")
     args = ap.parse_args()
+    if args.predict_next and not args.through:
+        sys.exit("--predict-next needs --through")
 
     tag = args.tag or ("legacy" if args.legacy_only else "all")
     model_names = [m.strip() for m in args.models.split(",") if m.strip()]
@@ -122,6 +136,19 @@ def main() -> int:
                      f"excluded from history, fitting and scoring")
         print(); print(exclusion)
     df = add_history_features(df)
+    holdout = None
+    if args.through:
+        through_ci = conf_index(*parse_conference_key(args.through))
+        if through_ci not in set(df.conf_index):
+            sys.exit(f"--through {args.through} is not a conference in the data")
+        holdout = df[df.conf_index > through_ci].copy()
+        df = df[df.conf_index <= through_ci].copy()
+        print(f"\nusing conferences through {args.through} only"
+              + (f"; {len(holdout)} later talks kept aside as hold-out" if len(holdout) else ""))
+    extra = {name: ({"session_size": args.session_size} if name in SESSION_SIZE_MODELS else {})
+             for name in model_names}
+    print(f"expected-session-size columns {SESSION_COLS} "
+          + (f"given to {[n for n in model_names if n in SESSION_SIZE_MODELS]}" if args.session_size else "withheld"))
 
     confs = sorted(df.conf_index.unique())
     if len(confs) < args.n_val + args.n_test + 2:
@@ -151,6 +178,7 @@ def main() -> int:
         tuning[name] = []
         best = None
         for params in GRIDS[name]:
+            params = {**params, **extra[name]}
             m = make_model(name, **params).fit(tr, tr.duration_sec, va, va.duration_sec)
             pv = m.predict(va)
             score = mae_min(va.duration_sec, pv)
@@ -198,6 +226,33 @@ def main() -> int:
               ", ".join(f"{k}: {v['half_width_min']:.2f}/{v['test_coverage']:.2f}" for k, v in intervals.items()))
 
     recommended = min(results, key=lambda n: results[n]["val_mae_min"])
+
+    # True hold-out: conferences after --through, predicted by the final models (fit on everything
+    # through --through). Their talks never entered selection or fitting; their history features,
+    # including the expected session sizes, come from conferences through --through only.
+    holdout_summary = None
+    if args.predict_next and holdout is not None and len(holdout):
+        ho = holdout[holdout.duration_status == "ok"].copy()
+        hcols = ["conference", "session", "speaker_order", "speaker", "role_norm", "calling_group",
+                 *SESSION_COLS, "duration_sec"]
+        hout = ho[hcols].copy()
+        hout["session_n_actual"] = ho.groupby(["conference", "session"]).speaker_order.transform("max")
+        hout["actual"] = hout.duration_sec.map(format_seconds)
+        holdout_summary = {"conferences": sorted(ho.conference.unique().tolist()), "n_timed": int(len(ho)),
+                           "mae_min": {}}
+        print(f"\n=== Hold-out {holdout_summary['conferences']} ({len(ho)} timed talks), final models ===")
+        for name, entry in bundle_models.items():
+            p = entry["model"].predict(ho)
+            hout[f"pred_{name}"] = np.round(p, 1)
+            hout[f"err_{name}_min"] = ((p - ho.duration_sec) / 60).round(2)
+            holdout_summary["mae_min"][name] = round(mae_min(ho.duration_sec, p), 3)
+            print(f"  {name:9s} MAE {holdout_summary['mae_min'][name]:.3f} min")
+        hout.to_csv(OUTPUTS / f"holdout_predictions_{tag}.csv", index=False, encoding="utf-8")
+        print(f"  wrote {OUTPUTS / f'holdout_predictions_{tag}.csv'}")
+        sizes = hout.drop_duplicates(["conference", "session"])
+        print("  session sizes (expected from history -> actual): " + ", ".join(
+            f"{r.session} {r.session_n_prev:.0f}->{int(r.session_n_actual)}" for r in sizes.itertuples()))
+
     paired = {}
     if "catboost" in test_pred:
         for other in ("naive", "baseline", "ridge"):
@@ -208,6 +263,9 @@ def main() -> int:
         "tag": tag,
         "test_status": ("exploratory: " + args.exploratory) if args.exploratory else "single report",
         "exclusion": exclusion,
+        "session_size_feature": bool(args.session_size),
+        "data_through": args.through,
+        "holdout": holdout_summary,
         "split": split_info,
         "recommended_by_val_mae": recommended,
         "results": results,
@@ -226,6 +284,9 @@ def main() -> int:
     if exclusion:
         lines += [f"**Exclusion experiment:** {exclusion}. Test rows differ from the default run, so numbers "
                   f"are not comparable with it row for row.", ""]
+    lines += [("Ridge and CatBoost use the expected session size learned from earlier conferences "
+               "(`session_n_prev`, `session_n_recent`)." if args.session_size else
+               "Predictors as before October 2026 (without the expected-session-size columns)."), ""]
     lines += [f"Split: train {split_info['train']['conferences']} ({split_info['train']['n_timed']} timed talks), "
              f"val {split_info['val']['conferences']} ({split_info['val']['n_timed']}), "
              f"test {split_info['test']['conferences']} ({split_info['test']['n_timed']}).", "",
@@ -256,11 +317,17 @@ def main() -> int:
         for k, v in paired.items():
             lines.append(f"| {k.replace('_', ' ')} | {v['n']} | {v['mean_diff_min']:+.2f} | "
                          f"[{v['ci95_min'][0]:+.2f}, {v['ci95_min'][1]:+.2f}] | {v['share_a_better']:.0%} |")
+    if holdout_summary:
+        lines += ["", f"## Hold-out: {', '.join(holdout_summary['conferences'])} ({holdout_summary['n_timed']} timed talks)", "",
+                  "Predicted by the final models (fit on everything through the `--through` conference).", "",
+                  "| model | hold-out MAE |", "|---|---|"]
+        for k, v in holdout_summary["mae_min"].items():
+            lines.append(f"| {k} | {v:.2f} |")
     lines += ["", "All MAE values are in minutes."]
     (OUTPUTS / f"metrics_{tag}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     cols = ["conference", "session", "speaker_order", "speaker", "speaker_source", "role_norm", "calling_group",
-            "spk_n_talks", "spk_n_timed", "duration_source", "duration_sec"]
+            *SESSION_COLS, "spk_n_talks", "spk_n_timed", "duration_source", "duration_sec"]
     out = te[cols].copy()
     out["actual"] = out.duration_sec.map(format_seconds)
     for n in test_pred.columns:
@@ -280,7 +347,7 @@ def main() -> int:
             commit = None
         joblib.dump(
             {"models": bundle_models, "recommended": recommended, "trained_at": summary["trained_at"], "tag": tag,
-             "code_commit": commit,
+             "code_commit": commit, "session_size": bool(args.session_size),
              "split": split_info, "max_conf_index": int(df.conf_index.max()),
              "sessions": sorted(df.session.unique().tolist())},
             BUNDLE_PATH,

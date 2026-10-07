@@ -1,90 +1,104 @@
 {
-  "trained_at": "2026-10-03T05:16:08+00:00",
-  "tag": "all_expres8",
-  "test_status": "exploratory: experiment: exclude Church President talks under 8 min",
-  "exclusion": "46 Church President talks shorter than 8 min excluded from history, fitting and scoring",
+  "trained_at": "2026-10-07T04:56:42+00:00",
+  "tag": "thru2026-04_sess",
+  "test_status": "exploratory: expected-session-size history features added after the October 2026 live run; test conferences were inspected earlier",
+  "exclusion": null,
+  "session_size_feature": true,
+  "data_through": "2026-04",
+  "holdout": {
+    "conferences": [
+      "2026-10"
+    ],
+    "n_timed": 37,
+    "mae_min": {
+      "naive": 2.426,
+      "baseline": 2.656,
+      "ridge": 1.963,
+      "catboost": 1.581
+    }
+  },
   "split": {
     "train": {
       "conferences": "2010-04 .. 2022-04",
       "n_conf": 25,
-      "n_timed": 859
+      "n_timed": 900
     },
     "val": {
       "conferences": "2022-10 .. 2024-04",
       "n_conf": 4,
-      "n_timed": 129
+      "n_timed": 132
     },
     "test": {
       "conferences": "2024-10 .. 2026-04",
       "n_conf": 4,
-      "n_timed": 132
+      "n_timed": 134
     }
   },
   "recommended_by_val_mae": "catboost",
   "results": {
     "naive": {
       "params": {},
-      "val_mae_min": 1.7827,
+      "val_mae_min": 1.8425,
       "test": {
-        "n": 132,
-        "mae_min": 1.9821053933477455,
-        "median_ae_min": 1.6594731494732664,
+        "n": 134,
+        "mae_min": 2.097134857218693,
+        "median_ae_min": 1.6797250000000001,
         "n_unseen": 29,
-        "mae_unseen_min": 2.352068576627418,
-        "n_seen": 103,
-        "mae_seen_min": 1.8779410019389051,
+        "mae_unseen_min": 2.315899511736107,
+        "n_seen": 105,
+        "mae_seen_min": 2.0367141431138833,
         "n_few_history": 27,
-        "mae_few_history_min": 1.6455168625197178,
+        "mae_few_history_min": 1.5975008687827585,
         "segments": {
           "all": {
-            "n": 132,
-            "mae_min": 1.9821053933477455,
-            "median_ae_min": 1.6594731494732664
+            "n": 134,
+            "mae_min": 2.097134857218693,
+            "median_ae_min": 1.6797250000000001
           },
           "church_president": {
-            "n": 3,
-            "mae_min": 1.3096336469194017,
-            "median_ae_min": 1.019379419191919
+            "n": 5,
+            "mae_min": 4.729895549386999,
+            "median_ae_min": 2.4776945707070697
           },
           "seventy": {
             "n": 52,
-            "mae_min": 2.3040829255599555,
-            "median_ae_min": 1.9991558974358972
+            "mae_min": 2.2602265732526274,
+            "median_ae_min": 1.9931509130945395
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 1.5847629571655735,
-            "median_ae_min": 1.5847629571655735
+            "mae_min": 1.4934006790230558,
+            "median_ae_min": 1.4934006790230558
           },
           "unseen_speaker": {
             "n": 29,
-            "mae_min": 2.352068576627418,
+            "mae_min": 2.315899511736107,
             "median_ae_min": 1.9810725641025633
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.8779410019389051,
+            "n": 105,
+            "mae_min": 2.0367141431138833,
             "median_ae_min": 1.6059539141414139
           },
           "few_history": {
             "n": 27,
-            "mae_min": 1.6455168625197178,
-            "median_ae_min": 1.5437737179487176
+            "mae_min": 1.5975008687827585,
+            "median_ae_min": 1.5302292620865159
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 1.585,
-          "test_coverage": 0.447
+          "half_width_min": 1.49,
+          "test_coverage": 0.396
         },
         "0.8": {
-          "half_width_min": 2.314,
-          "test_coverage": 0.727
+          "half_width_min": 2.455,
+          "test_coverage": 0.731
         },
         "0.9": {
-          "half_width_min": 2.806,
-          "test_coverage": 0.803
+          "half_width_min": 3.454,
+          "test_coverage": 0.843
         }
       }
     },
@@ -93,27 +107,27 @@
         "min_n": 1,
         "shrink": 3.0
       },
-      "val_mae_min": 0.9825,
+      "val_mae_min": 1.199,
       "test": {
-        "n": 132,
-        "mae_min": 1.2498329829488093,
+        "n": 134,
+        "mae_min": 1.3864723306491962,
         "median_ae_min": 0.8347033598437406,
         "n_unseen": 29,
         "mae_unseen_min": 0.9575529163339556,
-        "n_seen": 103,
-        "mae_seen_min": 1.3321254288889135,
+        "n_seen": 105,
+        "mae_seen_min": 1.5049357879362628,
         "n_few_history": 27,
         "mae_few_history_min": 0.6744965466091115,
         "segments": {
           "all": {
-            "n": 132,
-            "mae_min": 1.2498329829488093,
+            "n": 134,
+            "mae_min": 1.3864723306491962,
             "median_ae_min": 0.8347033598437406
           },
           "church_president": {
-            "n": 3,
-            "mae_min": 2.1925482279526185,
-            "median_ae_min": 1.3163629645511719
+            "n": 5,
+            "mae_min": 5.47739664832147,
+            "median_ae_min": 2.373798691400632
           },
           "seventy": {
             "n": 52,
@@ -131,8 +145,8 @@
             "median_ae_min": 0.8014410303030294
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.3321254288889135,
+            "n": 105,
+            "mae_min": 1.5049357879362628,
             "median_ae_min": 0.8638644668628274
           },
           "few_history": {
@@ -144,85 +158,86 @@
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.814,
+          "half_width_min": 0.821,
           "test_coverage": 0.485
         },
         "0.8": {
-          "half_width_min": 1.444,
-          "test_coverage": 0.674
+          "half_width_min": 1.597,
+          "test_coverage": 0.694
         },
         "0.9": {
-          "half_width_min": 2.188,
-          "test_coverage": 0.826
+          "half_width_min": 2.504,
+          "test_coverage": 0.866
         }
       }
     },
     "ridge": {
       "params": {
-        "alpha": 30.0,
-        "speaker_onehot": false
+        "alpha": 0.3,
+        "speaker_onehot": false,
+        "session_size": true
       },
-      "val_mae_min": 0.8242,
+      "val_mae_min": 1.2274,
       "test": {
-        "n": 132,
-        "mae_min": 1.1267073836482306,
-        "median_ae_min": 0.9027707867344257,
+        "n": 134,
+        "mae_min": 1.3670226481373886,
+        "median_ae_min": 1.055812486122785,
         "n_unseen": 29,
-        "mae_unseen_min": 1.0351682125562236,
-        "n_seen": 103,
-        "mae_seen_min": 1.152480548324621,
+        "mae_unseen_min": 1.1386865336492564,
+        "n_seen": 105,
+        "mae_seen_min": 1.4300869083293488,
         "n_few_history": 27,
-        "mae_few_history_min": 0.8680956311874736,
+        "mae_few_history_min": 1.0676438870212686,
         "segments": {
           "all": {
-            "n": 132,
-            "mae_min": 1.1267073836482306,
-            "median_ae_min": 0.9027707867344257
+            "n": 134,
+            "mae_min": 1.3670226481373886,
+            "median_ae_min": 1.055812486122785
           },
           "church_president": {
-            "n": 3,
-            "mae_min": 1.700895652150007,
-            "median_ae_min": 1.7483085292803102
+            "n": 5,
+            "mae_min": 4.742283444457927,
+            "median_ae_min": 2.3207267460021646
           },
           "seventy": {
             "n": 52,
-            "mae_min": 0.9509877293985226,
-            "median_ae_min": 0.7958331918424808
+            "mae_min": 1.0818615689439146,
+            "median_ae_min": 1.0780952336826122
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 1.0939041902034348,
-            "median_ae_min": 1.0939041902034348
+            "mae_min": 1.4108143979254644,
+            "median_ae_min": 1.4108143979254644
           },
           "unseen_speaker": {
             "n": 29,
-            "mae_min": 1.0351682125562236,
-            "median_ae_min": 1.0021529419122526
+            "mae_min": 1.1386865336492564,
+            "median_ae_min": 1.1160477532821782
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.152480548324621,
-            "median_ae_min": 0.847025710739348
+            "n": 105,
+            "mae_min": 1.4300869083293488,
+            "median_ae_min": 1.0235954041802227
           },
           "few_history": {
             "n": 27,
-            "mae_min": 0.8680956311874736,
-            "median_ae_min": 0.6632079521374294
+            "mae_min": 1.0676438870212686,
+            "median_ae_min": 0.6629003594847253
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.652,
-          "test_coverage": 0.394
+          "half_width_min": 0.785,
+          "test_coverage": 0.425
         },
         "0.8": {
-          "half_width_min": 1.239,
-          "test_coverage": 0.667
+          "half_width_min": 1.76,
+          "test_coverage": 0.746
         },
         "0.9": {
-          "half_width_min": 1.521,
-          "test_coverage": 0.735
+          "half_width_min": 2.555,
+          "test_coverage": 0.896
         }
       }
     },
@@ -230,103 +245,104 @@
       "params": {
         "depth": 6,
         "loss": "RMSE",
-        "iterations": 98,
+        "session_size": true,
+        "iterations": 68,
         "early_stopping": false
       },
-      "val_mae_min": 0.7086,
+      "val_mae_min": 0.8904,
       "test": {
-        "n": 132,
-        "mae_min": 1.124804687431294,
-        "median_ae_min": 0.6794683539709903,
+        "n": 134,
+        "mae_min": 1.135585135317679,
+        "median_ae_min": 0.6613510181120583,
         "n_unseen": 29,
-        "mae_unseen_min": 0.9486042888752262,
-        "n_seen": 103,
-        "mae_seen_min": 1.1744145083839734,
+        "mae_unseen_min": 0.9761948174829997,
+        "n_seen": 105,
+        "mae_seen_min": 1.1796072231005905,
         "n_few_history": 27,
-        "mae_few_history_min": 0.7391572941781831,
+        "mae_few_history_min": 0.6550276822091128,
         "segments": {
           "all": {
-            "n": 132,
-            "mae_min": 1.124804687431294,
-            "median_ae_min": 0.6794683539709903
+            "n": 134,
+            "mae_min": 1.135585135317679,
+            "median_ae_min": 0.6613510181120583
           },
           "church_president": {
-            "n": 3,
-            "mae_min": 3.1521192005518226,
-            "median_ae_min": 2.9163266916559034
+            "n": 5,
+            "mae_min": 3.5517326639237856,
+            "median_ae_min": 1.7503514773341105
           },
           "seventy": {
             "n": 52,
-            "mae_min": 0.8902799552122703,
-            "median_ae_min": 0.577743934846572
+            "mae_min": 0.9075839792924854,
+            "median_ae_min": 0.586226659414686
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 0.09404263217185947,
-            "median_ae_min": 0.09404263217185947
+            "mae_min": 0.08998356983859518,
+            "median_ae_min": 0.08998356983859518
           },
           "unseen_speaker": {
             "n": 29,
-            "mae_min": 0.9486042888752262,
-            "median_ae_min": 0.6114834914137248
+            "mae_min": 0.9761948174829997,
+            "median_ae_min": 0.6997708195564712
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.1744145083839734,
-            "median_ae_min": 0.6849045781789129
+            "n": 105,
+            "mae_min": 1.1796072231005905,
+            "median_ae_min": 0.6551624700351586
           },
           "few_history": {
             "n": 27,
-            "mae_min": 0.7391572941781831,
-            "median_ae_min": 0.5184148643115161
+            "mae_min": 0.6550276822091128,
+            "median_ae_min": 0.5172446965494032
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.565,
-          "test_coverage": 0.417
+          "half_width_min": 0.549,
+          "test_coverage": 0.455
         },
         "0.8": {
-          "half_width_min": 0.968,
-          "test_coverage": 0.598
+          "half_width_min": 1.018,
+          "test_coverage": 0.612
         },
         "0.9": {
-          "half_width_min": 1.302,
-          "test_coverage": 0.659
+          "half_width_min": 1.365,
+          "test_coverage": 0.687
         }
       }
     }
   },
   "paired_test_comparisons": {
     "catboost_vs_naive": {
-      "n": 132,
-      "mean_diff_min": -0.8573007059164515,
+      "n": 134,
+      "mean_diff_min": -0.961549721901014,
       "ci95_min": [
-        -1.0602486236290667,
-        -0.6313135231353622
+        -1.1388254841900831,
+        -0.7776812889192753
       ],
-      "share_a_better": 0.7727272727272727,
+      "share_a_better": 0.7985074626865671,
       "share_tied": 0.0
     },
     "catboost_vs_baseline": {
-      "n": 132,
-      "mean_diff_min": -0.12502829551751504,
+      "n": 134,
+      "mean_diff_min": -0.25088719533151727,
       "ci95_min": [
-        -0.252562575517255,
-        0.0015118003519858484
+        -0.4217452594059482,
+        -0.09029176239940628
       ],
-      "share_a_better": 0.5378787878787878,
+      "share_a_better": 0.5746268656716418,
       "share_tied": 0.0
     },
     "catboost_vs_ridge": {
-      "n": 132,
-      "mean_diff_min": -0.0019026962169365294,
+      "n": 134,
+      "mean_diff_min": -0.23143751281970934,
       "ci95_min": [
-        -0.0991354250298298,
-        0.0999121371473456
+        -0.3776630363112077,
+        -0.08879987498722303
       ],
-      "share_a_better": 0.5303030303030303,
+      "share_a_better": 0.6194029850746269,
       "share_tied": 0.0
     }
   },
@@ -334,7 +350,7 @@
     "naive": [
       {
         "params": {},
-        "val_mae_min": 1.7827
+        "val_mae_min": 1.8425
       }
     ],
     "baseline": [
@@ -343,176 +359,190 @@
           "min_n": 1,
           "shrink": 0.0
         },
-        "val_mae_min": 1.0409
+        "val_mae_min": 1.2522
       },
       {
         "params": {
           "min_n": 1,
           "shrink": 1.0
         },
-        "val_mae_min": 0.9992
+        "val_mae_min": 1.2128
       },
       {
         "params": {
           "min_n": 1,
           "shrink": 3.0
         },
-        "val_mae_min": 0.9825
+        "val_mae_min": 1.199
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 0.0
         },
-        "val_mae_min": 1.0274
+        "val_mae_min": 1.239
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 1.0
         },
-        "val_mae_min": 1.0105
+        "val_mae_min": 1.2238
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 3.0
         },
-        "val_mae_min": 0.9942
+        "val_mae_min": 1.2105
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 0.0
         },
-        "val_mae_min": 1.0387
+        "val_mae_min": 1.25
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 1.0
         },
-        "val_mae_min": 1.0253
+        "val_mae_min": 1.2383
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 3.0
         },
-        "val_mae_min": 1.0075
+        "val_mae_min": 1.2235
       }
     ],
     "ridge": [
       {
         "params": {
           "alpha": 0.3,
-          "speaker_onehot": false
+          "speaker_onehot": false,
+          "session_size": true
         },
-        "val_mae_min": 0.8778
+        "val_mae_min": 1.2274
       },
       {
         "params": {
           "alpha": 0.3,
-          "speaker_onehot": true
+          "speaker_onehot": true,
+          "session_size": true
         },
-        "val_mae_min": 0.9051
+        "val_mae_min": 1.3966
       },
       {
         "params": {
           "alpha": 1.0,
-          "speaker_onehot": false
+          "speaker_onehot": false,
+          "session_size": true
         },
-        "val_mae_min": 0.8815
+        "val_mae_min": 1.2361
       },
       {
         "params": {
           "alpha": 1.0,
-          "speaker_onehot": true
+          "speaker_onehot": true,
+          "session_size": true
         },
-        "val_mae_min": 0.8973
+        "val_mae_min": 1.3697
       },
       {
         "params": {
           "alpha": 3.0,
-          "speaker_onehot": false
+          "speaker_onehot": false,
+          "session_size": true
         },
-        "val_mae_min": 0.8709
+        "val_mae_min": 1.2508
       },
       {
         "params": {
           "alpha": 3.0,
-          "speaker_onehot": true
+          "speaker_onehot": true,
+          "session_size": true
         },
-        "val_mae_min": 0.8842
+        "val_mae_min": 1.3455
       },
       {
         "params": {
           "alpha": 10.0,
-          "speaker_onehot": false
+          "speaker_onehot": false,
+          "session_size": true
         },
-        "val_mae_min": 0.8476
+        "val_mae_min": 1.2594
       },
       {
         "params": {
           "alpha": 10.0,
-          "speaker_onehot": true
+          "speaker_onehot": true,
+          "session_size": true
         },
-        "val_mae_min": 0.8552
+        "val_mae_min": 1.3202
       },
       {
         "params": {
           "alpha": 30.0,
-          "speaker_onehot": false
+          "speaker_onehot": false,
+          "session_size": true
         },
-        "val_mae_min": 0.8242
+        "val_mae_min": 1.2433
       },
       {
         "params": {
           "alpha": 30.0,
-          "speaker_onehot": true
+          "speaker_onehot": true,
+          "session_size": true
         },
-        "val_mae_min": 0.8335
+        "val_mae_min": 1.2794
       }
     ],
     "catboost": [
       {
         "params": {
           "depth": 4,
-          "loss": "RMSE"
+          "loss": "RMSE",
+          "session_size": true
         },
-        "val_mae_min": 0.7459,
+        "val_mae_min": 1.0102,
         "best_iterations": 59
       },
       {
         "params": {
           "depth": 4,
-          "loss": "MAE"
+          "loss": "MAE",
+          "session_size": true
         },
-        "val_mae_min": 0.7933,
-        "best_iterations": 48
+        "val_mae_min": 1.0773,
+        "best_iterations": 34
       },
       {
         "params": {
           "depth": 6,
-          "loss": "RMSE"
+          "loss": "RMSE",
+          "session_size": true
         },
-        "val_mae_min": 0.7086,
-        "best_iterations": 98
+        "val_mae_min": 0.8904,
+        "best_iterations": 68
       },
       {
         "params": {
           "depth": 6,
-          "loss": "MAE"
+          "loss": "MAE",
+          "session_size": true
         },
-        "val_mae_min": 0.744,
-        "best_iterations": 46
+        "val_mae_min": 1.0368,
+        "best_iterations": 33
       }
     ]
   },
   "data_report": {
-    "n_talks": 1168,
+    "n_talks": 1205,
     "by_status": {
-      "ok": 1166,
+      "ok": 1203,
       "missing": 0,
       "unparseable": 0,
       "implausible": 2
@@ -523,7 +553,7 @@
         "implausible": 2
       },
       "scraped": {
-        "ok": 375
+        "ok": 412
       }
     },
     "not_ok_by_conference": {
@@ -878,12 +908,22 @@
         "from_legacy_runtime": 0,
         "from_video": 34,
         "not_timed": 0
+      },
+      {
+        "conference": "2026-10",
+        "source": "scraped",
+        "sessions": 4,
+        "talks": 37,
+        "timed": 37,
+        "from_legacy_runtime": 0,
+        "from_video": 37,
+        "not_timed": 0
       }
     ],
     "duplicate_check": {
       "duplicate_urls": 0,
       "duplicate_conference_session_speaker_title": 0,
-      "speakers_with_multiple_talks_in_one_conference": 134
+      "speakers_with_multiple_talks_in_one_conference": 135
     },
     "speaker_aliases_applied": {
       "L. Harkness -> Lisa L. Harkness": 1,
@@ -894,10 +934,10 @@
       "unparseable": 6
     },
     "duration_minutes": {
-      "n": 1166,
-      "mean": 12.89,
-      "median": 12.29,
-      "std": 3.41,
+      "n": 1203,
+      "mean": 12.79,
+      "median": 12.14,
+      "std": 3.43,
       "min": 2.25,
       "max": 25.5
     },
@@ -944,7 +984,8 @@
       "2024-10",
       "2025-04",
       "2025-10",
-      "2026-04"
+      "2026-04",
+      "2026-10"
     ]
   }
 }

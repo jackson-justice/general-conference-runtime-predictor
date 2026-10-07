@@ -1,93 +1,104 @@
 {
-  "trained_at": "2026-10-07T04:56:49+00:00",
-  "tag": "all",
-  "test_status": "exploratory: October 2026 added to the data and expected-session-size history features added after its live run; the test conferences were inspected earlier. The clean hold-out for this configuration is April 2027",
+  "trained_at": "2026-10-07T04:56:37+00:00",
+  "tag": "thru2026-04",
+  "test_status": "exploratory: re-run of the October 2026 frozen configuration with the data restricted to 2026-04, to score it on October 2026 as a hold-out",
   "exclusion": null,
-  "session_size_feature": true,
-  "data_through": null,
-  "holdout": null,
+  "session_size_feature": false,
+  "data_through": "2026-04",
+  "holdout": {
+    "conferences": [
+      "2026-10"
+    ],
+    "n_timed": 37,
+    "mae_min": {
+      "naive": 2.426,
+      "baseline": 2.656,
+      "ridge": 2.399,
+      "catboost": 1.936
+    }
+  },
   "split": {
     "train": {
-      "conferences": "2010-04 .. 2022-10",
-      "n_conf": 26,
-      "n_timed": 935
+      "conferences": "2010-04 .. 2022-04",
+      "n_conf": 25,
+      "n_timed": 900
     },
     "val": {
-      "conferences": "2023-04 .. 2024-10",
+      "conferences": "2022-10 .. 2024-04",
       "n_conf": 4,
-      "n_timed": 131
+      "n_timed": 132
     },
     "test": {
-      "conferences": "2025-04 .. 2026-10",
+      "conferences": "2024-10 .. 2026-04",
       "n_conf": 4,
-      "n_timed": 137
+      "n_timed": 134
     }
   },
   "recommended_by_val_mae": "catboost",
   "results": {
     "naive": {
       "params": {},
-      "val_mae_min": 1.8196,
+      "val_mae_min": 1.8425,
       "test": {
-        "n": 137,
-        "mae_min": 2.28042889636955,
-        "median_ae_min": 1.76276076923077,
-        "n_unseen": 34,
-        "mae_unseen_min": 2.6922825477293673,
-        "n_seen": 103,
-        "mae_seen_min": 2.144477205629416,
-        "n_few_history": 23,
-        "mae_few_history_min": 2.3933935974191827,
+        "n": 134,
+        "mae_min": 2.097134857218693,
+        "median_ae_min": 1.6797250000000001,
+        "n_unseen": 29,
+        "mae_unseen_min": 2.315899511736107,
+        "n_seen": 105,
+        "mae_seen_min": 2.0367141431138833,
+        "n_few_history": 27,
+        "mae_few_history_min": 1.5975008687827585,
         "segments": {
           "all": {
-            "n": 137,
-            "mae_min": 2.28042889636955,
-            "median_ae_min": 1.76276076923077
+            "n": 134,
+            "mae_min": 2.097134857218693,
+            "median_ae_min": 1.6797250000000001
           },
           "church_president": {
-            "n": 6,
-            "mae_min": 5.203908307149098,
-            "median_ae_min": 5.025833333333334
+            "n": 5,
+            "mae_min": 4.729895549386999,
+            "median_ae_min": 2.4776945707070697
           },
           "seventy": {
-            "n": 53,
-            "mae_min": 2.6786826252599307,
-            "median_ae_min": 2.8769058974358965
+            "n": 52,
+            "mae_min": 2.2602265732526274,
+            "median_ae_min": 1.9931509130945395
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 2.1275170564163925,
-            "median_ae_min": 2.1275170564163925
+            "mae_min": 1.4934006790230558,
+            "median_ae_min": 1.4934006790230558
           },
           "unseen_speaker": {
-            "n": 34,
-            "mae_min": 2.6922825477293673,
-            "median_ae_min": 3.0762127157771753
+            "n": 29,
+            "mae_min": 2.315899511736107,
+            "median_ae_min": 1.9810725641025633
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 2.144477205629416,
-            "median_ae_min": 1.5788374045801503
+            "n": 105,
+            "mae_min": 2.0367141431138833,
+            "median_ae_min": 1.6059539141414139
           },
           "few_history": {
-            "n": 23,
-            "mae_min": 2.3933935974191827,
-            "median_ae_min": 2.199072564102564
+            "n": 27,
+            "mae_min": 1.5975008687827585,
+            "median_ae_min": 1.5302292620865159
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 1.527,
-          "test_coverage": 0.401
+          "half_width_min": 1.49,
+          "test_coverage": 0.396
         },
         "0.8": {
-          "half_width_min": 2.576,
-          "test_coverage": 0.65
+          "half_width_min": 2.455,
+          "test_coverage": 0.731
         },
         "0.9": {
-          "half_width_min": 3.103,
-          "test_coverage": 0.715
+          "half_width_min": 3.454,
+          "test_coverage": 0.843
         }
       }
     },
@@ -96,242 +107,242 @@
         "min_n": 1,
         "shrink": 3.0
       },
-      "val_mae_min": 1.0519,
+      "val_mae_min": 1.199,
       "test": {
-        "n": 137,
-        "mae_min": 1.8609207441079736,
-        "median_ae_min": 1.542891022988505,
-        "n_unseen": 34,
-        "mae_unseen_min": 1.4671289674203658,
-        "n_seen": 103,
-        "mae_seen_min": 1.990910262626213,
-        "n_few_history": 23,
-        "mae_few_history_min": 1.1294060473020153,
+        "n": 134,
+        "mae_min": 1.3864723306491962,
+        "median_ae_min": 0.8347033598437406,
+        "n_unseen": 29,
+        "mae_unseen_min": 0.9575529163339556,
+        "n_seen": 105,
+        "mae_seen_min": 1.5049357879362628,
+        "n_few_history": 27,
+        "mae_few_history_min": 0.6744965466091115,
         "segments": {
           "all": {
-            "n": 137,
-            "mae_min": 1.8609207441079736,
-            "median_ae_min": 1.542891022988505
+            "n": 134,
+            "mae_min": 1.3864723306491962,
+            "median_ae_min": 0.8347033598437406
           },
           "church_president": {
-            "n": 6,
-            "mae_min": 6.076668460495445,
-            "median_ae_min": 5.8463397225135765
+            "n": 5,
+            "mae_min": 5.47739664832147,
+            "median_ae_min": 2.373798691400632
           },
           "seventy": {
-            "n": 53,
-            "mae_min": 1.296486603853863,
-            "median_ae_min": 1.3582311056105596
+            "n": 52,
+            "mae_min": 0.8744411268888022,
+            "median_ae_min": 0.7739250716829664
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 0.9415655311839326,
-            "median_ae_min": 0.9415655311839326
+            "mae_min": 0.4664780149501676,
+            "median_ae_min": 0.4664780149501676
           },
           "unseen_speaker": {
-            "n": 34,
-            "mae_min": 1.4671289674203658,
-            "median_ae_min": 1.7144884744474438
+            "n": 29,
+            "mae_min": 0.9575529163339556,
+            "median_ae_min": 0.8014410303030294
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.990910262626213,
-            "median_ae_min": 1.4955520277777774
+            "n": 105,
+            "mae_min": 1.5049357879362628,
+            "median_ae_min": 0.8638644668628274
           },
           "few_history": {
-            "n": 23,
-            "mae_min": 1.1294060473020153,
-            "median_ae_min": 0.9423882575757584
+            "n": 27,
+            "mae_min": 0.6744965466091115,
+            "median_ae_min": 0.4192801075268828
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.78,
-          "test_coverage": 0.328
+          "half_width_min": 0.821,
+          "test_coverage": 0.485
         },
         "0.8": {
-          "half_width_min": 1.443,
-          "test_coverage": 0.474
+          "half_width_min": 1.597,
+          "test_coverage": 0.694
         },
         "0.9": {
-          "half_width_min": 2.186,
-          "test_coverage": 0.664
+          "half_width_min": 2.504,
+          "test_coverage": 0.866
         }
       }
     },
     "ridge": {
       "params": {
-        "alpha": 0.3,
+        "alpha": 30.0,
         "speaker_onehot": false,
-        "session_size": true
+        "session_size": false
       },
-      "val_mae_min": 1.0774,
+      "val_mae_min": 1.2623,
       "test": {
-        "n": 137,
-        "mae_min": 1.7006654927141631,
-        "median_ae_min": 1.3737851531040879,
-        "n_unseen": 34,
-        "mae_unseen_min": 1.4846100567490754,
-        "n_seen": 103,
-        "mae_seen_min": 1.7719847628385612,
-        "n_few_history": 23,
-        "mae_few_history_min": 1.4422748745459153,
+        "n": 134,
+        "mae_min": 1.3043506875041557,
+        "median_ae_min": 1.0030588500046131,
+        "n_unseen": 29,
+        "mae_unseen_min": 1.078839463876284,
+        "n_seen": 105,
+        "mae_seen_min": 1.366634739744234,
+        "n_few_history": 27,
+        "mae_few_history_min": 0.9559529540802351,
         "segments": {
           "all": {
-            "n": 137,
-            "mae_min": 1.7006654927141631,
-            "median_ae_min": 1.3737851531040879
+            "n": 134,
+            "mae_min": 1.3043506875041557,
+            "median_ae_min": 1.0030588500046131
           },
           "church_president": {
-            "n": 6,
-            "mae_min": 5.440776439461669,
-            "median_ae_min": 5.236100964603835
+            "n": 5,
+            "mae_min": 4.766914428004881,
+            "median_ae_min": 3.0084935119688603
           },
           "seventy": {
-            "n": 53,
-            "mae_min": 1.3872514629702921,
-            "median_ae_min": 1.2945537212169635
+            "n": 52,
+            "mae_min": 1.0235199050068131,
+            "median_ae_min": 0.8488618740594585
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 1.4422162865579973,
-            "median_ae_min": 1.4422162865579973
+            "mae_min": 0.887635726516415,
+            "median_ae_min": 0.887635726516415
           },
           "unseen_speaker": {
-            "n": 34,
-            "mae_min": 1.4846100567490754,
-            "median_ae_min": 1.5420264375108232
+            "n": 29,
+            "mae_min": 1.078839463876284,
+            "median_ae_min": 1.0340435255237708
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.7719847628385612,
-            "median_ae_min": 1.3627513696888665
+            "n": 105,
+            "mae_min": 1.366634739744234,
+            "median_ae_min": 0.8877294082635747
           },
           "few_history": {
-            "n": 23,
-            "mae_min": 1.4422748745459153,
-            "median_ae_min": 1.2479937691383403
+            "n": 27,
+            "mae_min": 0.9559529540802351,
+            "median_ae_min": 0.721876722426282
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.751,
-          "test_coverage": 0.277
+          "half_width_min": 0.838,
+          "test_coverage": 0.44
         },
         "0.8": {
-          "half_width_min": 1.518,
-          "test_coverage": 0.555
+          "half_width_min": 1.653,
+          "test_coverage": 0.739
         },
         "0.9": {
-          "half_width_min": 1.945,
-          "test_coverage": 0.679
+          "half_width_min": 2.314,
+          "test_coverage": 0.851
         }
       }
     },
     "catboost": {
       "params": {
         "depth": 6,
-        "loss": "MAE",
-        "session_size": true,
-        "iterations": 440,
+        "loss": "RMSE",
+        "session_size": false,
+        "iterations": 55,
         "early_stopping": false
       },
-      "val_mae_min": 0.9581,
+      "val_mae_min": 0.9457,
       "test": {
-        "n": 137,
-        "mae_min": 1.4956730270181782,
-        "median_ae_min": 1.178970991429903,
-        "n_unseen": 34,
-        "mae_unseen_min": 1.263533386510143,
-        "n_seen": 103,
-        "mae_seen_min": 1.5723016462150052,
-        "n_few_history": 23,
-        "mae_few_history_min": 1.0111867815832085,
+        "n": 134,
+        "mae_min": 1.1872082898533687,
+        "median_ae_min": 0.6825444469837056,
+        "n_unseen": 29,
+        "mae_unseen_min": 1.0087413571779198,
+        "n_seen": 105,
+        "mae_seen_min": 1.2364991569732544,
+        "n_few_history": 27,
+        "mae_few_history_min": 0.6941935114692176,
         "segments": {
           "all": {
-            "n": 137,
-            "mae_min": 1.4956730270181782,
-            "median_ae_min": 1.178970991429903
+            "n": 134,
+            "mae_min": 1.1872082898533687,
+            "median_ae_min": 0.6825444469837056
           },
           "church_president": {
-            "n": 6,
-            "mae_min": 3.5870488713664734,
-            "median_ae_min": 3.642411393317549
+            "n": 5,
+            "mae_min": 3.4874836844871724,
+            "median_ae_min": 1.5003754900906112
           },
           "seventy": {
-            "n": 53,
-            "mae_min": 1.1843985919327673,
-            "median_ae_min": 0.9802241045722326
+            "n": 52,
+            "mae_min": 0.9619436685021634,
+            "median_ae_min": 0.6122475861285834
           },
           "seventy_presidency": {
             "n": 2,
-            "mae_min": 1.2325266140020554,
-            "median_ae_min": 1.2325266140020554
+            "mae_min": 0.43599869701909405,
+            "median_ae_min": 0.43599869701909405
           },
           "unseen_speaker": {
-            "n": 34,
-            "mae_min": 1.263533386510143,
-            "median_ae_min": 1.1166744064207856
+            "n": 29,
+            "mae_min": 1.0087413571779198,
+            "median_ae_min": 0.5839347470131012
           },
           "seen_speaker": {
-            "n": 103,
-            "mae_min": 1.5723016462150052,
-            "median_ae_min": 1.1876270598124354
+            "n": 105,
+            "mae_min": 1.2364991569732544,
+            "median_ae_min": 0.695767291999825
           },
           "few_history": {
-            "n": 23,
-            "mae_min": 1.0111867815832085,
-            "median_ae_min": 0.6497678045460457
+            "n": 27,
+            "mae_min": 0.6941935114692176,
+            "median_ae_min": 0.6064684728284286
           }
         }
       },
       "intervals": {
         "0.5": {
-          "half_width_min": 0.672,
-          "test_coverage": 0.328
+          "half_width_min": 0.7,
+          "test_coverage": 0.507
         },
         "0.8": {
-          "half_width_min": 1.244,
-          "test_coverage": 0.511
+          "half_width_min": 1.062,
+          "test_coverage": 0.619
         },
         "0.9": {
-          "half_width_min": 1.759,
-          "test_coverage": 0.613
+          "half_width_min": 1.642,
+          "test_coverage": 0.761
         }
       }
     }
   },
   "paired_test_comparisons": {
     "catboost_vs_naive": {
-      "n": 137,
-      "mean_diff_min": -0.7847558693513718,
+      "n": 134,
+      "mean_diff_min": -0.9099265673653246,
       "ci95_min": [
-        -1.0173762997579765,
-        -0.558356961038479
+        -1.0724058903328908,
+        -0.7425642924598724
       ],
-      "share_a_better": 0.7518248175182481,
+      "share_a_better": 0.8208955223880597,
       "share_tied": 0.0
     },
     "catboost_vs_baseline": {
-      "n": 137,
-      "mean_diff_min": -0.3652477170897957,
+      "n": 134,
+      "mean_diff_min": -0.1992640407958278,
       "ci95_min": [
-        -0.5623319179605939,
-        -0.19223925061152583
+        -0.3792627904964808,
+        -0.03833499615255713
       ],
-      "share_a_better": 0.6277372262773723,
+      "share_a_better": 0.5746268656716418,
       "share_tied": 0.0
     },
     "catboost_vs_ridge": {
-      "n": 137,
-      "mean_diff_min": -0.2049924656959851,
+      "n": 134,
+      "mean_diff_min": -0.11714239765078703,
       "ci95_min": [
-        -0.36450355734912043,
-        -0.04563046974027825
+        -0.23784829953559508,
+        -0.004659706038470507
       ],
-      "share_a_better": 0.5693430656934306,
+      "share_a_better": 0.5373134328358209,
       "share_tied": 0.0
     }
   },
@@ -339,7 +350,7 @@
     "naive": [
       {
         "params": {},
-        "val_mae_min": 1.8196
+        "val_mae_min": 1.8425
       }
     ],
     "baseline": [
@@ -348,63 +359,63 @@
           "min_n": 1,
           "shrink": 0.0
         },
-        "val_mae_min": 1.1686
+        "val_mae_min": 1.2522
       },
       {
         "params": {
           "min_n": 1,
           "shrink": 1.0
         },
-        "val_mae_min": 1.089
+        "val_mae_min": 1.2128
       },
       {
         "params": {
           "min_n": 1,
           "shrink": 3.0
         },
-        "val_mae_min": 1.0519
+        "val_mae_min": 1.199
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 0.0
         },
-        "val_mae_min": 1.1135
+        "val_mae_min": 1.239
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 1.0
         },
-        "val_mae_min": 1.0857
+        "val_mae_min": 1.2238
       },
       {
         "params": {
           "min_n": 2,
           "shrink": 3.0
         },
-        "val_mae_min": 1.0607
+        "val_mae_min": 1.2105
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 0.0
         },
-        "val_mae_min": 1.1035
+        "val_mae_min": 1.25
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 1.0
         },
-        "val_mae_min": 1.0875
+        "val_mae_min": 1.2383
       },
       {
         "params": {
           "min_n": 3,
           "shrink": 3.0
         },
-        "val_mae_min": 1.0682
+        "val_mae_min": 1.2235
       }
     ],
     "ridge": [
@@ -412,81 +423,81 @@
         "params": {
           "alpha": 0.3,
           "speaker_onehot": false,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0774
+        "val_mae_min": 1.3022
       },
       {
         "params": {
           "alpha": 0.3,
           "speaker_onehot": true,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.2051
+        "val_mae_min": 1.4661
       },
       {
         "params": {
           "alpha": 1.0,
           "speaker_onehot": false,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0787
+        "val_mae_min": 1.3102
       },
       {
         "params": {
           "alpha": 1.0,
           "speaker_onehot": true,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.1601
+        "val_mae_min": 1.4379
       },
       {
         "params": {
           "alpha": 3.0,
           "speaker_onehot": false,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0893
+        "val_mae_min": 1.3145
       },
       {
         "params": {
           "alpha": 3.0,
           "speaker_onehot": true,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.1233
+        "val_mae_min": 1.402
       },
       {
         "params": {
           "alpha": 10.0,
           "speaker_onehot": false,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.1023
+        "val_mae_min": 1.2966
       },
       {
         "params": {
           "alpha": 10.0,
           "speaker_onehot": true,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.114
+        "val_mae_min": 1.3447
       },
       {
         "params": {
           "alpha": 30.0,
           "speaker_onehot": false,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0946
+        "val_mae_min": 1.2623
       },
       {
         "params": {
           "alpha": 30.0,
           "speaker_onehot": true,
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.1063
+        "val_mae_min": 1.2892
       }
     ],
     "catboost": [
@@ -494,37 +505,37 @@
         "params": {
           "depth": 4,
           "loss": "RMSE",
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0713,
-        "best_iterations": 120
+        "val_mae_min": 0.9785,
+        "best_iterations": 78
       },
       {
         "params": {
           "depth": 4,
           "loss": "MAE",
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0618,
-        "best_iterations": 31
+        "val_mae_min": 1.1961,
+        "best_iterations": 44
       },
       {
         "params": {
           "depth": 6,
           "loss": "RMSE",
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 1.0442,
-        "best_iterations": 49
+        "val_mae_min": 0.9457,
+        "best_iterations": 55
       },
       {
         "params": {
           "depth": 6,
           "loss": "MAE",
-          "session_size": true
+          "session_size": false
         },
-        "val_mae_min": 0.9581,
-        "best_iterations": 440
+        "val_mae_min": 0.9914,
+        "best_iterations": 42
       }
     ]
   },

@@ -1,65 +1,67 @@
 {
-  "model_version": "2026-10-03T02:59:32+00:00",
-  "trained_at": "2026-10-03T02:59:32+00:00",
-  "code_commit": null,
+  "model_version": "2026-10-07T04:56:49+00:00@2130ab3-dirty",
+  "trained_at": "2026-10-07T04:56:49+00:00",
+  "code_commit": "2130ab3-dirty",
   "tag": "all",
-  "data_through_conf_index": 4052,
+  "data_through_conf_index": 4053,
   "split_used_for_selection": {
     "train": {
-      "conferences": "2010-04 .. 2022-04",
-      "n_conf": 25,
-      "n_timed": 900
+      "conferences": "2010-04 .. 2022-10",
+      "n_conf": 26,
+      "n_timed": 935
     },
     "val": {
-      "conferences": "2022-10 .. 2024-04",
+      "conferences": "2023-04 .. 2024-10",
       "n_conf": 4,
-      "n_timed": 132
+      "n_timed": 131
     },
     "test": {
-      "conferences": "2024-10 .. 2026-04",
+      "conferences": "2025-04 .. 2026-10",
       "n_conf": 4,
-      "n_timed": 134
+      "n_timed": 137
     }
   },
   "models": {
     "naive": {
       "params": {},
-      "val_mae_min": 1.843,
-      "test_mae_min": 2.097,
-      "range_half_width_min": 2.455,
-      "range_test_coverage": 0.731
+      "val_mae_min": 1.82,
+      "test_mae_min": 2.28,
+      "range_half_width_min": 2.576,
+      "range_test_coverage": 0.65
     },
     "baseline": {
       "params": {
         "min_n": 1,
         "shrink": 3.0
       },
-      "val_mae_min": 1.199,
-      "test_mae_min": 1.386,
-      "range_half_width_min": 1.597,
-      "range_test_coverage": 0.694
+      "val_mae_min": 1.052,
+      "test_mae_min": 1.861,
+      "range_half_width_min": 1.443,
+      "range_test_coverage": 0.474
     },
     "ridge": {
       "params": {
-        "alpha": 30.0,
-        "speaker_onehot": false
+        "alpha": 0.3,
+        "speaker_onehot": false,
+        "session_size": true
       },
-      "val_mae_min": 1.262,
-      "test_mae_min": 1.304,
-      "range_half_width_min": 1.653,
-      "range_test_coverage": 0.739
+      "val_mae_min": 1.077,
+      "test_mae_min": 1.701,
+      "range_half_width_min": 1.518,
+      "range_test_coverage": 0.555
     },
     "catboost": {
       "params": {
         "depth": 6,
-        "loss": "RMSE",
-        "iterations": 55,
+        "loss": "MAE",
+        "session_size": true,
+        "iterations": 440,
         "early_stopping": false
       },
-      "val_mae_min": 0.946,
-      "test_mae_min": 1.187,
-      "range_half_width_min": 1.062,
-      "range_test_coverage": 0.619
+      "val_mae_min": 0.958,
+      "test_mae_min": 1.496,
+      "range_half_width_min": 1.244,
+      "range_test_coverage": 0.511
     }
   },
   "recommended": "catboost",

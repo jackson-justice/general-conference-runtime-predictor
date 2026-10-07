@@ -14,8 +14,14 @@ HISTORY_COLS = [
     "role_n", "role_mean",
     "session_mean",
     "global_n", "global_mean", "global_recent_mean",
+    "session_n_prev", "session_n_recent",
 ]
 COUNT_COLS = ["spk_n_timed", "spk_n_talks", "spk_calling_n", "calling_n", "role_n", "global_n"]
+# Expected number of talks in the session, learned from earlier conferences only: the
+# same session's talk count in the previous conference, and its mean over the recent
+# window. Added after October 2026, when every session had more talks than usual and
+# every talk ran short. Models can be fit without them (`session_size=False`).
+SESSION_COLS = ["session_n_prev", "session_n_recent"]
 
 # Columns a talk row must carry before history features can be attached.
 PRE_TALK_COLS = ["speaker", "role_norm", "calling_group", "session", "speaker_order", "month", "conf_index"]
@@ -92,6 +98,19 @@ def history_features(history: pd.DataFrame, targets: pd.DataFrame) -> pd.DataFra
 
     gs = timed.groupby("session").duration_sec
     out = out.join(_lookup(targets, ["session"], pd.DataFrame({"session_mean": gs.mean()})))
+
+    # Talk counts per session (all talks, timed or not; speaker_order already counts talks only).
+    if not history.empty:
+        sizes = history.groupby(["conf_index", "session"]).speaker_order.max().rename("n").reset_index()
+        last = sizes[sizes.conf_index == sizes.conf_index.max()]
+        prev = targets.session.map(last.set_index("session").n).fillna(last.n.mean())
+        rec = sizes[sizes.conf_index > sizes.conf_index.max() - RECENT_WINDOW]
+        sess_recent = targets.session.map(rec.groupby("session").n.mean()).fillna(rec.n.mean())
+        out["session_n_prev"] = prev.astype(float)
+        out["session_n_recent"] = sess_recent.astype(float)
+    else:
+        out["session_n_prev"] = np.nan
+        out["session_n_recent"] = np.nan
 
     out["global_n"] = float(len(timed))
     out["global_mean"] = timed.duration_sec.mean() if len(timed) else np.nan

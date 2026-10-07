@@ -1,0 +1,38 @@
+conference,session,speaker_order,speaker,role_norm,calling_group,session_n_prev,session_n_recent,duration_sec,session_n_actual,actual,pred_naive,err_naive_min,pred_baseline,err_baseline_min,pred_ridge,err_ridge_min,pred_catboost,err_catboost_min
+2026-10,saturday-afternoon,1,Dale G. Renlund,Of the Quorum of the Twelve Apostles,twelve,8.0,7.5,627.53,10,10:28,708.4,1.35,818.6,3.19,716.8,1.49,731.2,1.73
+2026-10,saturday-afternoon,2,Timothy L. Farnes,Young Men General President,auxiliary_president,8.0,7.5,550.45,10,9:10,708.4,2.63,693.9,2.39,628.2,1.3,621.3,1.18
+2026-10,saturday-afternoon,3,Christian C. Chigbundu,Of the Seventy,seventy,8.0,7.5,514.28,10,8:34,708.4,3.24,626.3,1.87,588.4,1.24,605.8,1.53
+2026-10,saturday-afternoon,4,Patricio M. Giuffra,Of the Seventy,seventy,8.0,7.5,454.05,10,7:34,708.4,4.24,605.7,2.53,566.1,1.87,610.4,2.61
+2026-10,saturday-afternoon,5,Jeremiah J. Morgan,Of the Seventy,seventy,8.0,7.5,486.55,10,8:07,708.4,3.7,626.3,2.33,613.6,2.12,605.0,1.97
+2026-10,saturday-afternoon,6,Hutch U. Fale,Of the Seventy,seventy,8.0,7.5,527.23,10,8:47,708.4,3.02,626.3,1.65,626.2,1.65,603.1,1.27
+2026-10,saturday-afternoon,7,Patrick Kearon,Of the Quorum of the Twelve Apostles,twelve,8.0,7.5,679.55,10,11:20,708.4,0.48,789.1,1.83,852.7,2.89,726.1,0.78
+2026-10,saturday-afternoon,8,Michael A. Dunn,Of the Seventy,seventy,8.0,7.5,514.809,10,8:35,708.4,3.23,619.9,1.75,636.6,2.03,578.5,1.06
+2026-10,saturday-afternoon,9,Matthew J. Eyring,Of the Seventy,seventy,8.0,7.5,486.82,10,8:07,708.4,3.69,626.3,2.32,664.1,2.95,573.6,1.45
+2026-10,saturday-afternoon,10,Ronald A. Rasband,Of the Quorum of the Twelve Apostles,twelve,8.0,7.5,671.9,10,11:12,708.4,0.61,818.1,2.44,804.6,2.21,713.9,0.7
+2026-10,saturday-morning,1,Gerrit W. Gong,Of the Quorum of the Twelve Apostles,twelve,8.0,7.0,683.45,8,11:23,708.4,0.42,804.9,2.02,692.3,0.15,722.7,0.65
+2026-10,saturday-morning,2,Tamara W. Runia,First Counselor in the Young Women General Presidency,auxiliary_counselor,8.0,7.0,524.059,8,8:44,708.4,3.07,683.3,2.65,633.7,1.83,632.9,1.81
+2026-10,saturday-morning,3,Gérald Caussé,Of the Quorum of the Twelve Apostles,twelve,8.0,7.0,703.97,8,11:44,708.4,0.07,745.6,0.69,778.3,1.24,718.6,0.24
+2026-10,saturday-morning,4,Vaiangina Sikahema,Of the Seventy,seventy,8.0,7.0,535.6,8,8:56,708.4,2.88,617.1,1.36,577.4,0.7,610.4,1.25
+2026-10,saturday-morning,5,Kevin J. Hathaway,Of the Seventy,seventy,8.0,7.0,491.32,8,8:11,708.4,3.62,626.3,2.25,608.8,1.96,605.0,1.89
+2026-10,saturday-morning,6,Ulisses Soares,Of the Quorum of the Twelve Apostles,twelve,8.0,7.0,641.84,8,10:42,708.4,1.11,804.7,2.71,778.1,2.27,720.4,1.31
+2026-10,saturday-morning,7,Sean Douglas,Second Counselor in the Presiding Bishopric,presiding_bishopric,8.0,7.0,494.86,8,8:15,708.4,3.56,662.9,2.8,579.6,1.41,632.0,2.29
+2026-10,saturday-morning,8,D. Todd Christofferson,Second Counselor in the First Presidency,first_presidency_counselor,8.0,7.0,766.83,8,12:47,708.4,-0.97,899.6,2.21,894.6,2.13,828.9,1.03
+2026-10,sunday-afternoon,1,Dieter F. Uchtdorf,Acting President of the Quorum of the Twelve Apostles,twelve_president,9.0,7.75,746.75,10,12:27,708.4,-0.64,1076.4,5.49,876.4,2.16,776.9,0.5
+2026-10,sunday-afternoon,2,Andrea Muñoz Spannaus,Second Counselor in the Young Women General Presidency,auxiliary_counselor,9.0,7.75,495.73,10,8:16,708.4,3.54,674.9,2.99,606.5,1.85,629.9,2.24
+2026-10,sunday-afternoon,3,Moisés Villanueva,Of the Seventy,seventy,9.0,7.75,481.18,10,8:01,708.4,3.79,604.6,2.06,529.8,0.81,611.3,2.17
+2026-10,sunday-afternoon,4,David A. Bednar,Of the Quorum of the Twelve Apostles,twelve,9.0,7.75,743.84,10,12:24,708.4,-0.59,923.9,3.0,769.7,0.43,772.0,0.47
+2026-10,sunday-afternoon,5,Thabo Lebethoa,Of the Seventy,seventy,9.0,7.75,491.79,10,8:12,708.4,3.61,626.3,2.24,591.4,1.66,605.0,1.89
+2026-10,sunday-afternoon,6,Paul H. Sinclair,Of the Seventy,seventy,9.0,7.75,495.76,10,8:16,708.4,3.54,626.3,2.18,604.0,1.8,603.1,1.79
+2026-10,sunday-afternoon,7,Gary E. Stevenson,Of the Quorum of the Twelve Apostles,twelve,9.0,7.75,676.24,10,11:16,708.4,0.54,833.7,2.62,767.0,1.51,740.2,1.07
+2026-10,sunday-afternoon,8,Gabriel W. Reid,Second Counselor in the Sunday School General Presidency,auxiliary_counselor,9.0,7.75,519.99,10,8:40,708.4,3.14,673.9,2.56,687.4,2.79,581.4,1.02
+2026-10,sunday-afternoon,9,Clark G. Gilbert,Of the Quorum of the Twelve Apostles,twelve,9.0,7.75,720.22,10,12:00,708.4,-0.2,810.0,1.5,833.6,1.89,700.6,-0.33
+2026-10,sunday-afternoon,10,Dallin H. Oaks,President of the Church,church_president,9.0,7.75,197.73,10,3:18,708.4,8.51,842.7,10.75,659.9,7.7,467.0,4.49
+2026-10,sunday-morning,1,Henry B. Eyring,First Counselor in the First Presidency,first_presidency_counselor,9.0,7.5,686.02,9,11:26,708.4,0.37,1010.3,5.4,802.3,1.94,867.9,3.03
+2026-10,sunday-morning,2,Rosemary K. Chibota,Primary General President,auxiliary_president,9.0,7.5,492.06,9,8:12,708.4,3.61,693.9,3.36,658.4,2.77,620.3,2.14
+2026-10,sunday-morning,3,Neil L. Andersen,Of the Quorum of the Twelve Apostles,twelve,9.0,7.5,672.27,9,11:12,708.4,0.6,894.0,3.7,803.7,2.19,767.2,1.58
+2026-10,sunday-morning,4,James G. O. Fantone,Of the Seventy,seventy,9.0,7.5,503.84,9,8:24,708.4,3.41,626.3,2.04,634.4,2.18,606.2,1.71
+2026-10,sunday-morning,5,Edward Dube,Of the Presidency of the Seventy,seventy_presidency,9.0,7.5,540.74,9,9:01,708.4,2.79,627.6,1.45,581.7,0.68,644.8,1.73
+2026-10,sunday-morning,6,Quentin L. Cook,Of the Quorum of the Twelve Apostles,twelve,9.0,7.5,708.61,9,11:49,708.4,-0.0,897.6,3.15,817.2,1.81,773.9,1.09
+2026-10,sunday-morning,7,Alfred Kyungu,Of the Seventy,seventy,9.0,7.5,467.6,9,7:48,708.4,4.01,616.9,2.49,653.2,3.09,607.9,2.34
+2026-10,sunday-morning,8,Ciro Schmeil,Of the Seventy,seventy,9.0,7.5,503.2,9,8:23,708.4,3.42,599.8,1.61,641.7,2.31,578.9,1.26
+2026-10,sunday-morning,9,Dallin H. Oaks,President of the Church,church_president,9.0,7.5,800.83,9,13:21,708.4,-1.54,842.7,0.7,703.0,-1.63,626.0,-2.91

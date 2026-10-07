@@ -133,10 +133,11 @@ def predict_talk(bundle, hist, year, month_num, ci, conference, speaker, role, s
     X = row.join(history_features(hist, row))
     f = X.iloc[0]
     version = model_version(bundle)
+    size_txt = "" if np.isnan(f.session_n_prev) else f" of ~{f.session_n_prev:.0f} (session size last conference)"
     if compact:
         hist_line = ("no history (new speaker; using calling and session)" if f.spk_n_talks == 0 else
                      f"{int(f.spk_n_timed)} earlier talks, mean {format_seconds(f.spk_mean)}, last {format_seconds(f.spk_last)}")
-        print(f"\n  {speaker}  |  {normalize_role(role)}  |  {session} #{int(order)}")
+        print(f"\n  {speaker}  |  {normalize_role(role)}  |  {session} #{int(order)}{size_txt}")
         print(f"  {hist_line}")
         rows = []
         names = list(bundle["models"]) if models == "all" else [models]
@@ -152,7 +153,7 @@ def predict_talk(bundle, hist, year, month_num, ci, conference, speaker, role, s
             rows.append({"model": name, "pred_sec": round(pred, 1)})
         return rows, version, group
     if verbose:
-        print(f"\n{speaker} | {role} ({group}) | {session} #{int(order)} | {conference}")
+        print(f"\n{speaker} | {role} ({group}) | {session} #{int(order)}{size_txt} | {conference}")
         if f.spk_n_talks == 0:
             print("speaker history: none in the dataset (unseen speaker; prediction relies on calling/session)")
         else:
@@ -176,8 +177,9 @@ def predict_talk(bundle, hist, year, month_num, ci, conference, speaker, role, s
                   f"(covered {iv['test_coverage']:.0%})                                   {entry['test']['mae_min']:.2f} min{star}")
         rows.append({"model": name, "pred_sec": round(pred, 1)})
     if verbose:
+        rec_cov = bundle["models"][bundle["recommended"]]["intervals"]["0.8"]["test_coverage"]
         print("\nThe range is not a calibrated interval. Its half-width is the 80th percentile of validation errors; "
-              "'covered' is the share of held-out test talks that fell inside it (62% for catboost).")
+              f"'covered' is the share of held-out test talks that fell inside it ({rec_cov:.0%} for {bundle['recommended']}).")
     return rows, version, group
 
 

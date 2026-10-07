@@ -1,7 +1,7 @@
 [project]
 name = "general-conference-runtime-predictor"
 version = "0.1.0"
-description = "Add your description here"
+description = "Predicts how long each General Conference talk will run from what is known when the speaker is announced"
 readme = "README.md"
 authors = [
     { name = "Jackson Justice", email = "jacksonjustice04@gmail.com" }

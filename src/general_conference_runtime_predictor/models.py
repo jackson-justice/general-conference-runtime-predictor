@@ -13,7 +13,7 @@ from sklearn.linear_model import Ridge
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from .features import HISTORY_COLS
+from .features import HISTORY_COLS, SESSION_COLS
 
 CAT_COLS = ["calling_group", "session", "month"]
 # CatBoost gets no `speaker` categorical: its target statistics would average a
@@ -24,6 +24,12 @@ CAT_COLS = ["calling_group", "session", "month"]
 CATBOOST_CAT_COLS = ["calling_group", "role_norm", "session", "month"]
 CATBOOST_ONE_HOT_MAX = 64
 NUMERIC_COLS = ["speaker_order"] + HISTORY_COLS
+SESSION_SIZE_MODELS = ("ridge", "catboost")
+
+
+def numeric_cols(session_size: bool) -> list[str]:
+    """Numeric predictors; `session_size=False` drops the expected-session-size history columns."""
+    return [c for c in NUMERIC_COLS if session_size or c not in SESSION_COLS]
 
 # Small, fixed tuning grids. Settings are chosen on the validation conferences.
 GRIDS = {
@@ -107,15 +113,16 @@ class BaselineModel:
 class RidgeModel:
     name = "ridge"
 
-    def __init__(self, alpha: float = 1.0, speaker_onehot: bool = False):
+    def __init__(self, alpha: float = 1.0, speaker_onehot: bool = False, session_size: bool = True):
         self.alpha = float(alpha)
         self.speaker_onehot = bool(speaker_onehot)
-        self.params = {"alpha": self.alpha, "speaker_onehot": self.speaker_onehot}
+        self.session_size = bool(session_size)
+        self.params = {"alpha": self.alpha, "speaker_onehot": self.speaker_onehot, "session_size": self.session_size}
 
     def fit(self, X, y, X_val=None, y_val=None):
         self.defaults_ = _defaults(y)
         cats = CAT_COLS + (["speaker"] if self.speaker_onehot else [])
-        nums = NUMERIC_COLS + ["spk_has_history"]
+        nums = numeric_cols(self.session_size) + ["spk_has_history"]
         pre = ColumnTransformer(
             [
                 ("num", Pipeline([("imp", SimpleImputer(strategy="median")), ("sc", StandardScaler())]), nums),
@@ -134,20 +141,22 @@ class CatBoostModel:
     name = "catboost"
 
     def __init__(self, depth: int = 6, loss: str = "RMSE", learning_rate: float = 0.05,
-                 iterations: int = 2000, l2_leaf_reg: float = 3.0, early_stopping: bool = True, seed: int = 0):
+                 iterations: int = 2000, l2_leaf_reg: float = 3.0, early_stopping: bool = True, seed: int = 0,
+                 session_size: bool = True):
         self.depth, self.loss, self.learning_rate = int(depth), str(loss), float(learning_rate)
         self.iterations, self.l2_leaf_reg = int(iterations), float(l2_leaf_reg)
         self.early_stopping, self.seed = bool(early_stopping), int(seed)
+        self.session_size = bool(session_size)
         self.params = {
             "depth": self.depth, "loss": self.loss, "learning_rate": self.learning_rate,
             "iterations": self.iterations, "l2_leaf_reg": self.l2_leaf_reg,
-            "early_stopping": self.early_stopping, "seed": self.seed,
+            "early_stopping": self.early_stopping, "seed": self.seed, "session_size": self.session_size,
         }
 
     def _pool(self, X, y=None):
         from catboost import Pool
 
-        cols = CATBOOST_CAT_COLS + NUMERIC_COLS
+        cols = CATBOOST_CAT_COLS + numeric_cols(self.session_size)
         Xc = X[cols].copy()
         for c in CATBOOST_CAT_COLS:
             Xc[c] = Xc[c].fillna("unknown").astype(str)
