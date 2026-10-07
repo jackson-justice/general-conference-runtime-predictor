@@ -106,6 +106,10 @@ def square(d, talks):
     ax.annotate("President Oaks' 3-minute\nclosing remarks\n(predicted 8:52)", (last.x, last.err),
                 xytext=(last.x - 15, 3.85), color=INK2, fontsize=13, va="center", ha="left",
                 arrowprops=dict(arrowstyle="-", color=INK2, lw=0.9, shrinkB=6))
+    first = oaks[oaks.err < 0].iloc[0]
+    ax.annotate("President Oaks' Sunday morning\nsermon, the only talk that ran\nlonger than predicted", (first.x, first.err),
+                xytext=(first.x - 17.5, -3.1), color=INK2, fontsize=13, va="center", ha="left",
+                arrowprops=dict(arrowstyle="-", color=INK2, lw=0.9, shrinkB=6))
     ax.set_ylim(-4.6, 6.5); ax.set_yticks(range(-4, 7, 2))
     ax.set_xlabel("37 talks, in the order they were given", color=INK2, labelpad=10, fontsize=14)
     # Direction cues instead of a single axis label: one per half of the axis.
